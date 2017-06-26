@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:id="@+id/user_photo_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_top_bar_back">
+
+        <TextView
+            android:id="@+id/user_photo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Photo"
+            android:textSize="28sp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/user_photo_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/user_photo_top_bar"
+        android:layout_above="@+id/user_photo_bottom_bar"
+        android:scaleType="fitXY"
+        android:background="@drawable/all_container_round" />
+
+    <RelativeLayout
+        android:id="@+id/user_photo_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_bottom_bar_back">
+
+        <ImageView
+            android:id="@+id/profile_refresh_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/btn_recipients" />
+
+        <TextView
+            android:id="@+id/user_photo_remove_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="remove"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/user_photo_close_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/btn_close" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

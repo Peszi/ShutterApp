@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">ShutterApp</string>
+
+    <string name="stored_photo">stored_photo</string>
+    <string name="preview_question">do u like this photo?</string>
+
+    <!-- UTIL -->
+    <string name="internet_connection_error_message">no internet connection</string>
+
+    <!-- FORM -->
+    <string name="form_name_hint">name</string>
+    <string name="form_email_hint">email</string>
+    <string name="form_password_hint">password</string>
+
+    <string name="form_name_error_message">please check your username</string>
+    <string name="form_email_error_message">please check your email</string>
+    <string name="form_password_error_message">please check your password</string>
+    <string name="form_avatar_error_message">please pick your avatar first</string>
+    <string name="form_terms_and_conditions_error_message">you need first to read and check the terms and conditions</string>
+
+    <string name="form_server_logging_message">logging in</string>
+    <string name="form_server_registering_message">registering account</string>
+    <string name="form_server_error_message">please try again</string>
+    <string name="form_server_logging_error_message">user not exist</string>
+
+    <!-- LOGIN -->
+    <string name="main_title">ShutterApp</string>
+    <string name="main_log_in">Log in</string>
+    <string name="main_sign_up_link">Sign up here</string>
+    <string name="main_demo">try DEMO</string>
+
+    <!-- REGISTER -->
+    <string name="register_title">Register in</string>
+    <string name="register_description">Feel free to sign in database and enjoy our app.</string>
+    <string name="register_picker">avatar</string>
+    <string name="register_sign_up">Sign up</string>
+    <string name="register_terms_and_conditions">I accept the <u>Terms and Conditions</u></string>
+    <string name="register_go_back_link">Already registered?</string>
+    <string-array name="register_avatar_list">
+        <item>male 1</item>
+        <item>male 2</item>
+        <item>male 3</item>
+        <item>female 1</item>
+        <item>female 2</item>
+        <item>female 3</item>
+    </string-array>
+
+    <!-- TERMS AND CONDITIONS DIALOG -->
+    <string name="terms_and_conditons_dialog_title">Terms and Conditions</string>
+    <string name="terms_and_conditons_dialog_content">This app is for demonstration using only. We do not take any responsibility and we are not liable for any damage caused through use of the SHUTTERAPP.</string>
+    <string name="terms_and_conditons_dialog_agree">Accept</string>
+    <string name="terms_and_conditons_dialog_reject">Reject</string>
+
+    <!-- EXAMPLE ACCOUNT DIALOG -->
+    <string name="example_dialog_title">Do u wanna try example account?</string>
+    <string name="example_dialog_message">If you are not convinced to our app you are able to try it before. You will be logged on a example account which provide you convenient experiencing of app features.</string>
+    <string name="example_dialog_accept">Accept</string>
+    <string name="example_dialog_reject">Reject</string>
+    <string name="example_email">second@email.com</string>
+    <string name="example_password">1234</string>
+
+    <!-- LOADING DIALOG -->
+    <string name="loading_dialog_button">cancel</string>
+    <string name="loading_dialog_delay">this is taking longer than expected...</string>
+    <string name="title_activity_shutter">ShutterActivity</string>
+
+    <!-- FRIENDS DIALOG -->
+    <string name="friends_remove_dialog_title">Remove friend</string>
+    <string name="friends_remove_dialog_message">Do you want to end this relationship? You will be able to invite this person again.</string>
+    <string name="friends_remove_dialog_positive">remove</string>
+    <string name="friends_remove_dialog_nagative">cancel</string>
+</resources>

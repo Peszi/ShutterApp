@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="@drawable/all_lines_background">
+
+    <!-- REGISTER -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="55dp">
+
+        <!-- TITLE -->
+        <TextView style="@style/MainTitle"
+            android:id="@+id/register_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_title" />
+
+        <!-- DESCRIPTION -->
+        <TextView style="@style/MainDescription"
+            android:id="@+id/register_description"
+            android:layout_below="@+id/register_title"
+            android:text="@string/register_description"
+            android:textAlignment="center" />
+
+        <!-- AVATAR PICKER -->
+        <RelativeLayout style="@style/MainDropDown"
+            android:id="@+id/register_picker"
+            android:layout_below="@+id/register_description"
+            android:layout_alignLeft="@+id/register_name_input"
+            android:layout_alignStart="@+id/register_name_input">
+
+            <!-- dropdown title -->
+            <TextView style="@style/MainDropDownTitle"
+                android:id="@+id/register_picker_title"
+                android:text="@string/register_picker" />
+
+            <!-- dropdown arrow -->
+            <ImageView style="@style/MainDropDownImage"
+                app:srcCompat="@drawable/arrow" />
+        </RelativeLayout>
+
+        <!-- AVATAR -->
+        <!-- no style(no other appearance) -->
+        <RelativeLayout
+            android:id="@+id/register_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="2dp"
+            android:background="@drawable/all_avatar"
+            android:layout_below="@+id/register_description"
+            android:layout_toRightOf="@+id/register_picker"
+            android:layout_toEndOf="@+id/register_picker">
+
+            <!-- avatar image -->
+            <ImageView
+                android:id="@+id/register_avatar_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/avatar_default" />
+        </RelativeLayout>
+
+        <!-- NAME INPUT -->
+        <EditText style="@style/MainInput"
+            android:id="@+id/register_name_input"
+            android:layout_below="@+id/register_picker"
+            android:hint="@string/form_name_hint"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/inputHint" />
+
+        <!-- EMAIL INPUT -->
+        <EditText style="@style/MainInput"
+            android:id="@+id/register_email_input"
+            android:layout_below="@+id/register_name_input"
+            android:hint="@string/form_email_hint"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/inputHint" />
+
+        <!-- PASSWORD INPUT -->
+        <EditText style="@style/MainInput"
+            android:id="@+id/register_password_input"
+            android:layout_below="@+id/register_email_input"
+            android:hint="@string/form_password_hint"
+            android:inputType="textPassword"
+            android:textColorHint="@color/inputHint" />
+
+        <!-- TERMS/CONDITIONS -->
+        <CheckBox
+            android:id="@+id/register_terms_and_conditions"
+            android:layout_below="@+id/register_password_input"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="3dp"
+            android:padding="4dp"
+            android:text="@string/register_terms_and_conditions"
+            android:checked="false"
+            android:clickable="false"/>
+
+        <!-- SIGN UP BUTTON -->
+        <Button style="@style/MainButton"
+            android:id="@+id/register_sign_up_button"
+            android:layout_below="@+id/register_terms_and_conditions"
+            android:text="@string/register_sign_up" />
+
+        <!-- GO BACK LINK -->
+        <TextView style="@style/MainLink"
+            android:id="@+id/register_go_back_link"
+            android:layout_below="@+id/register_sign_up_button"
+            android:text="@string/register_go_back_link" />
+
+    </RelativeLayout>
+</ScrollView>

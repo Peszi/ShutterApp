@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:id="@+id/recipients_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_top_bar_back">
+
+        <TextView
+            android:id="@+id/recipients_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Send to"
+            android:textSize="28sp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center" />
+
+        <ToggleButton
+            android:id="@+id/recipients_all_btn"
+            android:layout_width="46dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textOff="all"
+            android:textOn="any"
+            android:background="@drawable/all_light_set_btn_back"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/recipients_top_bar"
+        android:layout_above="@+id/recipients_bottom_bar"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/all_lines_background">
+
+        <ListView
+            android:id="@+id/recipients_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorAccentLight"
+            android:dividerHeight="1dp"/> />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/recipients_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_bottom_bar_back">
+
+        <ImageView
+            android:id="@+id/recipients_close_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/preview_reject" />
+
+        <ImageView
+            android:id="@+id/recipients_send_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/preview_accept" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#282F36</color>
+    <color name="colorAccent">#000</color>
+    <color name="colorAccentLight">#888</color>
+    <color name="colorAccentDark">#333</color>
+    <color name="colorTransparentBackground">#88888888</color>
+    <color name="colorTransparentPrimary">#aaffffff</color>
+    <color name="colorTransparentDark">#aa282f36</color>
+    <color name="colorInvisible">#0000</color>
+    <color name="colorDarkUnselected">#ffa8a8a8</color>
+
+    <color name="inputBackground">#fff</color>
+    <color name="inputHint">#888</color>
+</resources>

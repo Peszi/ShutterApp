@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <RelativeLayout
+        android:id="@+id/profile_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_top_bar_back">
+
+        <TextView
+            android:id="@+id/profile_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Profile"
+            android:textSize="28sp"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/profile_upload_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/btn_upload" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/profile_top_bar"
+        android:layout_above="@+id/profile_bottom_bar"
+        android:background="@drawable/all_lines_background">
+
+        <RelativeLayout
+            android:id="@+id/profile_user"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/profile_user_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/all_avatar_background"
+                app:srcCompat="@drawable/avatar_default" />
+
+            <TextView
+                android:id="@+id/profile_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/profile_user_avatar"
+                android:text="name"
+                android:padding="8dp"
+                android:textSize="26sp"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/profile_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/profile_user_name"
+                android:layout_toRightOf="@+id/profile_user_avatar"
+                android:text="email"
+                android:padding="6dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile_photos_bar"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/profile_user"
+            android:background="@drawable/all_bar_back">
+
+            <TextView
+                android:id="@+id/profile_photos_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="your photos"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/profile_photos_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="(0)"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/profile_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/profile_photos_bar"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:stretchMode="columnWidth"
+            android:numColumns="4" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/profile_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/all_bottom_bar_back">
+
+        <ImageView
+            android:id="@+id/profile_refresh_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/btn_refresh" />
+
+        <TextView
+            android:id="@+id/profile_user_with_us"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="12dp"
+            android:text="created at"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/profile_close_btn"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/btn_close" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

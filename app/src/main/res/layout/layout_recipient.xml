@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="15dp">
+
+    <ImageView
+        android:id="@+id/recipient_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/avatar_default" />
+
+    <TextView
+        android:id="@+id/recipient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/recipient_avatar"
+        android:text="name"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <com.pheasant.shutterapp.features.shutter.camera.recipients.CheckButton
+        android:id="@+id/recipient_check_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textOff="check"
+        android:background="@drawable/all_dark_set_btn_back"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp" />
+
+</RelativeLayout>

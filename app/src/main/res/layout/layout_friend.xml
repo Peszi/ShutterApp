@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
+
+    <ImageView
+        android:id="@+id/friend_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/avatar_default" />
+
+    <TextView
+        android:id="@+id/friend_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/friend_avatar"
+        android:text="name"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/friend_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/friend_remove_btn"
+        android:layout_toStartOf="@+id/friend_remove_btn"
+        android:layout_marginRight="15dp"
+        android:text="activity"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccentLight" />
+
+    <com.pheasant.shutterapp.features.shutter.user.friends.RemoveRequestButton
+        android:id="@+id/friend_remove_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="12dp"
+        android:scaleType="fitXY"
+        android:background="@color/colorInvisible"
+        app:srcCompat="@drawable/img_close" />
+
+</RelativeLayout>

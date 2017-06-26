@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:background="@drawable/all_lines_background">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp">
+
+        <!-- LOGO -->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="120dp">
+
+            <!-- logo image -->
+            <ImageView
+                android:id="@+id/main_icon"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/shutter" />
+        </LinearLayout>
+
+        <!-- DEMO FOOTER -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom|right">
+
+            <!-- demo link -->
+            <TextView style="@style/MainFooter"
+                android:id="@+id/main_demo_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_demo" />
+        </RelativeLayout>
+
+        <!-- LOGIN -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!-- TITLE -->
+            <TextView style="@style/MainTitle"
+                android:id="@+id/main_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_title" />
+
+            <!-- EMAIL INPUT -->
+            <EditText style="@style/MainInput"
+                android:id="@+id/main_email_input"
+                android:layout_below="@+id/main_title"
+                android:hint="@string/form_email_hint"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/inputHint" />
+
+            <!-- PASSWORD INPUT -->
+            <EditText style="@style/MainInput"
+                android:id="@+id/main_password_input"
+                android:layout_below="@+id/main_email_input"
+                android:hint="@string/form_password_hint"
+                android:inputType="textPassword"
+                android:textColorHint="@color/inputHint" />
+
+            <!-- LOG IN BUTTON -->
+            <Button style="@style/MainButton"
+                android:id="@+id/main_log_in_button"
+                android:layout_below="@+id/main_password_input"
+                android:text="@string/main_log_in" />
+
+            <!-- SIGN UP LINK -->
+            <TextView style="@style/MainLink"
+                android:id="@+id/main_sign_up_link"
+                android:layout_below="@+id/main_log_in_button"
+                android:text="@string/main_sign_up_link" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

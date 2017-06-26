@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/friends_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:background="@color/colorPrimaryDark">
+
+        <RelativeLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/all_input">
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:padding="12dp"
+                android:scaleType="fitXY"
+                android:background="@color/colorInvisible"
+                app:srcCompat="@drawable/img_friends"/>
+
+            <EditText
+                android:id="@+id/search_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/search_icon"
+                android:layout_toLeftOf="@+id/search_clear"
+                android:background="@color/colorInvisible"
+                android:ems="10"
+                android:hint="type a user name to find.."
+                android:inputType="textPersonName"
+                android:imeOptions="actionDone"/>
+
+            <ImageButton
+                android:id="@+id/search_clear"
+                android:layout_width="46dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:padding="14dp"
+                android:scaleType="fitXY"
+                android:background="@color/colorInvisible"
+                android:visibility="gone"
+                app:srcCompat="@drawable/img_close"/>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/profile_bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/search_bar"
+            app:tabMode="fixed"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabTextColor="@color/colorDarkUnselected"
+            app:tabSelectedTextColor="@color/colorPrimary">
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="friends" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="strangers" />
+
+        </android.support.design.widget.TabLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/friends_list"
+        android:layout_below="@+id/friends_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/friends_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="no results"
+        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/all_dark_round"
+        android:visibility="gone"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/friends_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="25dp"
+        android:src="@drawable/refresh"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:fabSize="mini" />
+
+</RelativeLayout>
