@@ -8,7 +8,6 @@ import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.download.user.UserData;
 import com.pheasant.shutterapp.utils.IntentKey;
 
-@SuppressWarnings("deprecation")
 public class ShutterActivity extends AppCompatActivity {
 
     private ShutterPagerAdapter pagerAdapter;
