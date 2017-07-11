@@ -47,6 +47,14 @@ public class FriendsPhotosDownloader implements PhotoRequest.OnImageRequestResul
         return true;
     }
 
+    public void forceGetImage(int photoId) {
+        if (this.downloadList.contains(photoId)) {
+            this.downloadList.remove(photoId);
+        }
+        this.downloadList.add(0, photoId);
+        this.downloadRequest();
+    }
+
     @Override
     public void onResult(int resultCode, int photoId) {
         this.inDownloading = false;

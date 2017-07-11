@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.features.shutter.camera.utils.CameraController;
 import com.pheasant.shutterapp.features.shutter.camera.utils.CameraSurface;
-import com.pheasant.shutterapp.features.shutter.browse.editor.EditorManager;
+import com.pheasant.shutterapp.features.shutter.editor.EditorManager;
 
 /**
  * Created by Peszi on 2017-05-03.

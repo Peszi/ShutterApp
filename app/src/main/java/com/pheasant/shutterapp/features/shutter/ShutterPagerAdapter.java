@@ -9,7 +9,7 @@ import android.view.View;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.features.shutter.browse.PhotosFragment;
 import com.pheasant.shutterapp.features.shutter.camera.CameraFragment;
-import com.pheasant.shutterapp.features.shutter.user.UserFragment;
+import com.pheasant.shutterapp.features.shutter.browse.user.UserFragment;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 
 /**

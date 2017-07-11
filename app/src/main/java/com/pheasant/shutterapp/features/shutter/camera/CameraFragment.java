@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.browse.editor.EditorManager;
+import com.pheasant.shutterapp.features.shutter.editor.EditorManager;
 import com.pheasant.shutterapp.features.shutter.camera.recipients.RecipientsDialog;
 import com.pheasant.shutterapp.features.shutter.ShutterFragment;
 import com.pheasant.shutterapp.network.request.data.UserData;

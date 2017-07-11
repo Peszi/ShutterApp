@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -31,7 +35,7 @@ import java.util.List;
  * Created by Peszi on 2017-04-24.
  */
 
-public class PhotosFragment extends ShutterFragment implements AdapterView.OnItemClickListener, View.OnClickListener, CameraFragment.CameraActionListener {
+public class PhotosFragment extends ShutterFragment implements AdapterView.OnItemClickListener, View.OnTouchListener, CameraFragment.CameraActionListener {
 
 //    private ImagesAdapter imagesAdapter;
 //    private GridView gridView;
@@ -44,23 +48,31 @@ public class PhotosFragment extends ShutterFragment implements AdapterView.OnIte
 
     private RecyclerView photosList;
     private PhotosAdapter photosAdapter;
-    private LinearLayoutManager layoutManager;
+//    private LinearLayoutManager layoutManager;
+    private GridLayoutManager layoutManager;
+
+    private View dayBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_photos_fragment, container, false);
         Util.setupFont(this.getActivity().getApplicationContext(), view, Util.FONT_PATH_LIGHT);
 
+//        this.layoutManager = new LinearLayoutManager(this.getContext());
+        this.layoutManager = new GridLayoutManager(this.getContext(), 6, LinearLayoutManager.VERTICAL, false);
         this.photosList = (RecyclerView) view.findViewById(R.id.browse_photos);
-        this.photosList.setHasFixedSize(true);
-
-        this.layoutManager = new LinearLayoutManager(this.getContext());
+        this.photosList.setHasFixedSize(false);
         this.photosList.setLayoutManager(this.layoutManager);
-
+//        this.photosList.setLayoutManager(new GridAutofitLayoutManager(getContext(), 500));
+//        this.photosList.addItemDecoration(new GridSpacesItemDecoration(5, true));
 
         this.photosAdapter = new PhotosAdapter(this.getContext(), this.getArguments());
+        this.layoutManager.setSpanSizeLookup(this.photosAdapter.getSpanSizeLookup());
         this.photosList.setAdapter(this.photosAdapter);
         this.photosList.setItemAnimator(new DefaultItemAnimator());
+        this.photosList.setOnTouchListener(this);
+
+        this.dayBar = view.findViewById(R.id.browse_day_bar);
 
         return view;
     }
@@ -81,12 +93,12 @@ public class PhotosFragment extends ShutterFragment implements AdapterView.OnIte
 //        this.startPhotoPreview(this.imagesAdapter.getItem(position));
     }
 
-    @Override
-    public void onClick(View v) {
+//    @Override
+//    public void onClick(View v) {
 //        if (v.getId() == R.id.browse_profile_btn && this.dataListener != null) {
 //            this.profileDialog.showDialog(this.dataListener.getUserData());
 //        }
-    }
+//    }
 
     private void startPhotoPreview(ImagesAdapter.Thumbnail thumbnail) {
         if (thumbnail != null && thumbnail.bitmap != null) {
@@ -120,5 +132,16 @@ public class PhotosFragment extends ShutterFragment implements AdapterView.OnIte
         userData.setAvatar(1);
         userDatas.add(userData);
         return userDatas;
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ||
+                motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+            this.dayBar.setVisibility(View.VISIBLE);
+        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            this.dayBar.setVisibility(View.INVISIBLE);
+        }
+        return false;
     }
 }

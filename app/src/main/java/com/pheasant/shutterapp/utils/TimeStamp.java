@@ -28,11 +28,11 @@ public class TimeStamp {
         long difference = currentTime.getTime() - date.getTime();
         long days = TimeUnit.MILLISECONDS.toDays(difference);
         if (days <= 0)
-            return "last 24 hours";
-        if (days <= 1)
-            return "one day ago";
+            return "last 24h";
+//        if (days <= 1)
+//        return "1d ago";
 //        if (days == 2)
 //            return "yesterday";
-        return days + " days ago";
+        return days + "d";
     }
 }

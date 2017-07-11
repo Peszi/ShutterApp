@@ -38,7 +38,7 @@
         android:textSize="18sp"
         android:textColor="@color/colorAccentLight" />
 
-    <com.pheasant.shutterapp.features.shutter.user.friends.RemoveRequestButton
+    <com.pheasant.shutterapp.features.shutter.browse.user.friends.RemoveRequestButton
         android:id="@+id/friend_remove_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
