@@ -34,7 +34,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".features.shutter.ShutterActivity"
+            android:name=".shutter.ui.ShutterActivity"
             android:screenOrientation="portrait"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.Fullscreen" />
