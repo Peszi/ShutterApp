@@ -8,7 +8,7 @@ import android.support.design.widget.Snackbar;
 import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.network.request.data.PhotoData;
 import com.pheasant.shutterapp.network.request.photos.PhotosListRequest;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Peszi on 2017-05-05.
  */
 
-public class ImagesDataDownloader implements OnRequestResultListener, Runnable {
+public class ImagesDataDownloader implements RequestResultListener, Runnable {
 
     private List<PhotoData> photoDataList;
     private PhotosListRequest photosListRequest;

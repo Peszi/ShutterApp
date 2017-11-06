@@ -1,6 +1,6 @@
 package com.pheasant.shutterapp.network.download.user;
 
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Peszi on 2017-05-24.
  */
 
-public class UserPhotosListDownloader implements OnRequestResultListener {
+public class UserPhotosListDownloader implements RequestResultListener {
 
     private List<UserPhoto> photoDataList;
     private UserPhotosListRequest photosRequest;

@@ -34,7 +34,6 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        app:paddingStart="5dp"
         android:layout_below="@+id/title_bar"/>
 
     <TextView

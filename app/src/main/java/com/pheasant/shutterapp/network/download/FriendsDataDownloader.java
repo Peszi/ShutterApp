@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.design.widget.Snackbar;
 
 import com.pheasant.shutterapp.network.request.data.UserData;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Peszi on 2017-05-07.
  */
 
-public class FriendsDataDownloader implements OnRequestResultListener, Runnable {
+public class FriendsDataDownloader implements RequestResultListener, Runnable {
 
     private List<UserData> userDataList;
     private FriendsListRequest friendsListRequest;

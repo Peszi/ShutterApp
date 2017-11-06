@@ -8,7 +8,7 @@ import com.pheasant.shutterapp.network.download.user.UserDataListener;
 import com.pheasant.shutterapp.network.download.user.UserDataManager;
 import com.pheasant.shutterapp.network.download.user.UserPhotosRequester;
 import com.pheasant.shutterapp.network.request.photos.PhotoUploadRequest;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.network.request.data.PhotoData;
 
@@ -102,7 +102,7 @@ public class UserDataDownloader implements ImagesDataDownloader.OnImageListDownl
 
     public void uploadPhoto(Bitmap bitmap, List<Integer> recipients) {
         PhotoUploadRequest uploadRequest = new PhotoUploadRequest(bitmap, recipients, this.userDataManager.getUserData().getApiKey());
-        uploadRequest.setOnRequestResultListener(new OnRequestResultListener() {
+        uploadRequest.setOnRequestResultListener(new RequestResultListener() {
             @Override
             public void onResult(int resultCode) {
 

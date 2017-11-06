@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.camera.CameraFragment;
+import com.pheasant.shutterapp.shutter.ui.features.CameraFragment;
 
 /**
  * Created by Peszi on 2017-05-03.

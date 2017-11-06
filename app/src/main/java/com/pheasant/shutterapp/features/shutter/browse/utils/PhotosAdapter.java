@@ -1,7 +1,6 @@
 package com.pheasant.shutterapp.features.shutter.browse.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,7 +19,7 @@ import com.pheasant.shutterapp.features.shutter.browse.SpanSizeController;
 import com.pheasant.shutterapp.network.download.FriendsPhotosDownloader;
 import com.pheasant.shutterapp.network.request.data.PhotoData;
 import com.pheasant.shutterapp.network.request.photos.FriendsPhotosRequest;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.shared.views.SquareImageView;
 import com.pheasant.shutterapp.utils.IntentKey;
@@ -41,7 +40,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
  * Created by Peszi on 2017-06-21.
  */
 
-public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnRequestResultListener, FriendsPhotosDownloader.OnDownloadListener, OnItemListener {
+public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RequestResultListener, FriendsPhotosDownloader.OnDownloadListener, OnItemListener {
 
     private FriendsPhotosRequest photosRequest;
     private FriendsPhotosDownloader photosDownloader;

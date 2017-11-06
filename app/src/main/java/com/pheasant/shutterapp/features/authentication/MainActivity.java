@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.ShutterActivity;
+import com.pheasant.shutterapp.shutter.ui.ShutterActivity;
 import com.pheasant.shutterapp.network.request.LoginRequest;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.shared.views.RequestDialog;
 import com.pheasant.shutterapp.utils.IntentKey;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             final LoginRequest loginRequest = new LoginRequest(this.getUserEmail(), this.getUserPassword());
             final RequestDialog requestDialog = new RequestDialog();
             requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_logging_message), this.LOGGING_TIMEOUT, loginRequest); // prepare waiting dialog and show
-            loginRequest.setOnRequestResultListener(new OnRequestResultListener() {
+            loginRequest.setOnRequestResultListener(new RequestResultListener() {
                 @Override
                 public void onResult(int resultCode) {
                     if (resultCode == Request.RESULT_OK) {

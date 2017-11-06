@@ -29,23 +29,20 @@
             android:layout_centerVertical="true"
             app:tabMode="fixed"
             app:tabIndicatorHeight="50dp"
-            app:tabIndicatorColor="#1fff">
-
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/tab_profile"/>
+            app:tabIndicatorColor="#1fff"
+            app:tabTextColor="@color/colorPrimary"
+            app:tabSelectedTextColor="#eee">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/tab_friends"/>
+                android:text="Friends"/>
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/tab_invites"/>
+                android:text="Invites"/>
 
         </android.support.design.widget.TabLayout>
 

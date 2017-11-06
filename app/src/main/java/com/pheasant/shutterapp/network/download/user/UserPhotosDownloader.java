@@ -3,7 +3,7 @@ package com.pheasant.shutterapp.network.download.user;
 import android.util.Log;
 
 import com.pheasant.shutterapp.network.request.photos.ThumbnailRequest;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -12,7 +12,7 @@ import java.util.Queue;
  * Created by Peszi on 2017-05-24.
  */
 
-public class UserPhotosDownloader implements OnRequestResultListener {
+public class UserPhotosDownloader implements RequestResultListener {
 
     private ThumbnailRequest thumbnailRequest;
     private Queue<UserPhoto> photosQueue = new LinkedList<>();

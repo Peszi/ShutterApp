@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.util.OnRequestResultListener;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.RegisterRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.shared.views.RequestDialog;
@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
             final RegisterRequest registerRequest = new RegisterRequest(this.getUserName(), this.getUserEmail(), this.getUserPassword(), this.getUserAvatar());
             final RequestDialog requestDialog = new RequestDialog();
             requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_registering_message), this.REGISTERING_TIMEOUT, registerRequest); // prepare waiting dialog and show
-            registerRequest.setOnRequestResultListener(new OnRequestResultListener() {
+            registerRequest.setOnRequestResultListener(new RequestResultListener() {
                 @Override
                 public void onResult(int resultCode) {
                     if (resultCode == Request.RESULT_OK) {

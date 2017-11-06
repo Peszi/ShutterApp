@@ -21,22 +21,18 @@ public abstract class Request {
     private String authorization;
     private List<String> parameters = new ArrayList<String>();
 
-    private OnRequestResultListener resultListener;
-
-    public Request() {
-//        if (Util.checkInternetConnection(context))
-    }
+    private RequestResultListener resultListener;
 
     public void execute() {
         this.requestTask = BaseRequest.getBaseRequest(this.output, this);
         this.requestTask.execute();
     }
 
-    public void setOnRequestResultListener(OnRequestResultListener resultListener) {
+    public void setOnRequestResultListener(RequestResultListener resultListener) {
         this.resultListener = resultListener;
     }
 
-    protected OnRequestResultListener getResultListener() {
+    protected RequestResultListener getResultListener() {
         return this.resultListener;
     }
 
