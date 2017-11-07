@@ -4,6 +4,8 @@ import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
+import com.pheasant.shutterapp.shutter.api.interfaces.BaseResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,5 +55,9 @@ public class FriendsListRequest extends Request {
 
     public List<FriendData> getFriendsList() {
         return this.friendsList;
+    }
+
+    public interface FriendsListListener extends BaseResultListener {
+        void onListUpdated(List<FriendData> friendsList);
     }
 }

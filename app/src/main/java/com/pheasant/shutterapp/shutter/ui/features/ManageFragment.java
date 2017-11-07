@@ -28,6 +28,6 @@ public class ManageFragment extends NotifiableFragment {
 
     @Override
     public void onShow() {
-            this.pagerAdapter.onShow();
+        this.pagerAdapter.onShow();
     }
 }

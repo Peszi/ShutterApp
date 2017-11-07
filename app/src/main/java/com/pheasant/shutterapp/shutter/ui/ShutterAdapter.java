@@ -8,11 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.pheasant.shutterapp.R;
+import com.pheasant.shutterapp.shutter.api.ShutterDataController;
+import com.pheasant.shutterapp.shutter.tmp.FriendsTmpFragment;
 import com.pheasant.shutterapp.shutter.ui.features.BrowseFragment;
 import com.pheasant.shutterapp.shutter.ui.features.CameraFragment;
 import com.pheasant.shutterapp.shutter.ui.features.ManageFragment;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
+import com.pheasant.shutterapp.utils.IntentKey;
 
 /**
  * Created by Peszi on 2017-04-24.
@@ -20,18 +23,21 @@ import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 
 public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
-    private final int FRAGMENTS_COUNT = 3;
+    private final int FRAGMENTS_COUNT = 4;
 
     private NotifiableFragment[] shutterFragments;
 
     private LockingViewPager viewPager;
     private ShutterInterface shutterInterface;
 
+    private ShutterDataController shutterDataController;
+
     public ShutterAdapter(FragmentManager fragmentManager, View view, Bundle bundle, ShutterInterface shutterInterface) {
         super(fragmentManager);
+        this.shutterInterface = shutterInterface;
+        this.shutterDataController = new ShutterDataController(bundle.getString(IntentKey.USER_API_KEY));
         this.setupViewPager(view);
         this.setupFragments(bundle);
-        this.shutterInterface = shutterInterface;
     }
 
     public void setupViewPager(View view) {
@@ -55,6 +61,10 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         // Manage
         this.shutterFragments[2] = new ManageFragment();
         this.shutterFragments[2].setArguments(bundle);
+        // Friends
+        this.shutterFragments[3] = new FriendsTmpFragment();
+        this.shutterFragments[3].setArguments(bundle);
+        ((FriendsTmpFragment) this.shutterFragments[3]).setFriendsInterface(this.shutterDataController);
     }
 
     @Override
@@ -69,11 +79,10 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
 
     // Back button actions
     public void onBack() {
-        if (!this.switchToPrevFragment()) {
+        if (!this.switchToPrevFragment())
             if (this.shutterFragments[this.viewPager.getCurrentItem()] instanceof CameraFragment) // Camera switch back (exit editing or logout)
                 if (!((CameraFragment) this.shutterFragments[this.viewPager.getCurrentItem()]).isInEditor())
                     this.shutterInterface.logoutUser();
-        }
     }
 
     // Switching fragment to the first one
@@ -87,8 +96,8 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
 
     // On visible fragment change
     @Override
-    public void onPageScrollStateChanged(int state) {
-        this.shutterFragments[this.viewPager.getCurrentItem()].onShow();
+    public void onPageSelected(int position) {
+        this.shutterFragments[position].onShow();
     }
 
     // Not used
@@ -98,7 +107,8 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
     }
     // Not used
     @Override
-    public void onPageSelected(int position) {
+    public void onPageScrollStateChanged(int state) {
 
     }
+
 }

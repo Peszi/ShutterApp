@@ -1,5 +1,7 @@
 package com.pheasant.shutterapp.network.request.util;
 
+import com.pheasant.shutterapp.shutter.api.interfaces.BaseResultListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +23,16 @@ public abstract class Request {
     private String authorization;
     private List<String> parameters = new ArrayList<String>();
 
+    private BaseResultListener baseResultListener;
     private RequestResultListener resultListener;
 
     public void execute() {
         this.requestTask = BaseRequest.getBaseRequest(this.output, this);
         this.requestTask.execute();
+    }
+
+    public void setBaseResultListener(BaseResultListener baseResultListener) {
+        this.baseResultListener = baseResultListener;
     }
 
     public void setOnRequestResultListener(RequestResultListener resultListener) {

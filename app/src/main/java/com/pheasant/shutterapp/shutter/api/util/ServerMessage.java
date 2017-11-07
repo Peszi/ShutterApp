@@ -6,5 +6,6 @@ package com.pheasant.shutterapp.shutter.api.util;
 
 public class ServerMessage {
     public static final String NO_INTERNET = "no internet connection";
+    public static final String SERVER_ERROR = "server error";
     public static final String SERVER_TIMEOUT = "server connection error";
 }
