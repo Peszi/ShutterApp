@@ -1,11 +1,12 @@
 package com.pheasant.shutterapp.network.request.friends;
 
+import android.util.Log;
+
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
-import com.pheasant.shutterapp.network.request.util.RequestResultListener;
-import com.pheasant.shutterapp.shutter.api.interfaces.BaseResultListener;
+import com.pheasant.shutterapp.shutter.api.interfaces.FriendsResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class FriendsListRequest extends Request {
 
-    private List<FriendData> friendsList;
+    private ArrayList<FriendData> friendsList;
 
     public FriendsListRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
@@ -45,7 +46,8 @@ public class FriendsListRequest extends Request {
                     userData.setLastActivity(json.getString("activity"));
                     this.friendsList.add(userData);
                 }
-                this.getResultListener().onResult(Request.RESULT_OK);
+                if (this.getFriendsResultListener() != null)
+                    this.getFriendsResultListener().onListUpdated(this.friendsList);
             }
         } catch (JSONException e) {
             this.getResultListener().onResult(Request.RESULT_ERR);
@@ -57,7 +59,4 @@ public class FriendsListRequest extends Request {
         return this.friendsList;
     }
 
-    public interface FriendsListListener extends BaseResultListener {
-        void onListUpdated(List<FriendData> friendsList);
-    }
 }

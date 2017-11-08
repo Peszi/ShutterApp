@@ -1,7 +1,9 @@
 package com.pheasant.shutterapp.shutter.api;
 
-import com.pheasant.shutterapp.shutter.api.data.FriendsContainer;
+import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.shutter.api.interfaces.FriendsDataInterface;
+
+import java.util.ArrayList;
 
 /**
  * Created by Peszi on 2017-11-06.
@@ -9,20 +11,26 @@ import com.pheasant.shutterapp.shutter.api.interfaces.FriendsDataInterface;
 
 public class ShutterDataController implements FriendsDataInterface {
 
-    private ShutterApi shutterApi;
+    private ShutterRequestManager shutterRequestManager;
 
     private FriendsContainer friendsContainer;
 
     public ShutterDataController(String apiKey) {
-        this.shutterApi = new ShutterApi(apiKey);
-        this.friendsContainer = new FriendsContainer(this.shutterApi.getStatusProvider());
+        this.shutterRequestManager = new ShutterRequestManager(apiKey);
+        this.friendsContainer = new FriendsContainer(this.shutterRequestManager.getStatusProvider());
+        this.shutterRequestManager.setFriendsListener(this.friendsContainer);
     }
 
     // TODO register status listeners
 
     @Override
     public void updateFriends() {
-        this.friendsContainer.updateFriendsList(this.shutterApi);
+        this.friendsContainer.updateFriendsList(this.shutterRequestManager);
+    }
+
+    @Override
+    public ArrayList<FriendData> getFriends() {
+        return this.friendsContainer.getFriendsList();
     }
 
     @Override

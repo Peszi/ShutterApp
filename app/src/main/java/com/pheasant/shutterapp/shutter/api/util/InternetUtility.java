@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.api;
+package com.pheasant.shutterapp.shutter.api.util;
 
 import com.pheasant.shutterapp.shutter.api.util.ServerMessage;
 import com.pheasant.shutterapp.shutter.api.util.StatusProvider;
@@ -11,11 +11,11 @@ public class InternetUtility {
 
     // TODO check internet connection
     public static boolean isInternetConnection(StatusProvider statusProvider) {
-        if (true) {
-            return true;
-        } else {
-            statusProvider.notifyError(ServerMessage.NO_INTERNET);
-        }
-        return false;
+//        if (false) {
+//            return true;
+//        } else {
+//            statusProvider.notifyError(ServerMessage.NO_INTERNET);
+//        }
+        return true;
     }
 }

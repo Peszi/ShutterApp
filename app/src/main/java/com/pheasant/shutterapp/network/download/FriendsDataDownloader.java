@@ -21,22 +21,22 @@ public class FriendsDataDownloader implements RequestResultListener, Runnable {
 
     private List<UserData> userDataList;
     private FriendsListRequest friendsListRequest;
-    private OnFriendsListListener onFriendsListListener;
+    //private OnFriendsListListener onFriendsListListener;
     private Context context;
 
     public FriendsDataDownloader(Context context, String apiKey) {
         this.userDataList = new ArrayList<>();
         this.context = context;
-        this.friendsListRequest = new FriendsListRequest(apiKey);
-        this.friendsListRequest.setOnRequestResultListener(this);
+      //  this.friendsListRequest = new FriendsListRequest(apiKey);
+       // this.friendsListRequest.setOnRequestResultListener(this);
     }
 
     public void setOnFriendsListListener(OnFriendsListListener onFriendsListListener) {
-        this.onFriendsListListener = onFriendsListListener;
+       // this.onFriendsListListener = onFriendsListListener;
     }
 
     public void download() {
-        this.friendsListRequest.execute();
+        //this.friendsListRequest.execute();
     }
 
     @Override
@@ -56,8 +56,8 @@ public class FriendsDataDownloader implements RequestResultListener, Runnable {
                     this.userDataList.add(newUserData);
                 }
             }
-            if (this.onFriendsListListener != null)
-                this.onFriendsListListener.onFriendsDownloaded(this.userDataList);
+//            if (this.onFriendsListListener != null)
+//                this.onFriendsListListener.onFriendsDownloaded(this.userDataList);
         } else {
             Snackbar.make(((Activity) this.context).getWindow().getDecorView(), "server connection error", Snackbar.LENGTH_LONG).show();
             new Handler().postDelayed(this, UserDataDownloader.RETRY_INTERVAL);

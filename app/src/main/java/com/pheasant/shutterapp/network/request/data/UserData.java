@@ -34,4 +34,10 @@ public class UserData {
         return this.userAvatar;
     }
 
+    public void update(UserData userData) {
+        this.userId = userData.userId;
+        this.userName = userData.userName;
+        this.userAvatar = userData.userAvatar;
+    }
+
 }
