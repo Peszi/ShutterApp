@@ -6,7 +6,6 @@ import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsResultListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +31,7 @@ public class FriendsListRequest extends Request {
 
     @Override
     protected void onSuccess(Object result) {
+        Log.d("RESPONSE", "[friends success...]");
         this.friendsList = new ArrayList<>();
         try {
             JSONObject jsonResult = new JSONObject((String) result);
@@ -46,8 +46,8 @@ public class FriendsListRequest extends Request {
                     userData.setLastActivity(json.getString("activity"));
                     this.friendsList.add(userData);
                 }
-                if (this.getFriendsResultListener() != null)
-                    this.getFriendsResultListener().onListUpdated(this.friendsList);
+                if (this.getFriendsRequestListener() != null)
+                    this.getFriendsRequestListener().onListUpdated(this.friendsList);
             }
         } catch (JSONException e) {
             this.getResultListener().onResult(Request.RESULT_ERR);

@@ -5,9 +5,9 @@ import com.pheasant.shutterapp.network.request.data.FriendData;
 import java.util.ArrayList;
 
 /**
- * Created by Peszi on 2017-11-07.
+ * Created by Peszi on 2017-11-09.
  */
 
-public interface FriendsResultListener {
-    void onListUpdated(ArrayList<FriendData> friendsList);
+public interface FriendsListListener {
+    void onFriendsUpdate(ArrayList<FriendData> friendsList);
 }

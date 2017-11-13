@@ -51,20 +51,24 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
     public void setupFragments(Bundle bundle) {
         this.shutterFragments = new NotifiableFragment[this.FRAGMENTS_COUNT];
         // Camera
-        this.shutterFragments[0] = new CameraFragment();
-        this.shutterFragments[0].setArguments(bundle);
-        ((CameraFragment) this.shutterFragments[0]).setViewPager(this.viewPager);
-        ((CameraFragment) this.shutterFragments[0]).setCameraActionListener((BrowseFragment) this.shutterFragments[1]);
+        final CameraFragment cameraFragment = new CameraFragment();
+        cameraFragment.setArguments(bundle);
+        cameraFragment.setViewPager(this.viewPager);
+        cameraFragment.setCameraActionListener((BrowseFragment) this.shutterFragments[1]);
+        this.shutterFragments[0] = cameraFragment;
         // Browse
-        this.shutterFragments[1] = new BrowseFragment();
-        this.shutterFragments[1].setArguments(bundle);
+        final BrowseFragment browseFragment = new BrowseFragment();
+        browseFragment.setArguments(bundle);
+        this.shutterFragments[1] = browseFragment;
         // Manage
         this.shutterFragments[2] = new ManageFragment();
         this.shutterFragments[2].setArguments(bundle);
         // Friends
-        this.shutterFragments[3] = new FriendsTmpFragment();
-        this.shutterFragments[3].setArguments(bundle);
-        ((FriendsTmpFragment) this.shutterFragments[3]).setFriendsInterface(this.shutterDataController);
+        final FriendsTmpFragment friendsFragment = new FriendsTmpFragment();
+        friendsFragment.setArguments(bundle);
+        friendsFragment.setFriendsInterface(this.shutterDataController);
+        this.shutterDataController.registerFriendsListener(friendsFragment.getFriendsListener());
+        this.shutterFragments[3] = friendsFragment;
     }
 
     @Override

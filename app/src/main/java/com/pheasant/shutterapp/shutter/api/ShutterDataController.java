@@ -2,6 +2,7 @@ package com.pheasant.shutterapp.shutter.api;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.shutter.api.interfaces.FriendsDataInterface;
+import com.pheasant.shutterapp.shutter.api.interfaces.FriendsListListener;
 
 import java.util.ArrayList;
 
@@ -11,21 +12,25 @@ import java.util.ArrayList;
 
 public class ShutterDataController implements FriendsDataInterface {
 
-    private ShutterRequestManager shutterRequestManager;
+//    private ShutterRequestManager shutterRequestManager;
 
     private FriendsContainer friendsContainer;
 
     public ShutterDataController(String apiKey) {
-        this.shutterRequestManager = new ShutterRequestManager(apiKey);
-        this.friendsContainer = new FriendsContainer(this.shutterRequestManager.getStatusProvider());
-        this.shutterRequestManager.setFriendsListener(this.friendsContainer);
+//        this.shutterRequestManager = new ShutterRequestManager(apiKey);
+        this.friendsContainer = new FriendsContainer(apiKey);
+//        this.shutterRequestManager.setFriendsListener(this.friendsContainer);
     }
 
     // TODO register status listeners
 
+    public void registerFriendsListener(FriendsListListener friendsListener) {
+        this.friendsContainer.registerFriendsListener(friendsListener);
+    }
+
     @Override
     public void updateFriends() {
-        this.friendsContainer.updateFriendsList(this.shutterRequestManager);
+        this.friendsContainer.updateFriendsList();
     }
 
     @Override

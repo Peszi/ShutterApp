@@ -3,7 +3,9 @@ package com.pheasant.shutterapp.shutter.api;
 import android.util.Log;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsResultListener;
+import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
+import com.pheasant.shutterapp.shutter.api.interfaces.FriendsListListener;
+import com.pheasant.shutterapp.shutter.api.interfaces.FriendsRequestListener;
 import com.pheasant.shutterapp.shutter.api.util.StatusProvider;
 
 import java.util.ArrayList;
@@ -12,20 +14,28 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-06.
  */
 
-public class FriendsContainer implements FriendsResultListener {
+public class FriendsContainer implements FriendsRequestListener {
 
     private ArrayList<FriendData> friendsList;
+    private ArrayList<FriendsListListener> friendsListeners;
 
-    private StatusProvider statusProvider;
+    private FriendsListRequest friendsRequest;
 
-    public FriendsContainer(StatusProvider statusProvider) {
+    public FriendsContainer(String apiKey) {
         this.friendsList = new ArrayList<>();
-        this.statusProvider = statusProvider;
+        this.friendsListeners = new ArrayList<>();
+        this.friendsRequest = new FriendsListRequest(apiKey);
+        this.friendsRequest.setFriendsRequestListener(this);
+//        this.friendsRequest.setOnRequestResultListener(this);
     }
 
-    protected void updateFriendsList(ShutterRequestManager shutterRequestManager) {
+    public void registerFriendsListener(FriendsListListener friendsListener) {
+        this.friendsListeners.add(friendsListener);
+    }
+
+    protected void updateFriendsList() {
         Log.d("RESPONSE", "[friends list downloading...]");
-        shutterRequestManager.requestFriendsList(this);
+        this.friendsRequest.execute();
     }
 
     @Override
@@ -36,8 +46,7 @@ public class FriendsContainer implements FriendsResultListener {
                 this.friendsList.add(newFriend); // TODO notify friends list listeners
         newFriends = this.friendsList.size() - newFriends;
         Log.d("RESPONSE", "[friends list updated with " + newFriends + " new users]");
-//        if (this.onFriendsListListener != null)
-//            this.onFriendsListListener.onFriendsDownloaded(this.userDataList);
+        this.notifyListeners();
     }
 
     // Updating friend data if user already exist
@@ -48,6 +57,11 @@ public class FriendsContainer implements FriendsResultListener {
                 return true;
             }
         return false;
+    }
+
+    private void notifyListeners() {
+        for (FriendsListListener friendsListener : this.friendsListeners)
+            friendsListener.onFriendsUpdate(this.friendsList);
     }
 
     protected ArrayList<FriendData> getFriendsList() {

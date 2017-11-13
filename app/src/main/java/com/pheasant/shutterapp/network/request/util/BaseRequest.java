@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 
 public abstract class BaseRequest extends AsyncTask<Void, Integer, Object> {
 
-    protected final String SERVER_ADDRESS = "http://92.222.70.28/shutter/v1/";
+    protected final String SERVER_ADDRESS = "http://shutterapp.pl/shutter/v1/";
 
     public static final int TYPE_JSON = 0;
     public static final int TYPE_BITMAP = 1;
