@@ -1,18 +1,15 @@
-package com.pheasant.shutterapp.shutter.tmp;
+package com.pheasant.shutterapp.shutter.ui.features.manage.friends;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.FriendsAdapter;
 import com.pheasant.shutterapp.features.shutter.manage.friends.SearchBar;
 import com.pheasant.shutterapp.features.shutter.manage.search.StrangersAdapter;
 import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsListListener;
-import com.pheasant.shutterapp.shutter.ui.features.manage.FriendsTmpAdapter;
+import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
 
 import java.util.ArrayList;
 
@@ -20,10 +17,14 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-07.
  */
 
+@Deprecated
 public class UsersListManager implements SearchBar.SearchListener, FriendsListListener {
 
-    private ListView usersList;
+//        this.listManager = new UsersListManager();
+//        this.listManager.setup(view, this.getContext(), this.getArguments());
+//        this.searchBar.setSearchListener(this.listManager);
 
+    private ListView usersList;
     private FriendsTmpAdapter friendsAdapter;
     private StrangersAdapter strangersAdapter;
 
@@ -40,7 +41,7 @@ public class UsersListManager implements SearchBar.SearchListener, FriendsListLi
     }
 
     @Override
-    public void onFriendsUpdate(ArrayList<FriendData> friendsList) {
+    public void onFriendsListDownloaded(ArrayList<FriendData> friendsList) {
         this.friendsAdapter.updateList(friendsList);
     }
 

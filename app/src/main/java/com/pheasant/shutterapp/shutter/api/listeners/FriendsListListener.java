@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.api.interfaces;
+package com.pheasant.shutterapp.shutter.api.listeners;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
 
@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface FriendsListListener {
-    void onFriendsUpdate(ArrayList<FriendData> friendsList);
+    void onFriendsListDownloaded(ArrayList<FriendData> friendsList);
 }

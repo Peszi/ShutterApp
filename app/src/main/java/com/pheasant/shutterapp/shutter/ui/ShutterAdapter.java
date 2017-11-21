@@ -8,8 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shutter.api.ShutterDataController;
-import com.pheasant.shutterapp.shutter.tmp.FriendsTmpFragment;
+import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
+import com.pheasant.shutterapp.shutter.ui.features.manage.FriendsTmpFragment;
 import com.pheasant.shutterapp.shutter.ui.features.BrowseFragment;
 import com.pheasant.shutterapp.shutter.ui.features.CameraFragment;
 import com.pheasant.shutterapp.shutter.ui.features.ManageFragment;
@@ -30,12 +30,12 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
     private LockingViewPager viewPager;
     private ShutterInterface shutterInterface;
 
-    private ShutterDataController shutterDataController;
+    private ShutterDataManager shutterDataController;
 
     public ShutterAdapter(FragmentManager fragmentManager, View view, Bundle bundle, ShutterInterface shutterInterface) {
         super(fragmentManager);
         this.shutterInterface = shutterInterface;
-        this.shutterDataController = new ShutterDataController(bundle.getString(IntentKey.USER_API_KEY));
+        this.shutterDataController = new ShutterDataManager(bundle.getString(IntentKey.USER_API_KEY));
         this.setupViewPager(view);
         this.setupFragments(bundle);
     }
@@ -61,13 +61,14 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         browseFragment.setArguments(bundle);
         this.shutterFragments[1] = browseFragment;
         // Manage
-        this.shutterFragments[2] = new ManageFragment();
-        this.shutterFragments[2].setArguments(bundle);
+        final ManageFragment manageFragment = new ManageFragment();
+//        manageFragment.setFriendsInterface(this.shutterDataController);
+        manageFragment.setArguments(bundle);
+        this.shutterFragments[2] = manageFragment;
         // Friends
-        final FriendsTmpFragment friendsFragment = new FriendsTmpFragment();
+        final FriendsTmpFragment friendsFragment = new FriendsTmpFragment(bundle.getString(IntentKey.USER_API_KEY));
         friendsFragment.setArguments(bundle);
         friendsFragment.setFriendsInterface(this.shutterDataController);
-        this.shutterDataController.registerFriendsListener(friendsFragment.getFriendsListener());
         this.shutterFragments[3] = friendsFragment;
     }
 

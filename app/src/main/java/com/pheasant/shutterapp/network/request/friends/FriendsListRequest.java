@@ -47,7 +47,7 @@ public class FriendsListRequest extends Request {
                     this.friendsList.add(userData);
                 }
                 if (this.getFriendsRequestListener() != null)
-                    this.getFriendsRequestListener().onListUpdated(this.friendsList);
+                    this.getFriendsRequestListener().onFriendsListDownloaded(this.friendsList);
             }
         } catch (JSONException e) {
             this.getResultListener().onResult(Request.RESULT_ERR);

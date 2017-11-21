@@ -1,7 +1,5 @@
 package com.pheasant.shutterapp.shutter.api.util;
 
-import com.pheasant.shutterapp.shutter.api.interfaces.RequestStatusListener;
-
 import java.util.ArrayList;
 
 /**

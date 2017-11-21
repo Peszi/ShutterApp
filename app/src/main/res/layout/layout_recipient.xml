@@ -26,7 +26,7 @@
         android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <com.pheasant.shutterapp.features.shutter.camera.recipients.CheckButton
+    <ToggleButton
         android:id="@+id/recipient_check_btn"
         android:layout_width="wrap_content"
         android:layout_height="34dp"

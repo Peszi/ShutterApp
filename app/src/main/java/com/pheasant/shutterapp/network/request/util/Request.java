@@ -2,7 +2,7 @@ package com.pheasant.shutterapp.network.request.util;
 
 import android.util.Log;
 
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsRequestListener;
+import com.pheasant.shutterapp.shutter.api.util.FriendsRequestListener;
 
 import java.util.ArrayList;
 import java.util.List;

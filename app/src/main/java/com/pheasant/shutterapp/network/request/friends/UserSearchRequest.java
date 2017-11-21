@@ -16,11 +16,11 @@ import java.util.List;
  * Created by Peszi on 2017-06-06.
  */
 
-public class SearchRequest extends Request {
+public class UserSearchRequest extends Request {
 
-    private List<StrangerData> strangersList;
+    private ArrayList<StrangerData> strangersList;
 
-    public SearchRequest(String apiKey) {
+    public UserSearchRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
         this.setAddress("search");
         this.setAuthorization(apiKey);
@@ -58,7 +58,7 @@ public class SearchRequest extends Request {
         }
     }
 
-    public List<StrangerData> getStrangersList() {
+    public ArrayList<StrangerData> getStrangersList() {
         return this.strangersList;
     }
 }

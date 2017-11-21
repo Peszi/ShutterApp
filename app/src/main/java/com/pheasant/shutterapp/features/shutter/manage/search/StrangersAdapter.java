@@ -14,10 +14,9 @@ import com.pheasant.shutterapp.features.shutter.manage.friends.InviteRequestButt
 import com.pheasant.shutterapp.features.shutter.manage.friends.PageController;
 import com.pheasant.shutterapp.features.shutter.manage.friends.ReloadController;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.network.request.friends.SearchRequest;
+import com.pheasant.shutterapp.network.request.friends.UserSearchRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
-import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
@@ -26,17 +25,17 @@ import com.pheasant.shutterapp.utils.Util;
 
 public class StrangersAdapter extends ArrayAdapter<StrangerData> implements View.OnClickListener, RequestResultListener, ReloadController {
 
-    private SearchRequest searchRequest;
+    private UserSearchRequest userSearchRequest;
     private LayoutInflater layoutInflater;
     private PageController pageController;
     private String apiKey;
 
     public StrangersAdapter(Context context, Bundle bundle) {
         super(context, R.layout.layout_recipient);
-        this.apiKey = bundle.getString(IntentKey.USER_API_KEY);
+//        this.apiKey = bundle.getString(IntentKey.USER_API_KEY);
         this.layoutInflater = LayoutInflater.from(context);
-        this.searchRequest = new SearchRequest(this.apiKey);
-        this.searchRequest.setOnRequestResultListener(this);
+        this.userSearchRequest = new UserSearchRequest(this.apiKey);
+        this.userSearchRequest.setOnRequestResultListener(this);
     }
 
     public void setPageController(PageController pageController) {
@@ -76,10 +75,10 @@ public class StrangersAdapter extends ArrayAdapter<StrangerData> implements View
     }
 
     public void searchUser(String keyword) {
-        this.searchRequest.cancel();
+        this.userSearchRequest.cancel();
         if (!keyword.isEmpty()) {
-            this.searchRequest.setKeyword(keyword);
-            this.searchRequest.execute();
+            this.userSearchRequest.setKeyword(keyword);
+            this.userSearchRequest.execute();
         } else {
             this.clear();
             this.notifyDataSetChanged();
@@ -96,12 +95,12 @@ public class StrangersAdapter extends ArrayAdapter<StrangerData> implements View
     public void onResult(int resultCode) {
         this.clear();
         if (resultCode == Request.RESULT_OK)
-            this.addAll(this.searchRequest.getStrangersList());
+            this.addAll(this.userSearchRequest.getStrangersList());
         this.notifyDataSetChanged();
     }
 
     @Override
     public void onReload() {
-        this.searchRequest.execute();
+        this.userSearchRequest.execute();
     }
 }

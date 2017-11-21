@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.ManageAdapter;
+import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
+import com.pheasant.shutterapp.shutter.ui.features.manage.ManageAdapter;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -24,6 +25,10 @@ public class ManageFragment extends NotifiableFragment {
         Util.setupFont(this.getActivity().getApplicationContext(), view, Util.FONT_PATH_THIN);
         this.pagerAdapter = new ManageAdapter(this.getFragmentManager(), view, this.getArguments());
         return view;
+    }
+
+    public void setFriendsInterface(ShutterApiInterface friendsInterface) {
+        this.pagerAdapter.setFriendsInterface(friendsInterface);
     }
 
     @Override

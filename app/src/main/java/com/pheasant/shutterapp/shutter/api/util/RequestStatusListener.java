@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.api.interfaces;
+package com.pheasant.shutterapp.shutter.api.util;
 
 /**
  * Created by Peszi on 2017-11-06.

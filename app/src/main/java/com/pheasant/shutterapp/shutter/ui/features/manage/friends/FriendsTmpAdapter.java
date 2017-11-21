@@ -1,24 +1,16 @@
-package com.pheasant.shutterapp.shutter.ui.features.manage;
+package com.pheasant.shutterapp.shutter.ui.features.manage.friends;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.RemoveRequestButton;
 import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.shared.Avatar;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsListListener;
-import com.pheasant.shutterapp.utils.Util;
+import com.pheasant.shutterapp.shutter.ui.features.manage.friends.FriendObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Peszi on 2017-11-09.
@@ -64,6 +56,7 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> {
     }
 
     // Update list (setup)
+    // TODO update existing friends (data)
     public void updateList(ArrayList<FriendData> friendsList) {
         this.friendsList = friendsList;
         this.reloadList(this.friendsList);

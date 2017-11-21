@@ -49,6 +49,15 @@ public class SearchBar implements TextWatcher, View.OnClickListener, TextView.On
         this.searchImage.setImageResource(R.drawable.img_search);
     }
 
+    public void setIcon(int index) {
+        int resource = 0;
+        switch (index) {
+            case 0: resource = R.drawable.img_friends; break;
+            case 1: resource = R.drawable.img_search; break;
+        }
+        this.searchImage.setImageResource(resource);
+    }
+
     public void clearKeyword() {
         this.keywordInput.removeTextChangedListener(this);
         this.keywordInput.setText("");

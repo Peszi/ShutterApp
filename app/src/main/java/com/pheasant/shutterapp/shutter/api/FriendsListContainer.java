@@ -4,9 +4,8 @@ import android.util.Log;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsListListener;
-import com.pheasant.shutterapp.shutter.api.interfaces.FriendsRequestListener;
-import com.pheasant.shutterapp.shutter.api.util.StatusProvider;
+import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
+import com.pheasant.shutterapp.shutter.api.util.FriendsRequestListener;
 
 import java.util.ArrayList;
 
@@ -14,14 +13,14 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-06.
  */
 
-public class FriendsContainer implements FriendsRequestListener {
+public class FriendsListContainer implements FriendsRequestListener {
 
     private ArrayList<FriendData> friendsList;
-    private ArrayList<FriendsListListener> friendsListeners;
 
     private FriendsListRequest friendsRequest;
+    private ArrayList<FriendsListListener> friendsListeners;
 
-    public FriendsContainer(String apiKey) {
+    public FriendsListContainer(String apiKey) {
         this.friendsList = new ArrayList<>();
         this.friendsListeners = new ArrayList<>();
         this.friendsRequest = new FriendsListRequest(apiKey);
@@ -34,12 +33,11 @@ public class FriendsContainer implements FriendsRequestListener {
     }
 
     protected void updateFriendsList() {
-        Log.d("RESPONSE", "[friends list downloading...]");
         this.friendsRequest.execute();
     }
 
     @Override
-    public void onListUpdated(ArrayList<FriendData> newFriendsList) {
+    public void onFriendsListDownloaded(ArrayList<FriendData> newFriendsList) {
         int newFriends = this.friendsList.size();
         for (FriendData newFriend : newFriendsList)
             if (!this.updateFriend(newFriend)) // if users is NOT in our list
@@ -61,7 +59,7 @@ public class FriendsContainer implements FriendsRequestListener {
 
     private void notifyListeners() {
         for (FriendsListListener friendsListener : this.friendsListeners)
-            friendsListener.onFriendsUpdate(this.friendsList);
+            friendsListener.onFriendsListDownloaded(this.friendsList);
     }
 
     protected ArrayList<FriendData> getFriendsList() {

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.manage;
+package com.pheasant.shutterapp.shutter.ui.features.manage;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,10 +8,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.View;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.FriendsFragment;
 import com.pheasant.shutterapp.features.shutter.manage.friends.PageController;
 import com.pheasant.shutterapp.features.shutter.manage.search.InvitesFragment;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
+import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
+import com.pheasant.shutterapp.utils.IntentKey;
 
 /**
  * Created by Peszi on 2017-06-06.
@@ -22,12 +23,12 @@ public class ManageAdapter extends FragmentPagerAdapter implements TabLayout.OnT
     private TabLayout tabLayout;
     private LockingViewPager viewPager;
 
-    private FriendsFragment friendsFragment;
+    private FriendsTmpFragment friendsFragment;
     private InvitesFragment invitesFragment;
 
     public ManageAdapter(FragmentManager fragmentManager, View view, Bundle bundle) {
         super(fragmentManager);
-        this.friendsFragment = new FriendsFragment();
+        this.friendsFragment = new FriendsTmpFragment(bundle.getString(IntentKey.USER_API_KEY));
         this.friendsFragment.setArguments(bundle);
         this.invitesFragment = new InvitesFragment();
         this.invitesFragment.setArguments(bundle);
@@ -41,6 +42,10 @@ public class ManageAdapter extends FragmentPagerAdapter implements TabLayout.OnT
         this.viewPager.setAdapter(this);
         this.tabLayout = (TabLayout) view.findViewById(R.id.profile_bottom_nav);
         this.tabLayout.setOnTabSelectedListener(this);
+    }
+
+    public void setFriendsInterface(ShutterApiInterface friendsInterface) {
+        this.friendsFragment.setFriendsInterface(friendsInterface);
     }
 
     public void onShow() {
