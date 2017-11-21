@@ -23,7 +23,7 @@ import com.pheasant.shutterapp.utils.IntentKey;
 
 public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
-    private final int FRAGMENTS_COUNT = 4;
+    private final int FRAGMENTS_COUNT = 3;
 
     private NotifiableFragment[] shutterFragments;
 
@@ -61,15 +61,15 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         browseFragment.setArguments(bundle);
         this.shutterFragments[1] = browseFragment;
         // Manage
-        final ManageFragment manageFragment = new ManageFragment();
-//        manageFragment.setFriendsInterface(this.shutterDataController);
-        manageFragment.setArguments(bundle);
-        this.shutterFragments[2] = manageFragment;
+//        final ManageFragment manageFragment = new ManageFragment();
+////        manageFragment.setFriendsInterface(this.shutterDataController);
+//        manageFragment.setArguments(bundle);
+//        this.shutterFragments[2] = manageFragment;
         // Friends
         final FriendsTmpFragment friendsFragment = new FriendsTmpFragment(bundle.getString(IntentKey.USER_API_KEY));
         friendsFragment.setArguments(bundle);
         friendsFragment.setFriendsInterface(this.shutterDataController);
-        this.shutterFragments[3] = friendsFragment;
+        this.shutterFragments[2] = friendsFragment;
     }
 
     @Override
