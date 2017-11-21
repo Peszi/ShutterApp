@@ -18,7 +18,7 @@ import java.util.List;
 
 public class InvitesListRequest extends Request {
 
-    private List<UserData> friendsList;
+    private ArrayList<UserData> invitesList;
 
     public InvitesListRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
@@ -29,7 +29,7 @@ public class InvitesListRequest extends Request {
 
     @Override
     protected void onSuccess(Object result) {
-        this.friendsList = new ArrayList<>();
+        this.invitesList = new ArrayList<>();
         try {
             JSONObject jsonResult = new JSONObject((String) result);
             if (!jsonResult.getBoolean("error")) {
@@ -40,7 +40,7 @@ public class InvitesListRequest extends Request {
                     userData.setId(userObject.getInt("id"));
                     userData.setName(userObject.getString("name"));
                     userData.setAvatar(userObject.getInt("color"));
-                    this.friendsList.add(userData);
+                    this.invitesList.add(userData);
                 }
                 this.getResultListener().onResult(Request.RESULT_OK);
             }
@@ -50,7 +50,7 @@ public class InvitesListRequest extends Request {
         }
     }
 
-    public List<UserData> getFriendsList() {
-        return this.friendsList;
+    public ArrayList<UserData> getInvitesList() {
+        return this.invitesList;
     }
 }

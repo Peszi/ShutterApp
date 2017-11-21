@@ -2,6 +2,7 @@ package com.pheasant.shutterapp.shutter.ui.features.manage;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,13 @@ import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.features.shutter.manage.friends.SearchBar;
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
+import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.interfaces.ManageFriendsView;
 import com.pheasant.shutterapp.shutter.presenter.ManageFriendsPresenter;
-import com.pheasant.shutterapp.shutter.ui.features.manage.friends.FriendsTmpAdapter;
-import com.pheasant.shutterapp.shutter.ui.features.manage.strangers.StrangersTmpAdapter;
+import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.FriendsTmpAdapter;
+import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.InvitesTmpAdapter;
+import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.StrangersTmpAdapter;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -29,9 +32,11 @@ import java.util.ArrayList;
 
 public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener, SearchBar.SearchListener, ManageFriendsView {
 
-    private final int ADAPTERS_SIZE = 2;
-    private final int FRIENDS_ADAPTER_IDX = 0;
-    private final int STRANGERS_ADAPTER_IDX = 1;
+    // TODO delete not existing users
+    // TODO manage request
+    // TODO search result info
+
+    private final int ADAPTERS_SIZE = 3;
 
     private ListView usersList;
     private SearchBar searchBar;
@@ -63,8 +68,9 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
 
         this.usersList = (ListView) view.findViewById(R.id.friends_list);
         this.listAdapters = new ListAdapter[this.ADAPTERS_SIZE];
-        this.listAdapters[this.FRIENDS_ADAPTER_IDX] = new FriendsTmpAdapter(this.getContext());
-        this.listAdapters[this.STRANGERS_ADAPTER_IDX] = new StrangersTmpAdapter(this.getContext());
+        this.listAdapters[this.friendsPresenter.FRIENDS_ADAPTER_IDX] = new FriendsTmpAdapter(this.getContext());
+        this.listAdapters[this.friendsPresenter.INVITES_ADAPTER_IDX] = new InvitesTmpAdapter(this.getContext());
+        this.listAdapters[this.friendsPresenter.STRANGERS_ADAPTER_IDX] = new StrangersTmpAdapter(this.getContext());
 
         return view;
     }
@@ -144,6 +150,21 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
         this.getStrangersAdapter().updateList(strangersList);
     }
 
+    @Override
+    public void invitesSetKeywordFilter(String keyword) {
+        this.getInvitesAdapter().setFilter(keyword);
+    }
+
+    @Override
+    public void invitesListUpdate(ArrayList<UserData> invitesList) {
+        this.getInvitesAdapter().updateList(invitesList);
+    }
+
+    @Override
+    public void showInfoMessage(String message) {
+        Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
     // Not used
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
@@ -156,10 +177,14 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
     }
 
     private FriendsTmpAdapter getFriendsAdapter() {
-        return (FriendsTmpAdapter) this.listAdapters[this.FRIENDS_ADAPTER_IDX];
+        return (FriendsTmpAdapter) this.listAdapters[this.friendsPresenter.FRIENDS_ADAPTER_IDX];
     }
 
     private StrangersTmpAdapter getStrangersAdapter() {
-        return (StrangersTmpAdapter) this.listAdapters[this.STRANGERS_ADAPTER_IDX];
+        return (StrangersTmpAdapter) this.listAdapters[this.friendsPresenter.STRANGERS_ADAPTER_IDX];
+    }
+
+    private InvitesTmpAdapter getInvitesAdapter() {
+        return (InvitesTmpAdapter) this.listAdapters[this.friendsPresenter.INVITES_ADAPTER_IDX];
     }
 }

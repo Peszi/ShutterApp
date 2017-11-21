@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.ui.features.manage.strangers;
+package com.pheasant.shutterapp.shutter.ui.features.manage.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
 import com.pheasant.shutterapp.network.request.friends.UserSearchRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
-import com.pheasant.shutterapp.shutter.ui.features.manage.friends.FriendObject;
+import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
 
 import java.util.ArrayList;
 
@@ -20,16 +19,13 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-20.
  */
 
-public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements RequestResultListener {
+public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> {
 
     private LayoutInflater layoutInflater;
-    private UserSearchRequest userSearchRequest;
 
     public StrangersTmpAdapter(Context context) {
         super(context, R.layout.layout_recipient);
         this.layoutInflater = LayoutInflater.from(context);
-        this.userSearchRequest = new UserSearchRequest("");
-        this.userSearchRequest.setOnRequestResultListener(this);
     }
 
     @Override
@@ -49,11 +45,5 @@ public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements
         for (StrangerData strangerData : usersList)
             this.add(new StrangerObject(strangerData));
         this.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onResult(int resultCode) {
-        if (resultCode == Request.RESULT_OK)
-            this.updateList(this.userSearchRequest.getStrangersList());
     }
 }

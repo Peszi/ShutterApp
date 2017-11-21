@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.api;
+package com.pheasant.shutterapp.shutter.api.container;
 
 import android.util.Log;
 
@@ -32,19 +32,21 @@ public class FriendsListContainer implements FriendsRequestListener {
         this.friendsListeners.add(friendsListener);
     }
 
-    protected void updateFriendsList() {
+    public void downloadFriendsList() {
+        this.friendsRequest.cancel();
         this.friendsRequest.execute();
     }
 
     @Override
     public void onFriendsListDownloaded(ArrayList<FriendData> newFriendsList) {
-        int newFriends = this.friendsList.size();
-        for (FriendData newFriend : newFriendsList)
-            if (!this.updateFriend(newFriend)) // if users is NOT in our list
-                this.friendsList.add(newFriend); // TODO notify friends list listeners
-        newFriends = this.friendsList.size() - newFriends;
-        Log.d("RESPONSE", "[friends list updated with " + newFriends + " new users]");
-        this.notifyListeners();
+        ArrayList<FriendData> addedFriendsList = new ArrayList<>();
+        for (FriendData newFriend : newFriendsList) {
+            if (!this.updateFriend(newFriend)) {// if users is NOT in our list
+                this.friendsList.add(newFriend);
+                addedFriendsList.add(newFriend);
+            }
+        }
+        this.notifyListeners(addedFriendsList);
     }
 
     // Updating friend data if user already exist
@@ -57,12 +59,12 @@ public class FriendsListContainer implements FriendsRequestListener {
         return false;
     }
 
-    private void notifyListeners() {
+    private void notifyListeners(ArrayList<FriendData> newFriendsList) {
         for (FriendsListListener friendsListener : this.friendsListeners)
-            friendsListener.onFriendsListDownloaded(this.friendsList);
+            friendsListener.onFriendsListDownloaded(newFriendsList);
     }
 
-    protected ArrayList<FriendData> getFriendsList() {
+    public ArrayList<FriendData> getFriendsList() {
         return this.friendsList;
     }
 }

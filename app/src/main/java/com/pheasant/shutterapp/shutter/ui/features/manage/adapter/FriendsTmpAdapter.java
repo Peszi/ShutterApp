@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.ui.features.manage.friends;
+package com.pheasant.shutterapp.shutter.ui.features.manage.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.shutter.ui.features.manage.friends.FriendObject;
+import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
 
 import java.util.ArrayList;
 

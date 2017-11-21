@@ -1,10 +1,14 @@
 package com.pheasant.shutterapp.shutter.api;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
+import com.pheasant.shutterapp.network.request.data.UserData;
+import com.pheasant.shutterapp.shutter.api.container.FriendsListContainer;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
-import com.pheasant.shutterapp.shutter.api.interfaces.UserSearchInterface;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
+import com.pheasant.shutterapp.shutter.api.listeners.InvitesListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.SearchListListener;
+import com.pheasant.shutterapp.shutter.api.requester.InvitesListRequester;
+import com.pheasant.shutterapp.shutter.api.requester.SearchListRequester;
 
 import java.util.ArrayList;
 
@@ -14,12 +18,14 @@ import java.util.ArrayList;
 
 public class ShutterDataManager implements ShutterApiInterface {
 
-    private UserSearchRequester userSearchRequester;
+    private SearchListRequester searchListRequester;
+    private InvitesListRequester invitesListRequester;
 
     private FriendsListContainer friendsListContainer;
 
     public ShutterDataManager(String apiKey) {
-        this.userSearchRequester = new UserSearchRequester(apiKey);
+        this.searchListRequester = new SearchListRequester(apiKey);
+        this.invitesListRequester = new InvitesListRequester(apiKey);
         this.friendsListContainer = new FriendsListContainer(apiKey);
     }
 
@@ -30,27 +36,37 @@ public class ShutterDataManager implements ShutterApiInterface {
 
     @Override
     public void setSearchListListener(SearchListListener listListener) {
-        this.userSearchRequester.setSearchListener(listListener);
+        this.searchListRequester.setListListener(listListener);
     }
 
     @Override
-    public void registerInvitesListListener(FriendsListListener listListener) {
-
+    public void setInvitesListListener(InvitesListListener listListener) {
+        this.invitesListRequester.setListListener(listListener);
     }
 
     @Override
     public void downloadFriends() {
-        this.friendsListContainer.updateFriendsList();
+        this.friendsListContainer.downloadFriendsList();
+    }
+
+    @Override
+    public void downloadInvites() {
+        this.invitesListRequester.downloadList();
     }
 
     @Override
     public void searchUsers(String keyword) {
-        this.userSearchRequester.searchByKeyword(keyword);
+        this.searchListRequester.searchByKeyword(keyword);
     }
 
     @Override
     public ArrayList<FriendData> getFriends() {
         return this.friendsListContainer.getFriendsList();
+    }
+
+    @Override
+    public ArrayList<UserData> getInvites() {
+        return this.invitesListRequester.getInvitesList();
     }
 
 }

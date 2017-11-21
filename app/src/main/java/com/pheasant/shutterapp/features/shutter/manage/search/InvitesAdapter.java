@@ -82,9 +82,9 @@ public class InvitesAdapter extends ArrayAdapter<UserData> implements RequestRes
 
     @Override
     public void onResult(int resultCode) {
-        if (resultCode == Request.RESULT_OK) {
-            this.reloadList(this.invitesRequest.getFriendsList());
-        }
+//        if (resultCode == Request.RESULT_OK) {
+//            this.reloadList(this.invitesRequest.getFriendsList());
+//        }
     }
 
     @Override

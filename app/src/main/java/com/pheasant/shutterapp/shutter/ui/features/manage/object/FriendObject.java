@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.ui.features.manage.friends;
+package com.pheasant.shutterapp.shutter.ui.features.manage.object;
 
 import android.content.Context;
 import android.util.Log;

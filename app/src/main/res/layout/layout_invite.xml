@@ -28,7 +28,7 @@
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <com.pheasant.shutterapp.features.shutter.manage.search.InvitationRequestButton
+    <Button
         android:id="@+id/friend_accept_btn"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
@@ -45,7 +45,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp" />
 
-    <com.pheasant.shutterapp.features.shutter.manage.search.InvitationRequestButton
+    <Button
         android:id="@+id/friend_reject_btn"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
