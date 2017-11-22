@@ -26,6 +26,7 @@ public class JsonRequest extends BaseRequest {
             URL requestUrl = new URL(this.SERVER_ADDRESS + this.requestHolder.getAddress());
             HttpURLConnection requestConnection = (HttpURLConnection) requestUrl.openConnection();
             requestConnection.setRequestMethod(this.requestHolder.getMethod());
+            requestConnection.setConnectTimeout(5000);
             if (this.requestHolder.isAuthorization())
                 requestConnection.setRequestProperty("Authorization", this.requestHolder.getAuthorizationKey());
             if (this.requestHolder.hasParameters()) {

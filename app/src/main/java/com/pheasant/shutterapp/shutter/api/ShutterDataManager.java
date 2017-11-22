@@ -60,6 +60,11 @@ public class ShutterDataManager implements ShutterApiInterface {
     }
 
     @Override
+    public void reloadSearchResults() {
+        this.searchListRequester.reloadList();
+    }
+
+    @Override
     public ArrayList<FriendData> getFriends() {
         return this.friendsListContainer.getFriendsList();
     }

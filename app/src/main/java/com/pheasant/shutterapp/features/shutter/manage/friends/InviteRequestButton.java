@@ -28,7 +28,7 @@ public class InviteRequestButton extends android.support.v7.widget.AppCompatButt
 
     public void setup(ReloadController reloadController, String apiKey, int id) {
         this.reloadController = reloadController;
-        this.inviteRequest = new InviteFriendRequest(apiKey, id);
+        this.inviteRequest = new InviteFriendRequest(apiKey);
         this.inviteRequest.setOnRequestResultListener(this);
     }
 
@@ -54,10 +54,10 @@ public class InviteRequestButton extends android.support.v7.widget.AppCompatButt
 
     @Override
     public void onClick(View v) {
-        switch (this.state) {
-            case 0: this.inviteRequest.setToPost(); break;
-            case 1: this.inviteRequest.setToDelete(); break;
-        }
+//        switch (this.state) {
+//            case 0: this.inviteRequest.setToPost(); break;
+//            case 1: this.inviteRequest.setToDelete(); break;
+//        }
         this.inviteRequest.execute();
     }
 

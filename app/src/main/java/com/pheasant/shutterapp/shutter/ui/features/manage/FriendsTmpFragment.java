@@ -21,6 +21,8 @@ import com.pheasant.shutterapp.shutter.presenter.ManageFriendsPresenter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.FriendsTmpAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.InvitesTmpAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.StrangersTmpAdapter;
+import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
+import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -30,11 +32,14 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-07.
  */
 
-public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener, SearchBar.SearchListener, ManageFriendsView {
+public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener, SearchBar.SearchListener, ManageFriendsView, StrangerObject.StrangerInviteListener, FriendObject.FriendRemoveListener {
 
-    // TODO delete not existing users
-    // TODO manage request
+    // TODO manage friends requests
     // TODO search result info
+
+    // Future
+    // TODO reload lists after removing item by self
+    // TODO "u sure?" dialog boxes
 
     private final int ADAPTERS_SIZE = 3;
 
@@ -71,7 +76,8 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
         this.listAdapters[this.friendsPresenter.FRIENDS_ADAPTER_IDX] = new FriendsTmpAdapter(this.getContext());
         this.listAdapters[this.friendsPresenter.INVITES_ADAPTER_IDX] = new InvitesTmpAdapter(this.getContext());
         this.listAdapters[this.friendsPresenter.STRANGERS_ADAPTER_IDX] = new StrangersTmpAdapter(this.getContext());
-
+        this.getFriendsAdapter().setRemoveListener(this);
+        this.getStrangersAdapter().setInviteListener(this);
         return view;
     }
 
@@ -99,6 +105,21 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
     @Override
     public void onClick(View v) {
         this.friendsPresenter.onRefreshButton();
+    }
+
+    @Override
+    public void onInviteEvent(int userId) {
+        this.friendsPresenter.onInviteEvent(userId);
+    }
+
+    @Override
+    public void onInviteDeleteEvent(int userId) {
+        this.friendsPresenter.onInviteDeleteEvent(userId);
+    }
+
+    @Override
+    public void onRemoveEvent(int userId) {
+        this.friendsPresenter.onFriendRemoveEvent(userId);
     }
 
     // Interface

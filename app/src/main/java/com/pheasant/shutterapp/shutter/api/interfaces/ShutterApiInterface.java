@@ -13,15 +13,16 @@ import java.util.ArrayList;
  */
 
 public interface ShutterApiInterface {
+    // Listeners
     void setSearchListListener(SearchListListener listListener);
     void setInvitesListListener(InvitesListListener listListener);
-
     void registerFriendsListListener(FriendsListListener listListener);
-
+    // Data request
+    void searchUsers(String keyword);
+    void reloadSearchResults();
     void downloadFriends();
     void downloadInvites();
-    void searchUsers(String keyword);
-
+    // Getters
     ArrayList<FriendData> getFriends();
     ArrayList<UserData> getInvites();
 }

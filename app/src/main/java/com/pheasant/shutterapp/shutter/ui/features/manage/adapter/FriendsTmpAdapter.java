@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
+import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
 
 import java.util.ArrayList;
 
@@ -16,11 +17,13 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-09.
  */
 
-public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> {
+public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements FriendObject.FriendRemoveListener {
 
     private ArrayList<FriendData> friendsList;
 
     private LayoutInflater layoutInflater;
+
+    private FriendObject.FriendRemoveListener removeListener;
 
     public FriendsTmpAdapter(Context context) {
         super(context, R.layout.layout_recipient);
@@ -28,10 +31,15 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> {
         this.friendsList = new ArrayList<>();
     }
 
+    public void setRemoveListener(FriendObject.FriendRemoveListener removeListener) {
+        this.removeListener = removeListener;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View baseView = FriendObject.getView(this.getContext(), this.layoutInflater, convertView, parent);
         this.getItem(position).setupView(baseView);
+        this.getItem(position).setObjectListener(this);
         return baseView;
     }
 
@@ -72,5 +80,11 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> {
 
     private void noFriendsWithKeyword() {
         // TODO no friends w/ keyword
+    }
+
+    @Override
+    public void onRemoveEvent(int userId) {
+        if (this.removeListener != null)
+            this.removeListener.onRemoveEvent(userId);
     }
 }

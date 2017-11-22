@@ -31,11 +31,11 @@ public class FriendsListRequest extends Request {
 
     @Override
     protected void onSuccess(Object result) {
-        Log.d("RESPONSE", "[friends success...]");
         this.friendsList = new ArrayList<>();
         try {
             JSONObject jsonResult = new JSONObject((String) result);
             if (!jsonResult.getBoolean("error")) {
+                Log.d("RESPONSE", "[friends success!!!...]");
                 JSONArray imagesList = jsonResult.getJSONArray("friends");
                 for (int i = 0; i < imagesList.length(); i++) {
                     final JSONObject json = (JSONObject) imagesList.get(i);
@@ -46,9 +46,9 @@ public class FriendsListRequest extends Request {
                     userData.setLastActivity(json.getString("activity"));
                     this.friendsList.add(userData);
                 }
-                if (this.getFriendsRequestListener() != null)
-                    this.getFriendsRequestListener().onFriendsListDownloaded(this.friendsList);
+                this.getResultListener().onResult(Request.RESULT_OK);
             }
+            this.getResultListener().onResult(Request.RESULT_ERR);
         } catch (JSONException e) {
             this.getResultListener().onResult(Request.RESULT_ERR);
             e.printStackTrace();

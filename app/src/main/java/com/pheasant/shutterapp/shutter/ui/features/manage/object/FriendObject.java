@@ -23,6 +23,8 @@ public class FriendObject implements View.OnClickListener {
 
     private FriendData friendData;
 
+    private FriendRemoveListener removeListener;
+
     public FriendObject(FriendData friendData) {
         this.friendData = friendData;
     }
@@ -40,6 +42,10 @@ public class FriendObject implements View.OnClickListener {
         }
     }
 
+    public void setObjectListener(FriendRemoveListener removeListener) {
+        this.removeListener = removeListener;
+    }
+
     public static View getView(Context context, LayoutInflater layoutInflater, View convertView, ViewGroup parent) {
         View view = convertView;
         if(view == null) {
@@ -55,7 +61,11 @@ public class FriendObject implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (this.friendData != null)
-            Log.d("RESPONSE", "[friend delete] with " + this.friendData.getName());
+        if (this.friendData != null && this.removeListener != null)
+            this.removeListener.onRemoveEvent(this.friendData.getId());
+    }
+
+    public interface FriendRemoveListener {
+        void onRemoveEvent(int userId);
     }
 }

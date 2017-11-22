@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface InvitesListListener {
-    void onInvitesListDownloaded(ArrayList<UserData> invitesList);
+    void onInvitesListDownloaded(int changesCount);
 }

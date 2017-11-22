@@ -1,12 +1,14 @@
 package com.pheasant.shutterapp.shutter.presenter;
 
-import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
+import com.pheasant.shutterapp.shutter.api.listeners.FriendRemoveListener;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.InvitesListListener;
+import com.pheasant.shutterapp.shutter.api.listeners.InvitesListener;
 import com.pheasant.shutterapp.shutter.api.listeners.SearchListListener;
+import com.pheasant.shutterapp.shutter.api.requester.FriendRemoveRequester;
+import com.pheasant.shutterapp.shutter.api.requester.InviteManageRequester;
 import com.pheasant.shutterapp.shutter.interfaces.ManageFriendsView;
 import com.pheasant.shutterapp.shutter.listeners.ManageFriendsEventListener;
 
@@ -16,17 +18,24 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-21.
  */
 
-public class ManageFriendsPresenter implements ManageFriendsEventListener, FriendsListListener, SearchListListener, InvitesListListener {
+public class ManageFriendsPresenter implements ManageFriendsEventListener, FriendsListListener, SearchListListener, InvitesListListener, InvitesListener, FriendRemoveListener {
 
     public final int FRIENDS_ADAPTER_IDX = 0;
     public final int INVITES_ADAPTER_IDX = 1;
     public final int STRANGERS_ADAPTER_IDX = 2;
 
     private ShutterApiInterface shutterApiInterface; // TODO on null object
+    private InviteManageRequester inviteManageRequester;
+    private FriendRemoveRequester friendRemoveRequester;
 
     private ManageFriendsView friendsView;
 
-    public ManageFriendsPresenter(String apiKey) {}
+    public ManageFriendsPresenter(String apiKey) {
+        this.inviteManageRequester = new InviteManageRequester(apiKey);
+        this.inviteManageRequester.setListener(this);
+        this.friendRemoveRequester = new FriendRemoveRequester(apiKey);
+        this.friendRemoveRequester.setListener(this);
+    }
 
     public void setView(ManageFriendsView friendsView) {
         this.friendsView = friendsView;
@@ -64,8 +73,23 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
 
     @Override
     public void onRefreshButton() {
-        this.shutterApiInterface.downloadFriends();
         this.shutterApiInterface.downloadInvites();
+        this.shutterApiInterface.downloadFriends();
+    }
+
+    @Override
+    public void onFriendRemoveEvent(int userId) {
+        this.friendRemoveRequester.deleteFriend(userId);
+    }
+
+    @Override
+    public void onInviteEvent(int userId) {
+        this.inviteManageRequester.sendInvite(userId);
+    }
+
+    @Override
+    public void onInviteDeleteEvent(int userId) {
+        this.inviteManageRequester.deleteInvite(userId);
     }
 
     private void setupFriendsList() {
@@ -90,9 +114,9 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
     }
 
     @Override
-    public void onFriendsListDownloaded(ArrayList<FriendData> friendsList) {
+    public void onFriendsListDownloaded(int changesCount) {
         this.friendsView.friendsListUpdate(this.shutterApiInterface.getFriends());
-        this.showFriendsUpdateMessage(friendsList.size());
+        this.showFriendsUpdateMessage(changesCount);
     }
 
     @Override
@@ -101,16 +125,34 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
     }
 
     @Override
-    public void onInvitesListDownloaded(ArrayList<UserData> invitesList) {
+    public void onInvitesListDownloaded(int changesCount) {
         this.friendsView.invitesListUpdate(this.shutterApiInterface.getInvites());
-        this.showInvitesUpdateMessage(invitesList.size());
+        this.showInvitesUpdateMessage(changesCount);
     }
 
     private void showFriendsUpdateMessage(int size) {
         if (size > 0) { this.friendsView.showInfoMessage(size + " friends added"); }
+        else if (size < 0) { this.friendsView.showInfoMessage(Math.abs(size) + " friends removed"); }
     }
 
     private void showInvitesUpdateMessage(int size) {
         if (size > 0) { this.friendsView.showInfoMessage(size + " invites added"); }
+        else if (size < 0) { this.friendsView.showInfoMessage(Math.abs(size) + " invites removed"); }
     }
+
+    @Override
+    public void onFriendRemove(int friendId) {
+        this.shutterApiInterface.downloadFriends();
+    }
+
+    @Override
+    public void onInviteSent(int userId) {
+        this.shutterApiInterface.reloadSearchResults();
+    }
+
+    @Override
+    public void onInviteDeleted(int userId) {
+        this.shutterApiInterface.reloadSearchResults();
+    }
+
 }

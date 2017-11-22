@@ -13,12 +13,18 @@ import org.json.JSONObject;
 
 public class RemoveFriendRequest extends Request {
 
-    public RemoveFriendRequest(String apiKey, int friendId) {
+    private int friendId;
+
+    public RemoveFriendRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
         this.setAddress("friends");
-        this.setArgument(String.valueOf(friendId));
         this.setAuthorization(apiKey);
         this.setMethod(RequestMethod.DELETE);
+    }
+
+    public void setFriendId(int friendId) {
+        this.friendId = friendId;
+        this.setArgument(String.valueOf(this.friendId));
     }
 
     @Override
@@ -34,5 +40,9 @@ public class RemoveFriendRequest extends Request {
             this.getResultListener().onResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
+    }
+
+    public int getFriendId() {
+        return this.friendId;
     }
 }

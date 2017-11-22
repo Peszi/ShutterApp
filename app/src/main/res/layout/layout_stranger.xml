@@ -26,22 +26,12 @@
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <ToggleButton
+    <com.pheasant.shutterapp.shutter.ui.shared.InviteTmpButton
         android:id="@+id/friend_invite_btn"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:background="@drawable/all_dark_set_btn_back"
-        android:textOff="invite"
-        android:textOn="invited"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

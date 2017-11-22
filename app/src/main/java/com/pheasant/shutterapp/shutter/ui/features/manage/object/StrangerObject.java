@@ -4,24 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.InviteRequestButton;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.shared.Avatar;
+import com.pheasant.shutterapp.shutter.ui.shared.InviteTmpButton;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
  * Created by Peszi on 2017-11-20.
  */
 
-public class StrangerObject implements View.OnClickListener {
+public class StrangerObject implements InviteTmpButton.InviteButtonListener {
 
     private StrangerData strangerData;
+
+    private StrangerInviteListener objectListener;
 
     public StrangerObject(StrangerData strangerData) {
         this.strangerData = strangerData;
@@ -31,10 +30,16 @@ public class StrangerObject implements View.OnClickListener {
         if (this.strangerData != null) {
             final ImageView avatar = (ImageView) view.getTag(R.id.friend_avatar);
             final TextView name = (TextView) view.getTag(R.id.friend_name);
-            final ToggleButton inviteBtn = (ToggleButton) view.getTag(R.id.friend_invite_btn);
+            final InviteTmpButton inviteBtn = (InviteTmpButton) view.getTag(R.id.friend_invite_btn);
             avatar.setImageResource(R.drawable.avatar_default);
             name.setText(this.strangerData.getName());
+            inviteBtn.setState(this.strangerData.getInvite());
+            inviteBtn.setListener(this);
         }
+    }
+
+    public void setObjectListener(StrangerInviteListener objectListener) {
+        this.objectListener = objectListener;
     }
 
     public static View getView(Context context, LayoutInflater layoutInflater, View convertView, ViewGroup parent) {
@@ -50,8 +55,19 @@ public class StrangerObject implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-//        if (this.strangerData != null)
-//            Log.d("RESPONSE", "[friend delete] with " + this.strangerData.getName());
+    public void onInvite() {
+        if (this.objectListener != null)
+            this.objectListener.onInviteEvent(this.strangerData.getId());
+    }
+
+    @Override
+    public void onUndo() {
+        if (this.objectListener != null)
+            this.objectListener.onInviteDeleteEvent(this.strangerData.getId());
+    }
+
+    public interface StrangerInviteListener {
+        void onInviteEvent(int userId);
+        void onInviteDeleteEvent(int userId);
     }
 }

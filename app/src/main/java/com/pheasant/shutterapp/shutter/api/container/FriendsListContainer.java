@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
+import com.pheasant.shutterapp.network.request.util.Request;
+import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
 import com.pheasant.shutterapp.shutter.api.util.FriendsRequestListener;
 
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-06.
  */
 
-public class FriendsListContainer implements FriendsRequestListener {
+public class FriendsListContainer implements RequestResultListener {
 
     private ArrayList<FriendData> friendsList;
 
@@ -24,8 +26,7 @@ public class FriendsListContainer implements FriendsRequestListener {
         this.friendsList = new ArrayList<>();
         this.friendsListeners = new ArrayList<>();
         this.friendsRequest = new FriendsListRequest(apiKey);
-        this.friendsRequest.setFriendsRequestListener(this);
-//        this.friendsRequest.setOnRequestResultListener(this);
+        this.friendsRequest.setOnRequestResultListener(this);
     }
 
     public void registerFriendsListener(FriendsListListener friendsListener) {
@@ -38,16 +39,27 @@ public class FriendsListContainer implements FriendsRequestListener {
     }
 
     @Override
-    public void onFriendsListDownloaded(ArrayList<FriendData> newFriendsList) {
-        ArrayList<FriendData> addedFriendsList = new ArrayList<>();
-        for (FriendData newFriend : newFriendsList) {
-            if (!this.updateFriend(newFriend)) {// if users is NOT in our list
-                this.friendsList.add(newFriend);
-                addedFriendsList.add(newFriend);
-            }
+    public void onResult(int resultCode) {
+        if (resultCode == Request.RESULT_OK) {
+            Log.d("RESPONSE", "[friends result OK...]");
+            final int changesCount = this.friendsRequest.getFriendsList().size() - this.friendsList.size();
+            this.friendsList.clear();
+            this.friendsList.addAll(this.friendsRequest.getFriendsList());
+            this.notifyListeners(changesCount);
         }
-        this.notifyListeners(addedFriendsList);
     }
+
+//    @Override
+//    public void onFriendsListDownloaded(ArrayList<FriendData> newFriendsList) {
+//        ArrayList<FriendData> addedFriendsList = new ArrayList<>();
+//        for (FriendData newFriend : newFriendsList) {
+//            if (!this.updateFriend(newFriend)) {// if users is NOT in our list
+//                this.friendsList.add(newFriend);
+//                addedFriendsList.add(newFriend);
+//            }
+//        }
+//        this.notifyListeners(addedFriendsList);
+//    }
 
     // Updating friend data if user already exist
     private boolean updateFriend(FriendData updatedFriend) {
@@ -59,12 +71,13 @@ public class FriendsListContainer implements FriendsRequestListener {
         return false;
     }
 
-    private void notifyListeners(ArrayList<FriendData> newFriendsList) {
+    private void notifyListeners(int changesCount) {
         for (FriendsListListener friendsListener : this.friendsListeners)
-            friendsListener.onFriendsListDownloaded(newFriendsList);
+            friendsListener.onFriendsListDownloaded(changesCount);
     }
 
     public ArrayList<FriendData> getFriendsList() {
         return this.friendsList;
     }
+
 }

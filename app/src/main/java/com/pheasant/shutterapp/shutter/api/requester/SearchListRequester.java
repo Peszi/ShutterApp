@@ -32,6 +32,11 @@ public class SearchListRequester implements RequestResultListener {
         this.listRequest.execute();
     }
 
+    public void reloadList() {
+        this.listRequest.cancel();
+        this.listRequest.execute();
+    }
+
     @Override
     public void onResult(int resultCode) {
         if (resultCode == Request.RESULT_OK)

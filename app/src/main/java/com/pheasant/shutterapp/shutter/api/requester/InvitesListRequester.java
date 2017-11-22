@@ -38,16 +38,26 @@ public class InvitesListRequester implements RequestResultListener {
     @Override
     public void onResult(int resultCode) {
         if (resultCode == Request.RESULT_OK) {
-            ArrayList<UserData> addedInvitesList = new ArrayList<>();
-            for (UserData newInvite : this.listRequest.getInvitesList()) {
-                if (!this.updateInvite(newInvite)) {// if users is NOT in our list
-                    this.invitesList.add(newInvite);
-                    addedInvitesList.add(newInvite);
-                }
-            }
-            this.notifyListeners(addedInvitesList);
+            final int changesCount = this.listRequest.getInvitesList().size() - this.invitesList.size();
+            this.invitesList.clear();
+            this.invitesList.addAll(this.listRequest.getInvitesList());
+            this.notifyListeners(changesCount);
         }
     }
+
+//    @Override
+//    public void onResult(int resultCode) {
+//        if (resultCode == Request.RESULT_OK) {
+//            ArrayList<UserData> addedInvitesList = new ArrayList<>();
+//            for (UserData newInvite : this.listRequest.getInvitesList()) {
+//                if (!this.updateInvite(newInvite)) {// if users is NOT in our list
+//                    this.invitesList.add(newInvite);
+//                    addedInvitesList.add(newInvite);
+//                }
+//            }
+//            this.notifyListeners(addedInvitesList);
+//        }
+//    }
 
     // Updating invite data if user already exist
     private boolean updateInvite(UserData updatedInvite) {
@@ -59,9 +69,9 @@ public class InvitesListRequester implements RequestResultListener {
         return false;
     }
 
-    private void notifyListeners(ArrayList<UserData> invitesList) {
+    private void notifyListeners(int changesCount) {
         if (this.listListener != null)
-            this.listListener.onInvitesListDownloaded(invitesList);
+            this.listListener.onInvitesListDownloaded(changesCount);
     }
 
     public ArrayList<UserData> getInvitesList() {

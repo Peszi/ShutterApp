@@ -35,7 +35,7 @@ public class RemoveRequestButton extends android.support.v7.widget.AppCompatImag
         this.reloadController = reloadController;
         this.name = name;
         this.setupDialog();
-        this.removeRequest = new RemoveFriendRequest(apiKey, id);
+        this.removeRequest = new RemoveFriendRequest(apiKey);
         this.removeRequest.setOnRequestResultListener(this);
     }
 

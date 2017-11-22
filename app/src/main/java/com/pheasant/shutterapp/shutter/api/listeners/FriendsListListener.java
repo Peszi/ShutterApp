@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface FriendsListListener {
-    void onFriendsListDownloaded(ArrayList<FriendData> friendsList);
+    void onFriendsListDownloaded(int changesCount);
 }

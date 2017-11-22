@@ -53,7 +53,8 @@ public class SearchBar implements TextWatcher, View.OnClickListener, TextView.On
         int resource = 0;
         switch (index) {
             case 0: resource = R.drawable.img_friends; break;
-            case 1: resource = R.drawable.img_search; break;
+            case 1: resource = R.drawable.img_invite; break;
+            case 2: resource = R.drawable.img_search; break;
         }
         this.searchImage.setImageResource(resource);
     }
