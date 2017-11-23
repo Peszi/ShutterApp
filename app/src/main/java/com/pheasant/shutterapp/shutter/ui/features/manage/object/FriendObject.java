@@ -1,7 +1,6 @@
 package com.pheasant.shutterapp.shutter.ui.features.manage.object;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.RemoveRequestButton;
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.shared.Avatar;
+import com.pheasant.shutterapp.shutter.ui.shared.LoadingImageButton;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
@@ -23,7 +22,7 @@ public class FriendObject implements View.OnClickListener {
 
     private FriendData friendData;
 
-    private FriendRemoveListener removeListener;
+    private FriendRemoveBtnListener removeListener;
 
     public FriendObject(FriendData friendData) {
         this.friendData = friendData;
@@ -34,15 +33,16 @@ public class FriendObject implements View.OnClickListener {
             final ImageView avatar = (ImageView) view.getTag(R.id.friend_avatar);
             final TextView name = (TextView) view.getTag(R.id.friend_name);
             final TextView lastActivity = (TextView) view.getTag(R.id.friend_activity);
-            final ImageButton removeBtn = (ImageButton) view.getTag(R.id.friend_remove_btn);
+            final LoadingImageButton removeBtn = (LoadingImageButton) view.getTag(R.id.friend_remove_btn);
             avatar.setImageResource(Avatar.getAvatar(friendData.getAvatar()));
             name.setText(friendData.getName());
             lastActivity.setText(friendData.getLastActivity());
-            removeBtn.setOnClickListener(this);
+            removeBtn.initButton();
+            removeBtn.setButtonListener(this);
         }
     }
 
-    public void setObjectListener(FriendRemoveListener removeListener) {
+    public void setObjectListener(FriendRemoveBtnListener removeListener) {
         this.removeListener = removeListener;
     }
 
@@ -62,10 +62,10 @@ public class FriendObject implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (this.friendData != null && this.removeListener != null)
-            this.removeListener.onRemoveEvent(this.friendData.getId());
+            this.removeListener.onFriendRemoveEvent(this.friendData.getId());
     }
 
-    public interface FriendRemoveListener {
-        void onRemoveEvent(int userId);
+    public interface FriendRemoveBtnListener {
+        void onFriendRemoveEvent(int userId);
     }
 }

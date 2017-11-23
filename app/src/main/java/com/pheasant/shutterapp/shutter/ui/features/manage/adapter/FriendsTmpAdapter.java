@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
-import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
 
 import java.util.ArrayList;
 
@@ -17,13 +16,13 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-09.
  */
 
-public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements FriendObject.FriendRemoveListener {
+public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements FriendObject.FriendRemoveBtnListener {
 
     private ArrayList<FriendData> friendsList;
 
     private LayoutInflater layoutInflater;
 
-    private FriendObject.FriendRemoveListener removeListener;
+    private FriendObject.FriendRemoveBtnListener removeBtnListener;
 
     public FriendsTmpAdapter(Context context) {
         super(context, R.layout.layout_recipient);
@@ -31,8 +30,8 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements Fri
         this.friendsList = new ArrayList<>();
     }
 
-    public void setRemoveListener(FriendObject.FriendRemoveListener removeListener) {
-        this.removeListener = removeListener;
+    public void setRemoveBtnListener(FriendObject.FriendRemoveBtnListener removeBtnListener) {
+        this.removeBtnListener = removeBtnListener;
     }
 
     @Override
@@ -83,8 +82,8 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements Fri
     }
 
     @Override
-    public void onRemoveEvent(int userId) {
-        if (this.removeListener != null)
-            this.removeListener.onRemoveEvent(userId);
+    public void onFriendRemoveEvent(int userId) {
+        if (this.removeBtnListener != null)
+            this.removeBtnListener.onFriendRemoveEvent(userId);
     }
 }

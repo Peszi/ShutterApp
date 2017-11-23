@@ -15,7 +15,7 @@ import com.pheasant.shutterapp.network.download.user.UserData;
 import com.pheasant.shutterapp.network.download.user.UserDataListener;
 import com.pheasant.shutterapp.network.download.user.UserPhoto;
 import com.pheasant.shutterapp.network.download.user.UserPhotosRequester;
-import com.pheasant.shutterapp.utils.DialogUtil;
+import com.pheasant.shutterapp.shutter.ui.shared.DialogUtil;
 import com.pheasant.shutterapp.utils.Util;
 
 import java.util.List;

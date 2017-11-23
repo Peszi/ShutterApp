@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/button_loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="14dp"
+        android:paddingLeft="14dp"
+        android:text="button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/button_loading_progress"
+        android:visibility="gone"
+        android:padding="5dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</LinearLayout>

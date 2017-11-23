@@ -38,16 +38,14 @@
         android:textSize="18sp"
         android:textColor="@color/colorAccentLight" />
 
-    <ImageButton
+    <com.pheasant.shutterapp.shutter.ui.shared.LoadingImageButton
         android:id="@+id/friend_remove_btn"
+        android:src="@drawable/img_close"
+        android:color="@color/colorPrimaryDark"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:padding="12dp"
-        android:scaleType="fitXY"
-        android:background="@color/colorInvisible"
-        app:srcCompat="@drawable/img_close" />
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

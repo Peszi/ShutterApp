@@ -8,8 +8,5 @@ public interface ManageFriendsEventListener {
     void onPageShow();
     void onTabSelected(int index);
     void onKeywordChange(String keyword);
-    void onRefreshButton();
-    void onFriendRemoveEvent(int userId);
-    void onInviteEvent(int userId);
-    void onInviteDeleteEvent(int userId);
+    void onRefreshButtonEvent();
 }

@@ -20,7 +20,7 @@ public class StrangerObject implements InviteTmpButton.InviteButtonListener {
 
     private StrangerData strangerData;
 
-    private StrangerInviteListener objectListener;
+    private InviteCreateBtnListener objectListener;
 
     public StrangerObject(StrangerData strangerData) {
         this.strangerData = strangerData;
@@ -38,7 +38,7 @@ public class StrangerObject implements InviteTmpButton.InviteButtonListener {
         }
     }
 
-    public void setObjectListener(StrangerInviteListener objectListener) {
+    public void setObjectListener(InviteCreateBtnListener objectListener) {
         this.objectListener = objectListener;
     }
 
@@ -57,17 +57,17 @@ public class StrangerObject implements InviteTmpButton.InviteButtonListener {
     @Override
     public void onInvite() {
         if (this.objectListener != null)
-            this.objectListener.onInviteEvent(this.strangerData.getId());
+            this.objectListener.onInviteCreateEvent(this.strangerData.getId());
     }
 
     @Override
     public void onUndo() {
         if (this.objectListener != null)
-            this.objectListener.onInviteDeleteEvent(this.strangerData.getId());
+            this.objectListener.onInviteRemoveEvent(this.strangerData.getId());
     }
 
-    public interface StrangerInviteListener {
-        void onInviteEvent(int userId);
-        void onInviteDeleteEvent(int userId);
+    public interface InviteCreateBtnListener {
+        void onInviteCreateEvent(int userId);
+        void onInviteRemoveEvent(int userId);
     }
 }

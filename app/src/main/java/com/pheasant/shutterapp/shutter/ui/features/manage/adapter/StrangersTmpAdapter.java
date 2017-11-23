@@ -16,17 +16,17 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-20.
  */
 
-public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements StrangerObject.StrangerInviteListener {
+public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements StrangerObject.InviteCreateBtnListener {
 
     private LayoutInflater layoutInflater;
-    private StrangerObject.StrangerInviteListener objectListener;
+    private StrangerObject.InviteCreateBtnListener objectListener;
 
     public StrangersTmpAdapter(Context context) {
         super(context, R.layout.layout_recipient);
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setInviteListener(StrangerObject.StrangerInviteListener objectListener) {
+    public void setInviteBtnListener(StrangerObject.InviteCreateBtnListener objectListener) {
         this.objectListener = objectListener;
     }
 
@@ -51,14 +51,14 @@ public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements
     }
 
     @Override
-    public void onInviteEvent(int userId) {
+    public void onInviteCreateEvent(int userId) {
         if (this.objectListener != null)
-            this.objectListener.onInviteEvent(userId);
+            this.objectListener.onInviteCreateEvent(userId);
     }
 
     @Override
-    public void onInviteDeleteEvent(int userId) {
+    public void onInviteRemoveEvent(int userId) {
         if (this.objectListener != null)
-            this.objectListener.onInviteDeleteEvent(userId);
+            this.objectListener.onInviteRemoveEvent(userId);
     }
 }

@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.search.InvitationRequestButton;
-import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shared.Avatar;
+import com.pheasant.shutterapp.shutter.ui.shared.LoadingButton;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
@@ -25,6 +23,8 @@ public class InviteObject implements View.OnClickListener {
 
     private UserData inviteData;
 
+    private InviteAcceptBtnListener objectListener;
+
     public InviteObject(UserData inviteData) {
         this.inviteData = inviteData;
     }
@@ -33,11 +33,19 @@ public class InviteObject implements View.OnClickListener {
         if (inviteData != null) {
             final ImageView friendAvatar = (ImageView) view.getTag(R.id.friend_avatar);
             final TextView friendName = (TextView) view.getTag(R.id.friend_name);
-            Button acceptBtn = (Button) view.getTag(R.id.friend_accept_btn);
-            Button rejectBtn = (Button) view.getTag(R.id.friend_reject_btn);
+            final LoadingButton acceptBtn = (LoadingButton) view.getTag(R.id.friend_accept_btn);
+            final LoadingButton rejectBtn = (LoadingButton) view.getTag(R.id.friend_reject_btn);
             friendAvatar.setImageResource(Avatar.getAvatar(this.inviteData.getAvatar()));
             friendName.setText(this.inviteData.getName());
+            acceptBtn.initButton();
+            rejectBtn.initButton();
+            acceptBtn.setButtonListener(this);
+            rejectBtn.setButtonListener(this);
         }
+    }
+
+    public void setObjectListener(InviteAcceptBtnListener objectListener) {
+        this.objectListener = objectListener;
     }
 
     public static View getView(Context context, LayoutInflater layoutInflater, View convertView, ViewGroup parent) {
@@ -55,7 +63,18 @@ public class InviteObject implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (this.inviteData != null)
-            Log.d("RESPONSE", "[friend delete] with " + this.inviteData.getName());
+        if (this.inviteData != null && this.objectListener != null) {
+            switch (v.getId()) {
+                case R.id.friend_accept_btn:
+                    this.objectListener.onInviteAcceptEvent(this.inviteData.getId()); break;
+                case R.id.friend_reject_btn:
+                    this.objectListener.onInviteRejectEvent(this.inviteData.getId()); break;
+            }
+        }
+    }
+
+    public interface InviteAcceptBtnListener {
+        void onInviteAcceptEvent(int userId);
+        void onInviteRejectEvent(int userId);
     }
 }

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.ui.features.manage;
+package com.pheasant.shutterapp.shutter.ui.features;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,20 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.SearchBar;
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
 import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.interfaces.ManageFriendsView;
 import com.pheasant.shutterapp.shutter.presenter.ManageFriendsPresenter;
+import com.pheasant.shutterapp.shutter.ui.features.manage.SearchBar;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.FriendsTmpAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.InvitesTmpAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.StrangersTmpAdapter;
-import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
-import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -32,28 +31,25 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-07.
  */
 
-public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener, SearchBar.SearchListener, ManageFriendsView, StrangerObject.StrangerInviteListener, FriendObject.FriendRemoveListener {
+public class ManageAdapter extends NotifiableFragment implements TabLayout.OnTabSelectedListener, View.OnClickListener, SearchBar.SearchListener, ManageFriendsView {
 
-    // TODO manage friends requests
-    // TODO search result info
-
-    // Future
-    // TODO reload lists after removing item by self
+    // TODO new invite button
+    // TODO refresh gesture
     // TODO "u sure?" dialog boxes
 
-    private final int ADAPTERS_SIZE = 3;
+    private final int ADAPTERS_COUNT = 3;
 
     private ListView usersList;
     private SearchBar searchBar;
     private TabLayout tabLayout;
+    private TextView infoMessage;
     private FloatingActionButton refreshButton;
 
-    //TODO new order
     private ListAdapter[] listAdapters;
 
     private ManageFriendsPresenter friendsPresenter;
 
-    public FriendsTmpFragment(String apiKey) {
+    public ManageAdapter(String apiKey) {
         super();
         this.friendsPresenter = new ManageFriendsPresenter(apiKey);
         this.friendsPresenter.setView(this);
@@ -68,16 +64,18 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
         this.searchBar.setSearchListener(this);
         this.tabLayout = (TabLayout) view.findViewById(R.id.profile_bottom_nav);
         this.tabLayout.setOnTabSelectedListener(this);
+        this.infoMessage = (TextView) view.findViewById(R.id.friends_result);
         this.refreshButton = (FloatingActionButton) view.findViewById(R.id.friends_refresh);
         this.refreshButton.setOnClickListener(this);
 
         this.usersList = (ListView) view.findViewById(R.id.friends_list);
-        this.listAdapters = new ListAdapter[this.ADAPTERS_SIZE];
+        this.listAdapters = new ListAdapter[this.ADAPTERS_COUNT];
         this.listAdapters[this.friendsPresenter.FRIENDS_ADAPTER_IDX] = new FriendsTmpAdapter(this.getContext());
         this.listAdapters[this.friendsPresenter.INVITES_ADAPTER_IDX] = new InvitesTmpAdapter(this.getContext());
         this.listAdapters[this.friendsPresenter.STRANGERS_ADAPTER_IDX] = new StrangersTmpAdapter(this.getContext());
-        this.getFriendsAdapter().setRemoveListener(this);
-        this.getStrangersAdapter().setInviteListener(this);
+        this.getFriendsAdapter().setRemoveBtnListener(this.friendsPresenter);
+        this.getInvitesAdapter().setInviteBtnListener(this.friendsPresenter);
+        this.getStrangersAdapter().setInviteBtnListener(this.friendsPresenter);
         return view;
     }
 
@@ -104,22 +102,7 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
 
     @Override
     public void onClick(View v) {
-        this.friendsPresenter.onRefreshButton();
-    }
-
-    @Override
-    public void onInviteEvent(int userId) {
-        this.friendsPresenter.onInviteEvent(userId);
-    }
-
-    @Override
-    public void onInviteDeleteEvent(int userId) {
-        this.friendsPresenter.onInviteDeleteEvent(userId);
-    }
-
-    @Override
-    public void onRemoveEvent(int userId) {
-        this.friendsPresenter.onFriendRemoveEvent(userId);
+        this.friendsPresenter.onRefreshButtonEvent();
     }
 
     // Interface
@@ -186,6 +169,17 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
         Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showBarMessage(CharSequence message) {
+        this.infoMessage.setText(message);
+        this.infoMessage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideBar() {
+        this.infoMessage.setVisibility(View.GONE);
+    }
+
     // Not used
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
@@ -196,6 +190,8 @@ public class FriendsTmpFragment extends NotifiableFragment implements TabLayout.
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+    // Getters
 
     private FriendsTmpAdapter getFriendsAdapter() {
         return (FriendsTmpAdapter) this.listAdapters[this.friendsPresenter.FRIENDS_ADAPTER_IDX];

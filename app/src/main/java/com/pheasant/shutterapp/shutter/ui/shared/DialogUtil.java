@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.utils;
+package com.pheasant.shutterapp.shutter.ui.shared;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -9,10 +9,9 @@ import android.view.View;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
-import com.pheasant.shutterapp.shutter.ui.features.manage.FriendsTmpFragment;
+import com.pheasant.shutterapp.shutter.ui.features.ManageAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.BrowseFragment;
 import com.pheasant.shutterapp.shutter.ui.features.CameraFragment;
-import com.pheasant.shutterapp.shutter.ui.features.ManageFragment;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.IntentKey;
@@ -66,7 +65,7 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
 //        manageFragment.setArguments(bundle);
 //        this.shutterFragments[2] = manageFragment;
         // Friends
-        final FriendsTmpFragment friendsFragment = new FriendsTmpFragment(bundle.getString(IntentKey.USER_API_KEY));
+        final ManageAdapter friendsFragment = new ManageAdapter(bundle.getString(IntentKey.USER_API_KEY));
         friendsFragment.setArguments(bundle);
         friendsFragment.setFriendsInterface(this.shutterDataController);
         this.shutterFragments[2] = friendsFragment;

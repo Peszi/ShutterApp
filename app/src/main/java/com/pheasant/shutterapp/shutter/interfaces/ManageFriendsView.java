@@ -28,4 +28,6 @@ public interface ManageFriendsView {
     void invitesListUpdate(ArrayList<UserData> invitesList);
 
     void showInfoMessage(String message);
+    void showBarMessage(CharSequence message);
+    void hideBar();
 }

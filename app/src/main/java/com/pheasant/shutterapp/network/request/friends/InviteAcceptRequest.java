@@ -3,6 +3,7 @@ package com.pheasant.shutterapp.network.request.friends;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
+import com.pheasant.shutterapp.shutter.api.util.InviteDataHolder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,22 +12,24 @@ import org.json.JSONObject;
  * Created by Peszi on 2017-06-17.
  */
 
-public class UserInviteRequest extends Request {
+public class InviteAcceptRequest extends Request {
 
-    public UserInviteRequest(String apiKey, int friendId) {
+    private InviteDataHolder inviteDataHolder;
+
+    public InviteAcceptRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
         this.setAddress("friends");
-        this.setArgument(String.valueOf(friendId));
         this.setAuthorization(apiKey);
         this.setMethod(RequestMethod.POST);
     }
 
-    public void setToPost() {
-        this.setMethod(RequestMethod.POST);
-    }
-
-    public void setToDelete() {
-        this.setMethod(RequestMethod.DELETE);
+    public void sendRequest(InviteDataHolder inviteDataHolder) {
+        this.inviteDataHolder = inviteDataHolder;
+        this.setArgument(String.valueOf(inviteDataHolder.getUserId()));
+        if (inviteDataHolder.isNotRemoving())
+            this.setMethod(RequestMethod.POST);
+        else
+            this.setMethod(RequestMethod.DELETE);
     }
 
     @Override
@@ -43,4 +46,9 @@ public class UserInviteRequest extends Request {
             e.printStackTrace();
         }
     }
+
+    public InviteDataHolder getInviteDataHolder() {
+        return this.inviteDataHolder;
+    }
+
 }

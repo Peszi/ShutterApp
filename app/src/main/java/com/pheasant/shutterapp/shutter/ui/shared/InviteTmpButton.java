@@ -3,18 +3,12 @@ package com.pheasant.shutterapp.shutter.ui.shared;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.manage.friends.ReloadController;
-import com.pheasant.shutterapp.network.request.friends.InviteFriendRequest;
-import com.pheasant.shutterapp.network.request.util.Request;
-import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 
 /**
  * Created by Peszi on 2017-11-22.
