@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-09.
  */
 
-public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements FriendObject.FriendRemoveBtnListener {
+public class FriendsAdapter extends ArrayAdapter<FriendObject> implements FriendObject.FriendRemoveBtnListener {
 
     private ArrayList<FriendData> friendsList;
 
@@ -24,7 +24,7 @@ public class FriendsTmpAdapter extends ArrayAdapter<FriendObject> implements Fri
 
     private FriendObject.FriendRemoveBtnListener removeBtnListener;
 
-    public FriendsTmpAdapter(Context context) {
+    public FriendsAdapter(Context context) {
         super(context, R.layout.layout_recipient);
         this.layoutInflater = LayoutInflater.from(context);
         this.friendsList = new ArrayList<>();

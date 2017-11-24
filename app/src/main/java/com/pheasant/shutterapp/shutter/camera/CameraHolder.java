@@ -1,6 +1,5 @@
-package com.pheasant.shutterapp.features.shutter.camera.utils;
+package com.pheasant.shutterapp.shutter.camera;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -9,9 +8,9 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
 
-import com.pheasant.shutterapp.features.shutter.camera.CameraManager;
+import com.pheasant.shutterapp.shutter.interfaces.CameraInterface;
+import com.pheasant.shutterapp.shutter.listeners.CameraEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,27 +21,26 @@ import java.util.List;
  */
 
 @SuppressWarnings("deprecation")
-public class CameraController implements SurfaceHolder.Callback, Camera.PictureCallback, Camera.ShutterCallback, Camera.AutoFocusCallback, SurfaceView.OnTouchListener, Camera.FaceDetectionListener {
+public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallback, Camera.AutoFocusCallback, SurfaceView.OnTouchListener, Camera.FaceDetectionListener, CameraInterface {
 
     private final int FOCUS_AREA_SIZE = 300;
 
     private final double ASPECT_RATIO_TOLERANCE = 0.1;
     private final double ASPECT_RATIO_TARGET = 16d/9;
 
-    private CameraManager cameraManager;
     private Camera camera;
     private Camera.Size cameraPreviewSize;
     private Camera.Face[] cameraDetectedFaces;
-    private Bitmap cameraPhoto;
 
     private CameraSurface surfaceView;
     private SurfaceHolder surfaceHolder;
 
+    private CameraEventListener cameraListener;
+
     private int cameraId;
     private int cameraFlashMode;
 
-    public CameraController(CameraManager cameraManager, CameraSurface cameraSurface) {
-        this.cameraManager = cameraManager;
+    public CameraHolder(CameraSurface cameraSurface) {
         this.surfaceView = cameraSurface;
         this.surfaceView.setOnTouchListener(this);
         this.surfaceHolder = surfaceView.getHolder();
@@ -50,68 +48,34 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
         this.surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-    /* ====================================== INTERFACE ========================================= */
-
-    public void onStart() {
-        this.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+    public void setCameraListener(CameraEventListener cameraListener) {
+        this.cameraListener = cameraListener;
     }
 
-    public void onStop() {
-        this.stopCamera();
-    }
-
-    /* ===================================== SWAP CAMERA ======================================== */
-
-    public void swapCamera(Context context) {
+    @Override
+    public void changeCamera(int cameraId) {
         this.releaseCamera();
-        if (Camera.getNumberOfCameras() > 1) {
-            int id = Camera.CameraInfo.CAMERA_FACING_BACK;
-            if (this.cameraId == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                id = Camera.CameraInfo.CAMERA_FACING_FRONT; // setup front camera id
-                this.cameraFlashMode = 0; // reset flash
-            }
-            this.cameraId = id;
+        if (cameraId > 0 && this.isFrontCameraSupported()) {
+            this.cameraId = cameraId;
         } else {
-            Toast.makeText(context, "Front camera not found!", Toast.LENGTH_LONG).show();
+            this.cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+            if (this.cameraListener != null)
+                this.cameraListener.onErrorMessage("Front camera not found!");
         }
         this.openCamera(this.cameraId);
     }
 
-    /* ===================================== MANAGE FLASH ======================================= */
-
-    public void changeFlashMode(Context context) {
-        if (this.isBackgroundCamera()) {
-            this.cameraFlashMode++;
-            if (this.cameraFlashMode == 3)
-                this.cameraFlashMode = 0;
-            this.setFlashMode();
+    @Override
+    public void changeFlashMode(int flashMode) {
+        if (this.inCameraMode(Camera.CameraInfo.CAMERA_FACING_BACK)) {
+            this.setFlashMode(flashMode);
         } else {
-            Toast.makeText(context, "Flash is only available with back camera!", Toast.LENGTH_LONG).show();
+            if (this.cameraListener != null)
+                this.cameraListener.onErrorMessage("Flash is only available with back camera!");
         }
     }
 
-    private void setFlashMode() {
-        Camera.Parameters params = this.camera.getParameters();
-        switch (this.cameraFlashMode) {
-            case 0: params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF); break;
-            case 1: params.setFlashMode(Camera.Parameters.FLASH_MODE_ON); break;
-            case 2: params.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO); break;
-        }
-        this.camera.setParameters(params);
-    }
-
-    public boolean isBackgroundCamera() {
-        if (this.cameraId == Camera.CameraInfo.CAMERA_FACING_BACK)
-            return true;
-        return false;
-    }
-
-    public int getCameraFlashMode() {
-        return this.cameraFlashMode;
-    }
-
-    /* ===================================== TAKE PHOTO ========================================= */
-
+    @Override
     public void takePhoto() {
         try {
             this.camera.autoFocus(this);
@@ -120,7 +84,22 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
         }
     }
 
-    /* ==================================== CONTROL CAMERA ====================================== */
+    @Override
+    public void setOnFaceFocus() {
+
+    }
+
+    @Override
+    public void setAutoFocus() {
+
+    }
+
+    @Override
+    public void setPointFocus() {
+
+    }
+
+    /* ===================================== TAKE PHOTO ========================================= */
 
     private void openCamera(int id) {
         this.cameraId = id;
@@ -130,22 +109,45 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
             if (this.surfaceHolder != null)
                 this.camera.setPreviewDisplay(this.surfaceHolder);
             this.setupCamera();
+            this.switchToAutoFocus();
+            if (this.cameraListener != null)
+                this.cameraListener.onCameraChanged(this.cameraId);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void releaseCamera() {
-        if(this.camera != null) {
-            this.camera.stopPreview();
-            this.camera.release();
+    private void setFlashMode(int flashMode) {
+        this.cameraFlashMode = flashMode;
+        Camera.Parameters params = this.camera.getParameters();
+        switch (this.cameraFlashMode) {
+            case 0: params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF); break;
+            case 1: params.setFlashMode(Camera.Parameters.FLASH_MODE_ON); break;
+            case 2: params.setFlashMode(Camera.Parameters.FLASH_MODE_AUTO); break;
         }
+        this.camera.setParameters(params);
     }
 
-    private void stopCamera() {
-        this.releaseCamera();
-        if(this.camera != null)
-            this.camera = null;
+    @Override
+    public void onPictureTaken(byte[] data, Camera camera) {
+        final Bitmap cameraPhoto = CameraUtility.getBitmapFromArray(data, this.cameraId);
+        // wake up continuous focus
+        this.camera.stopPreview();
+        this.camera.startPreview();
+        this.camera.cancelAutoFocus();
+        // start preview
+        if (this.cameraListener != null)
+            this.cameraListener.onPhotoTaken(cameraPhoto);
+    }
+
+    /* ==================================== CONTROL CAMERA ====================================== */
+
+    public void onStart() {
+        this.openCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
+    }
+
+    public void onStop() {
+        this.stopCamera();
     }
 
     private void setupCamera() {
@@ -168,7 +170,6 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
             this.camera.setFaceDetectionListener(this);
             this.camera.setDisplayOrientation(90); // vertical camera
             this.camera.startPreview();
-            this.switchToAutoFocus();
         }
     }
 
@@ -205,17 +206,6 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
     public void onAutoFocus(boolean success, Camera camera) {
         this.surfaceView.stopFocusAnimation(); // hide focus pointer
         this.camera.takePicture(null, null, null, this); // this, null, null, this
-    }
-
-    @Override
-    public void onPictureTaken(byte[] data, Camera camera) {
-        this.cameraPhoto = CameraUtility.getBitmapFromArray(data, this.cameraId);
-        // wake up continuous focus
-        this.camera.stopPreview();
-        this.camera.startPreview();
-        this.camera.cancelAutoFocus();
-        // start preview
-        this.cameraManager.setPhoto(this.cameraPhoto);
     }
 
     /* =================================== ON TAP FOCUS ========================================= */
@@ -284,27 +274,22 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
     }
 
     public void switchToFaceFocus() {
-        this.cameraManager.showFocusButtons();
-        this.cameraManager.hideFaceFocusButton(); // UI
         this.resetTouchFocus();
-        this.setFaceFocus();
+        this.setupFaceFocus();
     }
 
     public void switchToAutoFocus() {
-        this.cameraManager.showFocusButtons();
-        this.cameraManager.hideAutoFocusButton(); // UI
         this.resetFaceFocus();
         this.resetTouchFocus();
-        this.setAutoFocus();
+        this.setupAutoFocus();
     }
 
     public void switchToTouchFocus() {
-        this.cameraManager.showFocusButtons(); // UI
         this.resetFaceFocus();
     }
 
     // FACE FOCUS
-    private void setFaceFocus() {
+    private void setupFaceFocus() {
         this.camera.startFaceDetection();
     }
 
@@ -314,7 +299,7 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
     }
 
     // AUTO FOCUS
-    private void setAutoFocus() {
+    private void setupAutoFocus() {
         Camera.Parameters params = this.camera.getParameters();
         if (params.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
             params.setFocusAreas(null);
@@ -331,18 +316,35 @@ public class CameraController implements SurfaceHolder.Callback, Camera.PictureC
         this.surfaceView.stopFocusAnimation();
     }
 
-    /* ================================== SHUTTER UTILITY ======================================= */
-
-    @Override
-    public void onShutter() {
-        this.cameraManager.makeVibe(400);
-    }
-
     /* ===================================== SURFACE ============================================ */
 
     private void setUpVector() {
         this.surfaceView.setUpVector(-1);
-        if (!this.isBackgroundCamera())
+        if (this.inCameraMode(Camera.CameraInfo.CAMERA_FACING_FRONT))
             this.surfaceView.setUpVector(1);
     }
+
+    private void releaseCamera() {
+        if(this.camera != null) {
+            this.camera.stopPreview();
+            this.camera.release();
+        }
+    }
+
+    private void stopCamera() {
+        this.releaseCamera();
+        if(this.camera != null)
+            this.camera = null;
+    }
+
+    private boolean isFrontCameraSupported() {
+        if (Camera.getNumberOfCameras() > 1)
+            return true;
+        return false;
+    }
+
+    private boolean inCameraMode(int cameraId) {
+        return (this.cameraId == cameraId ? true : false);
+    }
+
 }

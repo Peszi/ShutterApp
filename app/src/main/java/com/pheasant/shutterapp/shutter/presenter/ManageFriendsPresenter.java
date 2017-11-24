@@ -90,9 +90,11 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
     }
 
     @Override
-    public void onRefreshButtonEvent() {
-        this.shutterApiInterface.downloadInvites();
-        this.shutterApiInterface.downloadFriends();
+    public void onRefreshEvent() {
+        switch (this.currentTabIdx) {
+            case FRIENDS_ADAPTER_IDX:  this.shutterApiInterface.downloadFriends(); break;
+            case INVITES_ADAPTER_IDX: this.shutterApiInterface.downloadInvites(); break;
+        }
     }
 
     @Override
@@ -121,7 +123,7 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
     }
 
     private void setupFriendsList() {
-        this.friendsView.refreshShowButton(true);
+        this.friendsView.refreshSetRefreshing(true);
         this.friendsView.searchClearKeyword();
         this.friendsView.searchSetIcon(this.FRIENDS_ADAPTER_IDX);
         this.friendsView.listSetAdapter(this.FRIENDS_ADAPTER_IDX);
@@ -129,14 +131,14 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
     }
 
     private void setupInvitesList() {
-        this.friendsView.refreshShowButton(true);
+        this.friendsView.refreshSetRefreshing(true);
         this.friendsView.searchSetIcon(this.INVITES_ADAPTER_IDX); // TODO just icon
         this.friendsView.listSetAdapter(this.INVITES_ADAPTER_IDX);
         this.shutterApiInterface.downloadInvites();
     }
 
     private void setupStrangersList() {
-        this.friendsView.refreshShowButton(false);
+        this.friendsView.refreshSetRefreshing(false);
         this.friendsView.searchSetIcon(this.STRANGERS_ADAPTER_IDX);
         this.friendsView.listSetAdapter(this.STRANGERS_ADAPTER_IDX);
         if (this.currentKeyword.isEmpty())
@@ -147,6 +149,7 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
 
     @Override
     public void onFriendsListDownloaded(int changesCount) {
+        this.friendsView.refreshSetRefreshing(false);
         this.friendsView.friendsListUpdate(this.shutterApiInterface.getFriends());
         if (this.currentTabIdx == this.FRIENDS_ADAPTER_IDX) {
             this.showFriendsUpdateMessage(changesCount);
@@ -156,6 +159,7 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
 
     @Override
     public void onInvitesListDownloaded(int changesCount) {
+        this.friendsView.refreshSetRefreshing(false);
         this.friendsView.invitesListUpdate(this.shutterApiInterface.getInvites());
         if (this.currentTabIdx == this.INVITES_ADAPTER_IDX) {
             this.showInvitesUpdateMessage(changesCount);

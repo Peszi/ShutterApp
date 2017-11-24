@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.camera.utils;
+package com.pheasant.shutterapp.shutter.camera;
 
 import android.content.Context;
 import android.graphics.Bitmap;

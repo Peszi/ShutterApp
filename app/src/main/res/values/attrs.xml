@@ -4,6 +4,14 @@
         <attr name="android:text"/>
         <attr name="android:color"/>
     </declare-styleable>
+    <declare-styleable name="LoadingToggleButton">
+        <attr name="titleOn" format="string" />
+        <attr name="titleOff" format="string" />
+        <attr name="colorOn" format="color" />
+        <attr name="colorOff" format="color" />
+        <attr name="backgroundSrcOn" format="reference" />
+        <attr name="backgroundSrcOff" format="reference" />
+    </declare-styleable>
     <declare-styleable name="LoadingImageButton">
         <attr name="android:src"/>
         <attr name="android:color"/>

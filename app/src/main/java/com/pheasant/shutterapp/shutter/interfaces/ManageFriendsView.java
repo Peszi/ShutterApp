@@ -14,7 +14,7 @@ public interface ManageFriendsView {
     void searchClearKeyword();
     void searchSetIcon(int index);
 
-    void refreshShowButton(boolean show);
+    void refreshSetRefreshing(boolean show);
     void listSetAdapter(int index);
     void tabForceSelect(int index);
 

@@ -48,13 +48,13 @@ public class EditorManager {
     }
 
     private void switchToPhoto() {
-        this.view.findViewById(R.id.layout_preview).setVisibility(View.VISIBLE);
-        this.view.findViewById(R.id.layout_camera).setVisibility(View.GONE);
+//        this.view.findViewById(R.id.layout_preview).setVisibility(View.VISIBLE);
+//        this.view.findViewById(R.id.layout_camera).setVisibility(View.GONE);
     }
 
     private void switchToCamera() {
-        this.view.findViewById(R.id.layout_camera).setVisibility(View.VISIBLE);
-        this.view.findViewById(R.id.layout_preview).setVisibility(View.GONE);
+//        this.view.findViewById(R.id.layout_camera).setVisibility(View.VISIBLE);
+//        this.view.findViewById(R.id.layout_preview).setVisibility(View.GONE);
     }
 
     public Bitmap getEditedPhoto() {

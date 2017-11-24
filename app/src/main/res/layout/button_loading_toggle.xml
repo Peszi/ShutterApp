@@ -5,7 +5,7 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/invite_btn_text"
+        android:id="@+id/button_loading_toggle_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="14dp"
@@ -16,7 +16,7 @@
         android:textSize="16sp" />
 
     <ProgressBar
-        android:id="@+id/invite_btn_progress"
+        android:id="@+id/button_loading_toggle_progress"
         android:visibility="gone"
         android:padding="5dp"
         android:minWidth="0dp"

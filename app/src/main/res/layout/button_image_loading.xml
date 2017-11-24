@@ -5,7 +5,7 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/button_image_icon"
+        android:id="@+id/button_image_loading_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
@@ -16,7 +16,7 @@
         android:background="@color/colorInvisible" />
 
     <ProgressBar
-        android:id="@+id/button_image_loading"
+        android:id="@+id/button_image_loading_progress"
         android:visibility="gone"
         android:padding="5dp"
         android:minWidth="0dp"

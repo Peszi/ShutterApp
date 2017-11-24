@@ -7,7 +7,6 @@ import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
-import com.pheasant.shutterapp.shutter.api.util.FriendsRequestListener;
 
 import java.util.ArrayList;
 

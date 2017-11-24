@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-21.
  */
 
-public class InvitesTmpAdapter extends ArrayAdapter<InviteObject> implements InviteObject.InviteAcceptBtnListener {
+public class InvitesAdapter extends ArrayAdapter<InviteObject> implements InviteObject.InviteAcceptBtnListener {
 
     private ArrayList<UserData> invitesList;
 
@@ -25,7 +25,7 @@ public class InvitesTmpAdapter extends ArrayAdapter<InviteObject> implements Inv
 
     private InviteObject.InviteAcceptBtnListener acceptBtnListener;
 
-    public InvitesTmpAdapter(Context context) {
+    public InvitesAdapter(Context context) {
         super(context, R.layout.layout_recipient);
         this.layoutInflater = LayoutInflater.from(context);
         this.invitesList = new ArrayList<>();

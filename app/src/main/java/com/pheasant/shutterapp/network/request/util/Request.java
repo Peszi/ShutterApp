@@ -2,8 +2,6 @@ package com.pheasant.shutterapp.network.request.util;
 
 import android.util.Log;
 
-import com.pheasant.shutterapp.shutter.api.util.FriendsRequestListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,21 +23,11 @@ public abstract class Request {
     private String authorization;
     private List<String> parameters = new ArrayList<String>();
 
-    private FriendsRequestListener friendsRequestListener;
     private RequestResultListener resultListener;
 
     public void execute() {
         this.requestTask = BaseRequest.getBaseRequest(this.output, this);
         this.requestTask.execute();
-    }
-
-    public void setFriendsRequestListener(FriendsRequestListener friendsRequestListener) {
-        Log.d("RESPONSE", "setting listener " + (friendsRequestListener != null ? true : false));
-        this.friendsRequestListener = friendsRequestListener;
-    }
-
-    protected FriendsRequestListener getFriendsRequestListener() {
-        return this.friendsRequestListener;
     }
 
     public void setOnRequestResultListener(RequestResultListener resultListener) {

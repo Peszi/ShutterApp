@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_preview"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/editor_edit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="-5dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_alignParentTop="true">
+
+        <ImageButton
+            android:id="@+id/editor_draw_button"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/editor_face_button"
+            android:background="#0fff"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/editor_draw_button" />
+
+        <ImageButton
+            android:id="@+id/editor_face_button"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:scaleType="fitCenter"
+            android:background="#0fff"
+            app:srcCompat="@drawable/editor_face_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageButton
+            android:id="@+id/editor_clear_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:background="#0fff"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/preview_reject"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editor_draw_panel"
+        android:layout_width="80dp"
+        android:layout_height="220dp"
+        android:layout_marginRight="-5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/editor_draw_clear_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_above="@+id/editor_draw_brush_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="12dp"
+            android:background="#0fff"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/editor_draw_clear" />
+
+        <ImageButton
+            android:id="@+id/editor_draw_brush_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="#0fff"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/editor_draw_color" />
+
+        <ImageButton
+            android:id="@+id/editor_draw_undo_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_below="@+id/editor_draw_brush_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="12dp"
+            android:background="#0fff"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/editor_draw_undo" />
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/preview_accept"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="35dp"
+        android:background="#0000"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/preview_accept" />
+
+    <ImageButton
+        android:id="@+id/preview_reject"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="35dp"
+        android:background="#0000"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/preview_reject" />
+
+    <EditText
+        android:id="@+id/editor_text_message"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#9000"
+        android:ems="10"
+        android:inputType="text"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textColorHighlight="#a44e"
+        android:textCursorDrawable="@null"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

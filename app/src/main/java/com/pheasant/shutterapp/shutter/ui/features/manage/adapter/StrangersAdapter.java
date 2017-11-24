@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-20.
  */
 
-public class StrangersTmpAdapter extends ArrayAdapter<StrangerObject> implements StrangerObject.InviteCreateBtnListener {
+public class StrangersAdapter extends ArrayAdapter<StrangerObject> implements StrangerObject.InviteCreateBtnListener {
 
     private LayoutInflater layoutInflater;
     private StrangerObject.InviteCreateBtnListener objectListener;
 
-    public StrangersTmpAdapter(Context context) {
+    public StrangersAdapter(Context context) {
         super(context, R.layout.layout_recipient);
         this.layoutInflater = LayoutInflater.from(context);
     }

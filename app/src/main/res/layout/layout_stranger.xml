@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="60dp"
@@ -26,8 +27,14 @@
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <com.pheasant.shutterapp.shutter.ui.shared.InviteTmpButton
+    <com.pheasant.shutterapp.shutter.ui.shared.LoadingToggleButton
         android:id="@+id/friend_invite_btn"
+        custom:titleOn="invite"
+        custom:titleOff="invited"
+        custom:colorOn="@color/colorPrimaryDark"
+        custom:colorOff="@color/colorPrimary"
+        custom:backgroundSrcOn="@drawable/all_dark_set_btn_back"
+        custom:backgroundSrcOff="@drawable/all_dark_reset_btn_back"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_centerVertical="true"

@@ -2,14 +2,8 @@ package com.pheasant.shutterapp.shutter.ui.shared;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.support.v4.view.ViewGroupCompat;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,12 +25,11 @@ public class LoadingButton extends LinearLayout implements View.OnClickListener 
 
     public LoadingButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        inflater.inflate(R.layout.button_loading, this);
+        View.inflate(context, R.layout.button_loading, this);
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.LoadingButton, 0, 0);
         final String title = attributes.getString(R.styleable.LoadingButton_android_text);
         final int color = attributes.getColor(R.styleable.LoadingButton_android_color, 0);
-        this.buttonText = (TextView) this.findViewById(R.id.button_loading_text);
+        this.buttonText = (TextView) this.findViewById(R.id.button_loading_title);
         this.buttonText.setText(title);
         this.buttonText.setTextColor(color);
         this.buttonLoading = (ProgressBar) this.findViewById(R.id.button_loading_progress);

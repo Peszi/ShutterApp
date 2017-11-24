@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.shutter.ui.shared.InviteTmpButton;
+import com.pheasant.shutterapp.shutter.ui.shared.LoadingToggleButton;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
  * Created by Peszi on 2017-11-20.
  */
 
-public class StrangerObject implements InviteTmpButton.InviteButtonListener {
+public class StrangerObject implements LoadingToggleButton.OnToggleClickListener {
 
     private StrangerData strangerData;
 
@@ -26,20 +26,20 @@ public class StrangerObject implements InviteTmpButton.InviteButtonListener {
         this.strangerData = strangerData;
     }
 
+    public void setObjectListener(InviteCreateBtnListener objectListener) {
+        this.objectListener = objectListener;
+    }
+
     public void setupView(View view) {
         if (this.strangerData != null) {
             final ImageView avatar = (ImageView) view.getTag(R.id.friend_avatar);
             final TextView name = (TextView) view.getTag(R.id.friend_name);
-            final InviteTmpButton inviteBtn = (InviteTmpButton) view.getTag(R.id.friend_invite_btn);
+            final LoadingToggleButton inviteBtn = (LoadingToggleButton) view.getTag(R.id.friend_invite_btn);
             avatar.setImageResource(R.drawable.avatar_default);
             name.setText(this.strangerData.getName());
-            inviteBtn.setState(this.strangerData.getInvite());
+            inviteBtn.setButtonState(this.strangerData.getInvite());
             inviteBtn.setListener(this);
         }
-    }
-
-    public void setObjectListener(InviteCreateBtnListener objectListener) {
-        this.objectListener = objectListener;
     }
 
     public static View getView(Context context, LayoutInflater layoutInflater, View convertView, ViewGroup parent) {
@@ -55,15 +55,14 @@ public class StrangerObject implements InviteTmpButton.InviteButtonListener {
     }
 
     @Override
-    public void onInvite() {
-        if (this.objectListener != null)
-            this.objectListener.onInviteCreateEvent(this.strangerData.getId());
-    }
-
-    @Override
-    public void onUndo() {
-        if (this.objectListener != null)
-            this.objectListener.onInviteRemoveEvent(this.strangerData.getId());
+    public void onClickEvent(int state, View view) {
+        if (this.objectListener != null) {
+            final int userId = this.strangerData.getId();
+            switch (state) {
+                case 0: this.objectListener.onInviteCreateEvent(userId); break;
+                case 1: this.objectListener.onInviteRemoveEvent(userId); break;
+            }
+        }
     }
 
     public interface InviteCreateBtnListener {

@@ -1,141 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_preview"
+    android:id="@+id/camera_preview"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.pheasant.shutterapp.shutter.camera.CameraSurface
+        android:id="@+id/shutter_surface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
     <RelativeLayout
-        android:id="@+id/editor_edit_bar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="-5dp"
-        android:layout_marginLeft="-5dp"
-        android:layout_alignParentTop="true">
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true">
 
         <ImageButton
-            android:id="@+id/editor_draw_button"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/editor_face_button"
-            android:background="#0fff"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/editor_draw_button" />
-
-        <ImageButton
-            android:id="@+id/editor_face_button"
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:scaleType="fitCenter"
-            android:background="#0fff"
-            app:srcCompat="@drawable/editor_face_button"
+            android:id="@+id/shutter_swap_button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <ImageButton
-            android:id="@+id/editor_clear_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:background="@drawable/shutter_button_background"
+            android:padding="6dp"
             android:scaleType="fitXY"
-            android:background="#0fff"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/preview_reject"
+            app:srcCompat="@drawable/shutter_landscape_button"
+            android:layout_marginRight="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_toLeftOf="@+id/shutter_take_button"
+            android:layout_toStartOf="@+id/shutter_take_button" />
+
+        <ImageButton
+            android:id="@+id/shutter_take_button"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
+            android:background="#0000"
+            android:padding="6dp"
+            android:scaleType="fitXY"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/editor_draw_panel"
-        android:layout_width="80dp"
-        android:layout_height="220dp"
-        android:layout_marginRight="-5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone">
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/shutter_shot" />
 
         <ImageButton
-            android:id="@+id/editor_draw_clear_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_above="@+id/editor_draw_brush_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="12dp"
-            android:background="#0fff"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/editor_draw_clear" />
-
-        <ImageButton
-            android:id="@+id/editor_draw_brush_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:id="@+id/shutter_flash_button"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:background="@drawable/shutter_button_background"
+            android:padding="6dp"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/shutter_flash_off_button"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:background="#0fff"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/editor_draw_color" />
-
-        <ImageButton
-            android:id="@+id/editor_draw_undo_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_below="@+id/editor_draw_brush_button"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="12dp"
-            android:background="#0fff"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/editor_draw_undo" />
+            android:layout_toRightOf="@+id/shutter_take_button"
+            android:layout_toEndOf="@+id/shutter_take_button" />
 
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/preview_accept"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="35dp"
-        android:background="#0000"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/preview_accept" />
-
-    <ImageButton
-        android:id="@+id/preview_reject"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="35dp"
-        android:background="#0000"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/preview_reject" />
-
-    <EditText
-        android:id="@+id/editor_text_message"
-        android:layout_width="match_parent"
+        android:id="@+id/shutter_focus_face_button"
+        android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="#9000"
-        android:ems="10"
-        android:inputType="text"
-        android:text=""
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textColorHighlight="#a44e"
-        android:textCursorDrawable="@null"
-        android:textSize="22sp"
-        android:visibility="gone" />
+        android:layout_margin="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        app:srcCompat="@drawable/shutter_focus_face" />
+
+    <ImageButton
+        android:id="@+id/shutter_focus_auto_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:background="#0000"
+        app:srcCompat="@drawable/shutter_focus_auto" />
 
 </RelativeLayout>
