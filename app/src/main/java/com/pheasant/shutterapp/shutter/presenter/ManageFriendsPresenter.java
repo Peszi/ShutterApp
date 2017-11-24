@@ -59,6 +59,8 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
         this.shutterApiInterface.setInvitesListListener(this);
     }
 
+    // UI callbacks
+
     @Override
     public void onPageShow() {
         this.friendsView.searchClearKeyword();
@@ -145,7 +147,7 @@ public class ManageFriendsPresenter implements ManageFriendsEventListener, Frien
             this.showStrangersBarNoKeywordMessage();
     }
 
-    // Callbacks
+    // Api Requests callbacks
 
     @Override
     public void onFriendsListDownloaded(int changesCount) {

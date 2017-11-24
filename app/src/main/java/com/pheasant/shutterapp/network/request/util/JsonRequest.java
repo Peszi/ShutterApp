@@ -31,7 +31,7 @@ public class JsonRequest extends BaseRequest {
                 requestConnection.setRequestProperty("Authorization", this.requestHolder.getAuthorizationKey());
             if (this.requestHolder.hasParameters()) {
                 requestConnection.setDoOutput(true);
-                requestConnection.getOutputStream().write(this.requestHolder.getParameters().getBytes());
+                requestConnection .getOutputStream().write(this.requestHolder.getParameters().getBytes());
             }
             BufferedReader bufferedReader;
             if (requestConnection.getResponseCode() == HttpURLConnection.HTTP_OK | requestConnection.getResponseCode() == HttpURLConnection.HTTP_CREATED) {
