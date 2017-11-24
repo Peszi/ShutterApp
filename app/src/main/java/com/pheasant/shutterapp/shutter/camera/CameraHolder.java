@@ -60,7 +60,7 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
         } else {
             this.cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
             if (this.cameraListener != null)
-                this.cameraListener.onErrorMessage("Front camera not found!");
+                this.cameraListener.onErrorMessage("Front camera not founds!");
         }
         this.openCamera(this.cameraId);
     }
