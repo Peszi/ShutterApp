@@ -1,7 +1,7 @@
 package com.pheasant.shutterapp.shutter.presenter;
 
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
-import com.pheasant.shutterapp.shutter.interfaces.CameraPreviewView;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
 
 /**
  * Created by Peszi on 2017-11-24.

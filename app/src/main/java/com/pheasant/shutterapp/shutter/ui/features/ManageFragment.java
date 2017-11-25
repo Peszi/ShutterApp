@@ -16,14 +16,13 @@ import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
 import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
-import com.pheasant.shutterapp.shutter.interfaces.ManageFriendsView;
+import com.pheasant.shutterapp.shutter.ui.interfaces.ManageFriendsView;
 import com.pheasant.shutterapp.shutter.presenter.ManageFriendsPresenter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.SearchBar;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.FriendsAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.InvitesAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.StrangersAdapter;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
-import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Util;
 
 import java.util.ArrayList;

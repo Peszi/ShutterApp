@@ -7,11 +7,32 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.hardware.Camera;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Peszi on 2017-05-03.
  */
 
 public class CameraUtility {
+
+    public static int getFixedPointX(float y, int surfaceHeight) {
+        return (int) ((0.5f - y / surfaceHeight) * -2000);
+    }
+
+    public static int getFixedPointY(float x, int surfaceWidth) {
+        return (int) ((0.5f - x / surfaceWidth) * 2000);
+    }
+
+    public static Camera.Area getFocusArea(int fixedX, int fixedY, int area, int weight) {
+        Rect focusArea = new Rect(-area, -area, area, area);
+        focusArea.offset(fixedX, fixedY); // translate and clamp to focus range (-1000, 1000)
+        focusArea.left = Math.max(-1000, focusArea.left);
+        focusArea.bottom = Math.min(1000, focusArea.bottom);
+        focusArea.right = Math.min(1000, focusArea.right);
+        focusArea.top = Math.max(-1000, focusArea.top);
+        return new Camera.Area(focusArea, weight);
+    }
 
     public static Rect getFocusArea(final float x, final float y, int area, int surfaceWidth, int surfaceHeight) {
         final int fixedX = (int) ((0.5f - y / surfaceHeight) * -2000);
@@ -39,4 +60,5 @@ public class CameraUtility {
         resultBitmap = Bitmap.createBitmap(resultBitmap, 0, 0, resultBitmap.getWidth(), resultBitmap.getHeight(), transformMatrix, true);
         return resultBitmap;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.pheasant.shutterapp.shutter.camera;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,9 +14,15 @@ import android.graphics.RectF;
 import android.hardware.Camera;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.pheasant.shutterapp.R;
+import com.pheasant.shutterapp.shutter.ui.features.camera.FocusPointer;
+import com.pheasant.shutterapp.shutter.ui.features.camera.SurfaceBasicInterface;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraSurfaceInterface;
+import com.pheasant.shutterapp.shutter.ui.listeners.CameraSurfaceListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +31,7 @@ import java.util.List;
  * Created by Peszi on 2017-05-05.
  */
 
-public class CameraSurface extends SurfaceView {
+public class CameraSurface extends SurfaceView implements View.OnTouchListener, CameraSurfaceInterface, SurfaceBasicInterface {
 
     private final int FOCUS_POINTER_SIZE = 100; // px
     private final int FOCUS_POINTER_SIZE_CHANGE = 10; // px
@@ -44,12 +51,68 @@ public class CameraSurface extends SurfaceView {
 
     private int cameraUpVector;
 
+    private FocusPointer focusPointer;
+
+    private CameraSurfaceListener surfaceListener;
+
     public CameraSurface(Context context, AttributeSet set) {
         super(context, set);
+        this.setupSurface();
+        this.setupUI(context.getResources());
+        this.focusPointer = new FocusPointer(context.getResources().getDisplayMetrics());
+        this.focusPointer.setSurfaceInterface(this);
+    }
+
+    private void setupSurface() {
+        this.setOnTouchListener(this);
         this.setWillNotDraw(false);
         this.setDrawingCacheEnabled(false);
-        this.setupFocusPointer(context);
-        this.prepareFacePointers();
+    }
+
+    private void setupUI(Resources resources) {
+        this.focusBitmap = BitmapFactory.decodeResource(resources, R.drawable.focus_area);
+    }
+
+    public void setSurfaceListener(CameraSurfaceListener surfaceListener) {
+        this.surfaceListener = surfaceListener;
+    }
+
+    @Override
+    public void drawFocusPointer(int x, int y) {
+        this.focusPointer.showPointer(x, y);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && this.surfaceListener != null) {
+            final int xPoint = (int) event.getX();
+            final int yPoint = (int) event.getY();
+            final int xFixed = CameraUtility.getFixedPointX(yPoint, this.getHeight());
+            final int yFixed = CameraUtility.getFixedPointY(xPoint, this.getWidth());
+            this.surfaceListener.onTouchDownEvent(xPoint, yPoint, xFixed, yFixed);
+//            this.surfaceView.setFocusPosition(new Point((int) event.getX(), (int) event.getY())); // draw focus pointer
+        }
+        return true;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        this.focusPointer.drawPointer(canvas);
+    }
+
+    @Override
+    public void invalidateCanvas() {
+        this.invalidate();
+    }
+
+    @Override
+    public int getSurfaceWidth() {
+        return this.getWidth();
+    }
+
+    @Override
+    public int getSurfaceHeight() {
+        return this.getHeight();
     }
 
     /* ===================================== TAP FOCUS ========================================== */
@@ -172,12 +235,6 @@ public class CameraSurface extends SurfaceView {
     }
 
     /* ======================================== DRAW ============================================ */
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        this.drawFocusPointer(canvas);
-        this.drawFacePointers(canvas);
-    }
 
     private class FocusFace {
 

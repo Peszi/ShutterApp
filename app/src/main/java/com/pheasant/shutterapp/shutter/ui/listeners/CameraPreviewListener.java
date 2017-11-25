@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.listeners;
+package com.pheasant.shutterapp.shutter.ui.listeners;
 
 /**
  * Created by Peszi on 24.11.2017.

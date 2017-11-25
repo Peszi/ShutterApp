@@ -12,16 +12,15 @@ import android.widget.ImageButton;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.camera.CameraHolder;
 import com.pheasant.shutterapp.shutter.camera.CameraSurface;
-import com.pheasant.shutterapp.shutter.interfaces.CameraPreviewView;
-import com.pheasant.shutterapp.shutter.listeners.CameraPreviewListener;
-import com.pheasant.shutterapp.shutter.presenter.CameraPresenter;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
+import com.pheasant.shutterapp.shutter.presenter.CameraHolderPresenter;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
  * Created by Peszi on 2017-11-24.
  */
 
-public class CameraPreviewFragment extends Fragment implements CameraPreviewView {
+public class CameraPreviewFragment extends Fragment implements CameraPreviewView, View.OnClickListener {
 
     private ImageButton swapButton;
     private ImageButton flashButton;
@@ -33,12 +32,10 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
     private CameraSurface cameraSurface;
     private CameraHolder cameraHolder;
 
-    private CameraPresenter cameraPresenter;
-
-    private CameraPreviewListener previewListener;
+    private CameraHolderPresenter cameraPresenter;
 
     public CameraPreviewFragment() {
-        this.cameraPresenter = new CameraPresenter();
+        this.cameraPresenter = new CameraHolderPresenter();
     }
 
     @Override
@@ -46,20 +43,31 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
         View view = inflater.inflate(R.layout.layout_camera_preview, container, false);
         Util.setupFont(this.getActivity().getApplicationContext(), view, Util.FONT_PATH_LIGHT);
 
-        this.cameraSurface = (CameraSurface) view.findViewById(R.id.shutter_surface);
-        this.cameraHolder = new CameraHolder(this.cameraSurface);
+        this.setupUI(view);
+
+        this.cameraHolder = new CameraHolder(this.cameraSurface.getHolder());
+        this.cameraSurface.setSurfaceListener(this.cameraPresenter);
         this.cameraHolder.setCameraListener(this.cameraPresenter);
         this.cameraPresenter.setCameraInterface(this.cameraHolder);
-        this.cameraPresenter.setCameraView(this);
+        this.cameraPresenter.setCameraSurfaceInterface(this.cameraSurface);
+        this.cameraPresenter.setCameraViewInterface(this);
 
+        return view;
+    }
+
+    private void setupUI(View view) {
+        this.cameraSurface = (CameraSurface) view.findViewById(R.id.shutter_surface);
         this.swapButton = (ImageButton) view.findViewById(R.id.shutter_swap_button);
         this.flashButton = (ImageButton) view.findViewById(R.id.shutter_flash_button);
         this.takeButton = (ImageButton) view.findViewById(R.id.shutter_take_button);
         this.faceFocusButton = (ImageButton) view.findViewById(R.id.shutter_focus_face_button);
         this.autoFocusButton = (ImageButton) view.findViewById(R.id.shutter_focus_auto_button);
         this.takeButtonAnimation = AnimationUtils.loadAnimation(this.getContext(), R.anim.rotate);
-
-        return view;
+        this.swapButton.setOnClickListener(this);
+        this.flashButton.setOnClickListener(this);
+        this.takeButton.setOnClickListener(this);
+        this.faceFocusButton.setOnClickListener(this);
+        this.autoFocusButton.setOnClickListener(this);
     }
 
     @Override
@@ -115,5 +123,16 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
     private void showView(View view, boolean show) {
         if (show) { view.setVisibility(View.VISIBLE); }
         else { view.setVisibility(View.GONE); }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.shutter_swap_button: this.cameraPresenter.onSwapCameraEvent(); break;
+            case R.id.shutter_flash_button: this.cameraPresenter.onChangeFlashModeEvent(); break;
+            case R.id.shutter_take_button: this.cameraPresenter.onTakePhotoEvent(); break;
+            case R.id.shutter_focus_face_button: this.cameraPresenter.onFaceFocusEvent(); break;
+            case R.id.shutter_focus_auto_button: this.cameraPresenter.onAutoFocusEvent(); break;
+        }
     }
 }

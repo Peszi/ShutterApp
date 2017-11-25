@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.interfaces;
+package com.pheasant.shutterapp.shutter.ui.interfaces;
 
 import com.pheasant.shutterapp.network.request.data.FriendData;
 import com.pheasant.shutterapp.network.request.data.StrangerData;
