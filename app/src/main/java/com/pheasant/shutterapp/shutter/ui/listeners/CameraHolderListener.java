@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface CameraHolderListener {
     void onCameraChanged(int cameraId);
     void onFlashModeChanged(int flashMode);
-    void onPhotoTaken(Bitmap cameraPhoto);
     void onNewFacesDetected(ArrayList<Camera.Face> newFaces);
+    void onPhotoTaken(Bitmap cameraPhoto);
     void onErrorMessage(String message);
 }

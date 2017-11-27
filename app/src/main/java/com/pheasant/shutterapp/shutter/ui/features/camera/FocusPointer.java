@@ -1,15 +1,16 @@
 package com.pheasant.shutterapp.shutter.ui.features.camera;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Handler;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
-import com.pheasant.shutterapp.shutter.camera.CameraSurface;
+import com.pheasant.shutterapp.R;
+import com.pheasant.shutterapp.shutter.ui.interfaces.SurfaceBasicInterface;
 
 /**
  * Created by Peszi on 2017-11-25.
@@ -17,54 +18,66 @@ import com.pheasant.shutterapp.shutter.camera.CameraSurface;
 
 public class FocusPointer implements Runnable {
 
-    private final int POINTER_SIZE = 80;
-    private final int POINTER_ALPHA = 196;
-    private final int POINTER_LIFE_TIME = 2000;
+    private final int POINTER_SIZE = 60;
+    private final int POINTER_LIFE_TIME = 1000;
+    private final float POINTER_DELTA = 1/20f;
+    private final float POINTER_SIZE_CHANGE = 0.2f;
 
+    private int pointerX, pointerY;
     private RectF pointerRect;
     private Paint pointerPaint;
-    private float pointerScale = 1;
+    private Bitmap pointerBitmap;
+    private int pointerSize;
 
     private boolean isVisible;
+    private float time;
 
     private Handler handler;
     private SurfaceBasicInterface surfaceInterface;
 
-    public FocusPointer(DisplayMetrics displayMetrics) {
-        final int pointerSize = (int) (this.POINTER_SIZE * displayMetrics.density);
-        this.pointerRect = new RectF(-pointerSize/2, -pointerSize/2, pointerSize/2, pointerSize/2);
+    public FocusPointer(Resources resources) {
+        this.handler = new Handler();
+        this.pointerBitmap = BitmapFactory.decodeResource(resources, R.drawable.focus_pointer);
+        this.pointerSize = (int) (this.POINTER_SIZE * resources.getDisplayMetrics().density);
+        this.pointerRect = new RectF();
+        this.setBitmapSize(1);
         this.pointerPaint = new Paint();
-        this.pointerPaint.setColor(Color.WHITE); //Color.argb(this.POINTER_ALPHA, 1, 1, 1));
     }
 
     public void setSurfaceInterface(SurfaceBasicInterface surfaceInterface) {
         this.surfaceInterface = surfaceInterface;
     }
 
+    private void setBitmapSize(final float scale) {
+        final int currentPointerSize = (int) (pointerSize/2 * scale);
+        this.pointerRect.set(-currentPointerSize, -currentPointerSize, currentPointerSize, currentPointerSize);
+    }
+
     public void showPointer(int x, int y) {
-        Log.d("RESPONSE", "X " + x + " Y " + y);
-        this.startTimer();
-        this.isVisible = true;
+        this.startDrawing();
         this.translatePointer(x, y);
         if (this.surfaceInterface != null)
             this.surfaceInterface.invalidateCanvas();
     }
 
     private void translatePointer(int x, int y) {
-        this.pointerRect.offsetTo(x - this.pointerRect.width()/2, y - this.pointerRect.height()/2);
+        this.pointerX = x; this.pointerY = y;
     }
 
-    private void startTimer() {
-        this.handler = new Handler();
+    private void startDrawing() {
+        this.isVisible = true;
+        this.time = 0;
         this.handler.removeCallbacksAndMessages(null);
         this.handler.postDelayed(this, this.POINTER_LIFE_TIME);
     }
 
     public void drawPointer(Canvas canvas) {
         if (this.isVisible) {
-//            canvas.scale(this.pointerScale, this.pointerScale);
-            canvas.drawOval(this.pointerRect, this.pointerPaint);
-//            canvas.scale(1 - this.pointerScale, 1 - this.pointerScale);
+            this.time += this.POINTER_DELTA;
+            this.setBitmapSize((float) (1 + Math.sin(this.time) * this.POINTER_SIZE_CHANGE)); // Animate Size of Pointer
+            canvas.translate(this.pointerX, this.pointerY);
+            canvas.drawBitmap(this.pointerBitmap, new Rect(0, 0, this.pointerBitmap.getWidth(), this.pointerBitmap.getHeight()), this.pointerRect, this.pointerPaint);
+            canvas.translate(-this.pointerX, -this.pointerY);
             if (this.surfaceInterface != null)
                 this.surfaceInterface.invalidateCanvas();
         }
@@ -72,7 +85,6 @@ public class FocusPointer implements Runnable {
 
     @Override
     public void run() {
-        Log.d("RESPONSE", "HIDE POINTER");
         this.isVisible = false;
     }
 }

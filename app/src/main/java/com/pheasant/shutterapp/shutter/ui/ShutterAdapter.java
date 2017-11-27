@@ -51,9 +51,8 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         this.shutterFragments = new NotifiableFragment[this.FRAGMENTS_COUNT];
         // Camera
         final CameraFragment cameraFragment = new CameraFragment();
-        cameraFragment.setArguments(bundle);
-        cameraFragment.setViewPager(this.viewPager);
-        cameraFragment.setCameraActionListener((BrowseFragment) this.shutterFragments[1]);
+        cameraFragment.setFriendsInterface(this.shutterDataController);
+        cameraFragment.setPagerInterface(this.viewPager);
         this.shutterFragments[0] = cameraFragment;
         // Browse
         final BrowseFragment browseFragment = new BrowseFragment();
@@ -77,14 +76,17 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
 
     // Back button actions
     public void onBack() {
-        if (!this.switchToPrevFragment())
-            if (this.shutterFragments[this.viewPager.getCurrentItem()] instanceof CameraFragment) // Camera switch back (exit editing or logout)
-                if (!((CameraFragment) this.shutterFragments[this.viewPager.getCurrentItem()]).isInEditor())
-                    this.shutterInterface.logoutUser();
+        if (this.canGoBack())
+            if (!this.canSwitchToPrevFragment())
+                this.shutterInterface.logoutUser();
+    }
+
+    private boolean canGoBack() {
+        return this.shutterFragments[this.viewPager.getCurrentItem()].onBack();
     }
 
     // Switching fragment to the first one
-    private boolean switchToPrevFragment() {
+    private boolean canSwitchToPrevFragment() {
         if (this.viewPager.getCurrentItem() > 0) {
             this.viewPager.setCurrentItem(this.viewPager.getCurrentItem() - 1, true);
             return true;

@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Peszi on 2017-04-24.
  */
 
-public class BrowseFragment extends NotifiableFragment implements AdapterView.OnItemClickListener, View.OnTouchListener, CameraFragment.CameraActionListener {
+public class BrowseFragment extends NotifiableFragment implements AdapterView.OnItemClickListener, View.OnTouchListener {
 
     private RecyclerView photosList;
     private PhotosAdapter photosAdapter;
@@ -94,28 +94,28 @@ public class BrowseFragment extends NotifiableFragment implements AdapterView.On
         }
     }
 
-    @Override
-    public void onPhotoDone(Bitmap bitmap, List<Integer> recipients) {
-        PhotoUploadRequest uploadRequest = new PhotoUploadRequest(bitmap, recipients, this.getArguments().getString(IntentKey.USER_API_KEY));
-        uploadRequest.setOnRequestResultListener(new RequestResultListener() {
-            @Override
-            public void onResult(int resultCode) {
-
-            }
-        });
-        uploadRequest.execute();
-    }
-
-    @Override
-    public List<UserData> getFriendsData() {
-        List<UserData> userDatas = new ArrayList<>();
-        UserData userData = new UserData();
-        userData.setId(1);
-        userData.setName("Peszi");
-        userData.setAvatar(1);
-        userDatas.add(userData);
-        return userDatas;
-    }
+//    @Override
+//    public void onPhotoDone(Bitmap bitmap, List<Integer> recipients) {
+//        PhotoUploadRequest uploadRequest = new PhotoUploadRequest(bitmap, recipients, this.getArguments().getString(IntentKey.USER_API_KEY));
+//        uploadRequest.setOnRequestResultListener(new RequestResultListener() {
+//            @Override
+//            public void onResult(int resultCode) {
+//
+//            }
+//        });
+//        uploadRequest.execute();
+//    }
+//
+//    @Override
+//    public List<UserData> getFriendsData() {
+//        List<UserData> userDatas = new ArrayList<>();
+//        UserData userData = new UserData();
+//        userData.setId(1);
+//        userData.setName("Peszi");
+//        userData.setAvatar(1);
+//        userDatas.add(userData);
+//        return userDatas;
+//    }
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {

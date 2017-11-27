@@ -83,38 +83,33 @@ public class MainActivity extends AppCompatActivity {
 
     /* LOGIN (login request) */
     public void makeLogInAction() {
-//        if (Util.isInternetConnection(this, this.getWindow().getDecorView()) // check internet connection
-//                && FormChecker.checkLoginData(this.getWindow().getDecorView(), this.getUserEmail(), this.getUserPassword())) { // check form input data
-//            final LoginRequest loginRequest = new LoginRequest(this.getUserEmail(), this.getUserPassword());
-//            final RequestDialog requestDialog = new RequestDialog();
-//            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_logging_message), this.LOGGING_TIMEOUT, loginRequest); // prepare waiting dialog and show
-//            loginRequest.setOnRequestResultListener(new RequestResultListener() {
-//                @Override
-//                public void onResult(int resultCode) {
-//                    if (resultCode == Request.RESULT_OK) {
-//                        requestDialog.dismissDailog();
-//                        Log.d("RESPONSE", "APIKEY " + loginRequest.getUserData().getApiKey());
-//                        if (Permissions.havePermission(MainActivity.this, Permissions.CAMERA_PREMISSION)) {
-//                            Intent intent = new Intent(MainActivity.this, ShutterActivity.class);
-////                        MainActivity.this.finish();
-//                            intent.putExtra(IntentKey.USER_DATA, loginRequest.getUserData());
-//
-//                        } else {
-//                            Snackbar.make(MainActivity.this.getWindow().getDecorView(), "you will need a camera permission", Snackbar.LENGTH_LONG).show();
-//                            Permissions.requestPermission(MainActivity.this, Permissions.CAMERA_PREMISSION, 0);
-//                        }
-//                    } else {
-//                        requestDialog.prepareErrorMessage(MainActivity.this.getResources().getString(R.string.form_server_logging_error_message));
-//                    }
-//                }
-//            });
-//            loginRequest.execute();
-//        }
-        UserData userData = new UserData(0, "", "", "");
-
-        Intent intent = new Intent(MainActivity.this, ShutterActivity.class);
-        intent.putExtra(IntentKey.USER_DATA, userData);
-        MainActivity.this.startActivity(intent);
+        if (Util.isInternetConnection(this, this.getWindow().getDecorView()) // check internet connection
+                && FormChecker.checkLoginData(this.getWindow().getDecorView(), this.getUserEmail(), this.getUserPassword())) { // check form input data
+            final LoginRequest loginRequest = new LoginRequest(this.getUserEmail(), this.getUserPassword());
+            final RequestDialog requestDialog = new RequestDialog();
+            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_logging_message), this.LOGGING_TIMEOUT, loginRequest); // prepare waiting dialog and show
+            loginRequest.setOnRequestResultListener(new RequestResultListener() {
+                @Override
+                public void onResult(int resultCode) {
+                    if (resultCode == Request.RESULT_OK) {
+                        requestDialog.dismissDailog();
+                        Log.d("RESPONSE", "APIKEY " + loginRequest.getUserData().getApiKey());
+                        if (Permissions.havePermission(MainActivity.this, Permissions.CAMERA_PREMISSION)) {
+                            Intent intent = new Intent(MainActivity.this, ShutterActivity.class);
+//                        MainActivity.this.finish();
+                            intent.putExtra(IntentKey.USER_DATA, loginRequest.getUserData());
+                          MainActivity.this.startActivity(intent);
+                        } else {
+                            Snackbar.make(MainActivity.this.getWindow().getDecorView(), "you will need a camera permission", Snackbar.LENGTH_LONG).show();
+                            Permissions.requestPermission(MainActivity.this, Permissions.CAMERA_PREMISSION, 0);
+                        }
+                    } else {
+                        requestDialog.prepareErrorMessage(MainActivity.this.getResources().getString(R.string.form_server_logging_error_message));
+                    }
+                }
+            });
+            loginRequest.execute();
+        }
     }
 
     /* SIGN UP (pass data to the register form) */

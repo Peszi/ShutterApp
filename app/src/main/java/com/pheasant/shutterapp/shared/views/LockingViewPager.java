@@ -5,11 +5,13 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.pheasant.shutterapp.shutter.ui.interfaces.ViewPagerInterface;
+
 /**
  * Created by Peszi on 2017-05-09.
  */
 
-public class LockingViewPager extends ViewPager {
+public class LockingViewPager extends ViewPager implements ViewPagerInterface {
 
     public LockingViewPager(Context context) {
         super(context);
@@ -32,5 +34,10 @@ public class LockingViewPager extends ViewPager {
     @Override
     public boolean canScrollHorizontally(int direction) {
         return isEnabled() && super.canScrollHorizontally(direction);
+    }
+
+    @Override
+    public void enablePager(boolean enable) {
+        this.setEnabled(enable);
     }
 }

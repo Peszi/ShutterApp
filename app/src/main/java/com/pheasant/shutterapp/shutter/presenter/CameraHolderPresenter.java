@@ -2,14 +2,14 @@ package com.pheasant.shutterapp.shutter.presenter;
 
 import android.graphics.Bitmap;
 import android.hardware.Camera;
-import android.util.Log;
 
 import com.pheasant.shutterapp.shutter.camera.CameraFocus;
 import com.pheasant.shutterapp.shutter.camera.CameraSurface;
-import com.pheasant.shutterapp.shutter.ui.interfaces.CameraInterface;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraHolderInterface;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraSurfaceInterface;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraHolderListener;
+import com.pheasant.shutterapp.shutter.ui.listeners.CameraListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraPreviewListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraSurfaceListener;
 
@@ -24,15 +24,17 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
     private final int FOCUS_AREA_SIZE = 300;
     private final int FOCUS_AREA_WIEGHT = 1000;
 
-    private CameraInterface cameraInterface;
+    private CameraHolderInterface cameraHolderInterface;
     private CameraSurfaceInterface surfaceInterface;
+
     private CameraPreviewView cameraView;
+    private CameraListener cameraListener;
 
     private int cameraId;
     private int cameraFlashMode;
 
-    public void setCameraInterface(CameraInterface cameraInterface) {
-        this.cameraInterface = cameraInterface;
+    public void setCameraHolderInterface(CameraHolderInterface cameraHolderInterface) {
+        this.cameraHolderInterface = cameraHolderInterface;
     }
 
     public void setCameraSurfaceInterface(CameraSurface surfaceInterface) {
@@ -43,11 +45,15 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
         this.cameraView = cameraView;
     }
 
+    public void setCameraListener(CameraListener cameraListener) {
+        this.cameraListener = cameraListener;
+    }
+
     // UI callbacks
 
     @Override
     public void onTakePhotoEvent() {
-        this.cameraInterface.takePhoto();
+        this.cameraHolderInterface.takePhoto();
         this.cameraView.startTakePhotoAnimation();
     }
 
@@ -55,14 +61,15 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
     public void onSwapCameraEvent() {
         this.cameraId++;
         if (this.cameraId >= 2) { this.cameraId = 0; }
-        this.cameraInterface.changeCamera(this.cameraId);
+        this.surfaceInterface.setCamera(this.cameraId);
+        this.cameraHolderInterface.changeCamera(this.cameraId);
     }
 
     @Override
     public void onChangeFlashModeEvent() {
         this.cameraFlashMode++;
         if (this.cameraFlashMode >= 3) { this.cameraFlashMode = 0; }
-        this.cameraInterface.changeFlashMode(this.cameraFlashMode);
+        this.cameraHolderInterface.changeFlashMode(this.cameraFlashMode);
     }
 
     @Override
@@ -97,36 +104,39 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
     }
 
     @Override
-    public void onPhotoTaken(Bitmap cameraPhoto) {
-
+    public void onNewFacesDetected(ArrayList<Camera.Face> newFaces) {
+        this.surfaceInterface.drawFacesPointers(newFaces);
     }
 
     @Override
-    public void onNewFacesDetected(ArrayList<Camera.Face> newFaces) {
-        Log.d("RESPONSE", "new faces " + newFaces.size());
+    public void onPhotoTaken(Bitmap cameraPhoto) {
+        if (this.cameraListener != null)
+            this.cameraListener.onPhotoEvent(cameraPhoto);
     }
 
     @Override
     public void onErrorMessage(String message) {
-
+        if (this.cameraListener != null)
+            this.cameraListener.onCameraErrorMessageEvent(message);
     }
 
     private void setFaceFocus() {
         this.cameraView.showAutoFocusIcon(true);
         this.cameraView.showFaceFocusIcon(false);
-        this.cameraInterface.changeFocusMode(CameraFocus.FOCUS_MODE_FACE);
+        this.cameraHolderInterface.changeFocusMode(CameraFocus.FOCUS_MODE_FACE);
+        this.surfaceInterface.initFacePointers();
     }
 
     private void setAutoFocus() {
         this.cameraView.showAutoFocusIcon(false);
         this.cameraView.showFaceFocusIcon(true);
-        this.cameraInterface.changeFocusMode(CameraFocus.FOCUS_MODE_AUTO);
+        this.cameraHolderInterface.changeFocusMode(CameraFocus.FOCUS_MODE_AUTO);
     }
 
     private void setPointFocus(int fixedX, int fixedY) {
         this.cameraView.showAutoFocusIcon(true);
         this.cameraView.showFaceFocusIcon(true);
-        this.cameraInterface.changeFocusMode(CameraFocus.FOCUS_MODE_POINT);
-        this.cameraInterface.setFocusPoint(fixedX, fixedY, this.FOCUS_AREA_SIZE, this.FOCUS_AREA_WIEGHT);
+        this.cameraHolderInterface.changeFocusMode(CameraFocus.FOCUS_MODE_POINT);
+        this.cameraHolderInterface.setFocusPoint(fixedX, fixedY, this.FOCUS_AREA_SIZE, this.FOCUS_AREA_WIEGHT);
     }
 }

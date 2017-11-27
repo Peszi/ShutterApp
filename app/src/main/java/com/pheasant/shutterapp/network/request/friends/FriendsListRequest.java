@@ -35,7 +35,6 @@ public class FriendsListRequest extends Request {
         try {
             JSONObject jsonResult = new JSONObject((String) result);
             if (!jsonResult.getBoolean("error")) {
-                Log.d("RESPONSE", "[friends success!!!...]");
                 JSONArray imagesList = jsonResult.getJSONArray("friends");
                 for (int i = 0; i < imagesList.length(); i++) {
                     final JSONObject json = (JSONObject) imagesList.get(i);

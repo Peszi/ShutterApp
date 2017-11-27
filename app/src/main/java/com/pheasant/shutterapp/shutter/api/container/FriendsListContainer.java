@@ -40,7 +40,6 @@ public class FriendsListContainer implements RequestResultListener {
     @Override
     public void onResult(int resultCode) {
         if (resultCode == Request.RESULT_OK) {
-            Log.d("RESPONSE", "[friends result OK...]");
             final int changesCount = this.friendsRequest.getFriendsList().size() - this.friendsList.size();
             this.friendsList.clear();
             this.friendsList.addAll(this.friendsRequest.getFriendsList());

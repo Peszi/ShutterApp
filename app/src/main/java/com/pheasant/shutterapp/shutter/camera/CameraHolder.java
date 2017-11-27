@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
 
-import com.pheasant.shutterapp.shutter.ui.interfaces.CameraInterface;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraHolderInterface;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraHolderListener;
 
 import java.io.IOException;
@@ -16,14 +16,13 @@ import java.util.List;
  */
 
 @SuppressWarnings("deprecation")
-public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallback, Camera.AutoFocusCallback, Camera.FaceDetectionListener, CameraInterface {
+public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallback, Camera.AutoFocusCallback, Camera.FaceDetectionListener, CameraHolderInterface {
 
     private final double ASPECT_RATIO_TOLERANCE = 0.1;
     private final double ASPECT_RATIO_TARGET = 16d/9;
 
     private Camera camera;
     private Camera.Size cameraPreviewSize;
-    private Camera.Face[] cameraDetectedFaces;
     private SurfaceHolder surfaceHolder;
 
     private CameraHolderListener cameraListener;
@@ -52,7 +51,7 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
         } else {
             this.cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
             if (this.cameraListener != null)
-                this.cameraListener.onErrorMessage("Front camera not founds!");
+                this.cameraListener.onErrorMessage("Front camera not found!");
         }
         this.openCamera(this.cameraId);
     }
@@ -114,10 +113,10 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
     @Override
     public void onFaceDetection(Camera.Face[] faces, Camera camera) {
         if (faces.length > 0) {
-            this.getNewDetectedFaces(faces);
-            this.cameraDetectedFaces = faces;
+            if (this.cameraListener != null)
+                this.cameraListener.onNewFacesDetected(this.getFacesList(faces));
             if (this.cameraFocusMode == CameraFocus.FOCUS_MODE_FACE)
-                this.setFocusToAreas(this.getFaceFocusList(faces));
+                this.setFocusToAreas(this.getAreaFocusList(faces));
         }
     }
 
@@ -239,26 +238,14 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
         this.camera.setParameters(params);
     }
 
-    private void getNewDetectedFaces(Camera.Face[] newDetectedFaces) {
-        if (this.cameraDetectedFaces != null) {
-            ArrayList<Camera.Face> newFaces = new ArrayList<>();
-            for (Camera.Face detectedFace : newDetectedFaces) {
-                boolean isNewFace = true;
-                for (Camera.Face face : this.cameraDetectedFaces) {
-                    if (detectedFace.id == face.id) {
-                        isNewFace = false;
-                        break;
-                    }
-                }
-                if (isNewFace)
-                    newFaces.add(detectedFace);
-            }
-            if (!newFaces.isEmpty())
-                this.cameraListener.onNewFacesDetected(newFaces);
-        }
+    private ArrayList<Camera.Face> getFacesList(Camera.Face[] faces) {
+        final ArrayList<Camera.Face> facesList = new ArrayList<>();
+        for (Camera.Face face : faces)
+            facesList.add(face);
+        return facesList;
     }
 
-    private ArrayList<Camera.Area> getFaceFocusList(Camera.Face[] faces) {
+    private ArrayList<Camera.Area> getAreaFocusList(Camera.Face[] faces) {
         ArrayList<Camera.Area> faceFocusList = new ArrayList<>();
         for (Camera.Face face : faces)
             faceFocusList.add(new Camera.Area(face.rect, face.score));
@@ -278,12 +265,7 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
         }
     }
 
-    // Other stuff
-
-//    private void setUpCameraVector() {
-//        if (this.inCameraMode(Camera.CameraInfo.CAMERA_FACING_BACK)) { this.surfaceView.setUpVector(-1); }
-//        else { this.surfaceView.setUpVector(1); }
-//    }
+    // Others
 
     private boolean isFrontCameraSupported() {
         return (Camera.getNumberOfCameras() > 1 ? true : false);

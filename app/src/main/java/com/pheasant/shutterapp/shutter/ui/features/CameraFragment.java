@@ -2,6 +2,7 @@ package com.pheasant.shutterapp.shutter.ui.features;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -14,7 +15,9 @@ import com.pheasant.shutterapp.network.request.data.UserData;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.presenter.ManageCameraPresenter;
+import com.pheasant.shutterapp.shutter.ui.features.camera.CameraEditorFragment;
 import com.pheasant.shutterapp.shutter.ui.features.camera.CameraPreviewFragment;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraManageView;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 
 import java.util.List;
@@ -23,7 +26,7 @@ import java.util.List;
  * Created by Peszi on 2017-04-24.
  */
 
-public class CameraFragment extends NotifiableFragment implements View.OnClickListener, RecipientsDialog.ActionListener {
+public class CameraFragment extends NotifiableFragment implements View.OnClickListener, CameraManageView {
 
 //    private CameraManager cameraManager;
 //    private EditorManager editorManager;
@@ -32,8 +35,15 @@ public class CameraFragment extends NotifiableFragment implements View.OnClickLi
 //    private CameraActionListener cameraActionListener;
 
     private CameraPreviewFragment previewFragment;
+    private CameraEditorFragment editorFragment;
 
     private ManageCameraPresenter cameraPresenter;
+
+    private FragmentManager fragmentManager;
+
+    public CameraFragment() {
+        this.cameraPresenter = new ManageCameraPresenter();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +53,14 @@ public class CameraFragment extends NotifiableFragment implements View.OnClickLi
 //        this.cameraManager.setPhotoTakeListener(this);
 
         this.previewFragment = new CameraPreviewFragment();
+        this.previewFragment.setCameraListener(this.cameraPresenter);
+        this.editorFragment = new CameraEditorFragment();
+        this.editorFragment.setEditorListener(this.cameraPresenter);
 
-        FragmentManager fragmentManager = this.getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_camera_base, this.previewFragment);
-        transaction.commit();
+        this.fragmentManager = this.getFragmentManager();
+        this.cameraPresenter.setManageCameraView(this);
+
+        this.cameraPresenter.onPageShow();
 
         return view;
     }
@@ -56,55 +69,49 @@ public class CameraFragment extends NotifiableFragment implements View.OnClickLi
         this.cameraPresenter.setShutterApiInterface(friendsInterface);
     }
 
+    public void setPagerInterface(LockingViewPager pagerInterface) {
+        this.cameraPresenter.setPagerInterface(pagerInterface);
+    }
+
     // UI Events handling
 
     @Override
     public void onShow() {
-
+        this.cameraPresenter.onPageShow();
     }
 
-
-    public void setViewPager(LockingViewPager viewPager) {
-//        this.viewPager = viewPager;
+    @Override
+    public boolean onBack() {
+        return this.cameraPresenter.onBackBtn();
     }
 
-    public void setCameraActionListener(CameraActionListener cameraActionListener) {
-//        this.cameraActionListener = cameraActionListener;
+    @Override
+    public void setCameraMode() {
+        this.setFragment(this.previewFragment);
     }
 
-    private void startEditing(Bitmap bitmap) {
-//        this.viewPager.setEnabled(false);
-//        this.editorManager.startEditing(bitmap);
-    }
-
-    private void stopEditing() {
-//        this.viewPager.setEnabled(true);
-//        this.editorManager.stopEditing();
-    }
-
-    public boolean isInEditor() {
-//        if (this.editorManager.isEditing()) {
-//            this.stopEditing();
-//            return true;
-//        }
-        return false;
+    @Override
+    public void setEditorMode(Bitmap cameraPhoto) {
+        this.editorFragment.setPhoto(cameraPhoto);
+        this.setFragment(this.editorFragment);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         this.previewFragment.onResume();
-//
-//        if (this.cameraManager != null)
-//            this.cameraManager.onResume();
     }
 
     @Override
     public void onPause() {
-//        if (this.cameraManager != null)
-//            this.cameraManager.onPause();
         this.previewFragment.onPause();
         super.onPause();
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_camera_base, fragment);
+        transaction.commit();
     }
 
     @Override
@@ -123,16 +130,5 @@ public class CameraFragment extends NotifiableFragment implements View.OnClickLi
 //            }
 //        });
 //        uploadRequest.execute();
-    }
-
-    @Override
-    public void onAccept(List<Integer> recipients) {
-        this.stopEditing();
-//        this.cameraActionListener.onPhotoDone(this.editorManager.getEditedPhoto(), recipients);
-    }
-
-    public interface CameraActionListener {
-        void onPhotoDone(Bitmap bitmap, List<Integer> recipients);
-        List<UserData> getFriendsData();
     }
 }

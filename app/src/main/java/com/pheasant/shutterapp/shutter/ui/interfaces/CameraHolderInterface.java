@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-24.
  */
 
-public interface CameraInterface {
+public interface CameraHolderInterface {
     void changeCamera(int cameraId);
     void changeFlashMode(int flashMode);
     void changeFocusMode(CameraFocus focusMode);

@@ -12,7 +12,7 @@ import com.pheasant.shutterapp.shutter.api.requester.FriendRemoveRequester;
 import com.pheasant.shutterapp.shutter.api.requester.InviteAcceptRequester;
 import com.pheasant.shutterapp.shutter.api.requester.InviteCreateRequester;
 import com.pheasant.shutterapp.shutter.ui.interfaces.ManageFriendsView;
-import com.pheasant.shutterapp.shutter.ui.listeners.ManageFriendsEventListener;
+import com.pheasant.shutterapp.shutter.ui.listeners.ManageFriendsViewListener;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.InviteObject;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.StrangerObject;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-21.
  */
 
-public class ManageFriendsPresenter implements ManageFriendsEventListener, FriendsListListener, SearchListListener, InvitesListListener, FriendRemoveListener, InvitesAcceptListener, InvitesCreateListener, FriendObject.FriendRemoveBtnListener, InviteObject.InviteAcceptBtnListener, StrangerObject.InviteCreateBtnListener {
+public class ManageFriendsPresenter implements ManageFriendsViewListener, FriendsListListener, SearchListListener, InvitesListListener, FriendRemoveListener, InvitesAcceptListener, InvitesCreateListener, FriendObject.FriendRemoveBtnListener, InviteObject.InviteAcceptBtnListener, StrangerObject.InviteCreateBtnListener {
 
     public final int FRIENDS_ADAPTER_IDX = 0;
     public final int INVITES_ADAPTER_IDX = 1;

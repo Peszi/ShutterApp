@@ -14,6 +14,7 @@ import com.pheasant.shutterapp.shutter.camera.CameraHolder;
 import com.pheasant.shutterapp.shutter.camera.CameraSurface;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
 import com.pheasant.shutterapp.shutter.presenter.CameraHolderPresenter;
+import com.pheasant.shutterapp.shutter.ui.listeners.CameraListener;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
@@ -48,7 +49,7 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
         this.cameraHolder = new CameraHolder(this.cameraSurface.getHolder());
         this.cameraSurface.setSurfaceListener(this.cameraPresenter);
         this.cameraHolder.setCameraListener(this.cameraPresenter);
-        this.cameraPresenter.setCameraInterface(this.cameraHolder);
+        this.cameraPresenter.setCameraHolderInterface(this.cameraHolder);
         this.cameraPresenter.setCameraSurfaceInterface(this.cameraSurface);
         this.cameraPresenter.setCameraViewInterface(this);
 
@@ -68,6 +69,10 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
         this.takeButton.setOnClickListener(this);
         this.faceFocusButton.setOnClickListener(this);
         this.autoFocusButton.setOnClickListener(this);
+    }
+
+    public void setCameraListener(CameraListener cameraListener) {
+        this.cameraPresenter.setCameraListener(cameraListener);
     }
 
     @Override
