@@ -1,6 +1,6 @@
 package com.pheasant.shutterapp.shutter.presenter;
 
-import com.pheasant.shutterapp.network.request.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendRemoveListener;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;

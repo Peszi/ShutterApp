@@ -1,10 +1,9 @@
 package com.pheasant.shutterapp.shutter.api.requester;
 
-import com.pheasant.shutterapp.network.request.friends.InviteAcceptRequest;
+import com.pheasant.shutterapp.shutter.api.friends.InviteAcceptRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.listeners.InvitesAcceptListener;
-import com.pheasant.shutterapp.shutter.api.listeners.InvitesCreateListener;
 import com.pheasant.shutterapp.shutter.api.util.InviteDataHolder;
 
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.network.request.friends;
+package com.pheasant.shutterapp.shutter.api.friends;
 
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;

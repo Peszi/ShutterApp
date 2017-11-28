@@ -76,7 +76,7 @@ public class DrawingEditor implements View.OnClickListener, BrushEditorDialog.Br
     public void startDrawing(boolean enableDrawing) {
         this.enableDrawing = enableDrawing;
         if (this.enableDrawing) {
-            this.drawingPanel.setVisibility(View.VISIBLE); // init buttons
+            this.drawingPanel.setVisibility(View.VISIBLE); // updateList buttons
         } else {
             this.drawingPanel.setVisibility(View.GONE);
         }

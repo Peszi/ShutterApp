@@ -1,7 +1,6 @@
 package com.pheasant.shutterapp.shutter.ui.features;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,15 +16,9 @@ import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.features.shutter.browse.PreviewActivity;
 import com.pheasant.shutterapp.features.shutter.browse.utils.ImagesAdapter;
 import com.pheasant.shutterapp.features.shutter.browse.utils.PhotosAdapter;
-import com.pheasant.shutterapp.network.request.data.UserData;
-import com.pheasant.shutterapp.network.request.photos.PhotoUploadRequest;
-import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
 import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Util;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Peszi on 2017-04-24.
@@ -96,7 +89,7 @@ public class BrowseFragment extends NotifiableFragment implements AdapterView.On
 
 //    @Override
 //    public void onPhotoDone(Bitmap bitmap, List<Integer> recipients) {
-//        PhotoUploadRequest uploadRequest = new PhotoUploadRequest(bitmap, recipients, this.getArguments().getString(IntentKey.USER_API_KEY));
+//        PhotoUploadRequestz uploadRequest = new PhotoUploadRequestz(bitmap, recipients, this.getArguments().getString(IntentKey.USER_API_KEY));
 //        uploadRequest.setOnRequestResultListener(new RequestResultListener() {
 //            @Override
 //            public void onResult(int resultCode) {

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 
-import com.pheasant.shutterapp.network.request.data.UserData;
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.network.request.photos.PhotosListRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;

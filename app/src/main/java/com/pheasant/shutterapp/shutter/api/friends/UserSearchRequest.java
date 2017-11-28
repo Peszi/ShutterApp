@@ -1,6 +1,6 @@
-package com.pheasant.shutterapp.network.request.friends;
+package com.pheasant.shutterapp.shutter.api.friends;
 
-import com.pheasant.shutterapp.network.request.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Peszi on 2017-06-06.

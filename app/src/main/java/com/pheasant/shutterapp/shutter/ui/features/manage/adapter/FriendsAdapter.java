@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.data.FriendData;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.FriendObject;
 
 import java.util.ArrayList;
@@ -63,7 +63,6 @@ public class FriendsAdapter extends ArrayAdapter<FriendObject> implements Friend
     }
 
     // Update list (setup)
-    // TODO update existing friends (data)
     public void updateList(ArrayList<FriendData> friendsList) {
         this.friendsList = friendsList;
         this.reloadList(this.friendsList);

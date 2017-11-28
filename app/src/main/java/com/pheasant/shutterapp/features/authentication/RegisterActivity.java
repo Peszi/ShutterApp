@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                     this.getUserName(), this.getUserEmail(), this.getUserPassword(), this.getUserAvatar(), this.isTermsAndConditionsChecked())) {  // check form input data
             final RegisterRequest registerRequest = new RegisterRequest(this.getUserName(), this.getUserEmail(), this.getUserPassword(), this.getUserAvatar());
             final RequestDialog requestDialog = new RequestDialog();
-            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_registering_message), this.REGISTERING_TIMEOUT, registerRequest); // prepare waiting dialog and show
+            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_registering_message), this.REGISTERING_TIMEOUT, registerRequest); // updateList waiting dialog and show
             registerRequest.setOnRequestResultListener(new RequestResultListener() {
                 @Override
                 public void onResult(int resultCode) {

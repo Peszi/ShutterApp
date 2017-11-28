@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.pheasant.shutterapp.R;
+import com.pheasant.shutterapp.utils.Util;
 
 /**
  * Created by Peszi on 2017-05-25.
@@ -22,6 +23,7 @@ public class DialogUtil {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.setContentView(layoutId);
         dialog.setCancelable(true);
+        Util.setupFont(context, dialog.getWindow().getDecorView(), Util.FONT_PATH_LIGHT);
         return dialog;
     }
 }

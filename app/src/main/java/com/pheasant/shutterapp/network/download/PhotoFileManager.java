@@ -4,13 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.util.Log;
 
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

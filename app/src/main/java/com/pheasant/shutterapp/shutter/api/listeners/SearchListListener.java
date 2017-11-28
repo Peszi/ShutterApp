@@ -1,6 +1,6 @@
 package com.pheasant.shutterapp.shutter.api.listeners;
 
-import com.pheasant.shutterapp.network.request.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
 
 import java.util.ArrayList;
 

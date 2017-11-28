@@ -22,7 +22,7 @@ public class EditorManager {
         this.view = view;
         this.switchToCamera();
         this.setupSurface(context, view);
-        this.setupPreviewButtons(view, cameraFragment);
+        this.setupPreviewButtons(view);
     }
 
     private void setupSurface(Context context, View view) {
@@ -30,9 +30,9 @@ public class EditorManager {
         ((RelativeLayout) view.findViewById(R.id.layout_preview)).addView(this.editorSurface, 0);
     }
 
-    private void setupPreviewButtons(View view, CameraFragment cameraFragment) {
-        view.findViewById(R.id.preview_accept).setOnClickListener(cameraFragment);
-        view.findViewById(R.id.preview_reject).setOnClickListener(cameraFragment);
+    private void setupPreviewButtons(View view) {
+//        view.findViewById(R.id.preview_accept).setOnClickListener(this);
+//        view.findViewById(R.id.preview_reject).setOnClickListener(this);
     }
 
     public void startEditing(final Bitmap photo) {

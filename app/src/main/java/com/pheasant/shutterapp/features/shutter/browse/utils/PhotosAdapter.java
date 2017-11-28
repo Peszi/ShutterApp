@@ -17,7 +17,7 @@ import com.pheasant.shutterapp.features.shutter.browse.ImageLoader;
 import com.pheasant.shutterapp.features.shutter.browse.OnItemListener;
 import com.pheasant.shutterapp.features.shutter.browse.SpanSizeController;
 import com.pheasant.shutterapp.network.download.FriendsPhotosDownloader;
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.network.request.photos.FriendsPhotosRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;

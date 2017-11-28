@@ -1,8 +1,8 @@
 package com.pheasant.shutterapp.shutter.ui.interfaces;
 
-import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.network.request.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
 
 import java.util.ArrayList;
 

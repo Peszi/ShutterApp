@@ -12,9 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.network.request.data.StrangerData;
-import com.pheasant.shutterapp.network.request.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.ui.interfaces.ManageFriendsView;
 import com.pheasant.shutterapp.shutter.presenter.ManageFriendsPresenter;

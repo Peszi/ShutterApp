@@ -1,15 +1,10 @@
 package com.pheasant.shutterapp.network.request.photos;
 
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

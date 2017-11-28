@@ -1,12 +1,7 @@
-package com.pheasant.shutterapp.network.request.data;
-
-import android.util.Log;
+package com.pheasant.shutterapp.shutter.api.data;
 
 import com.pheasant.shutterapp.utils.TimeStamp;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**

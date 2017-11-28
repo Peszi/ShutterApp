@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.UserData;
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.shared.Avatar;
 import com.pheasant.shutterapp.utils.Util;
 

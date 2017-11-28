@@ -7,10 +7,10 @@ import android.os.Handler;
 import com.pheasant.shutterapp.network.download.user.UserDataListener;
 import com.pheasant.shutterapp.network.download.user.UserDataManager;
 import com.pheasant.shutterapp.network.download.user.UserPhotosRequester;
-import com.pheasant.shutterapp.network.request.photos.PhotoUploadRequest;
+import com.pheasant.shutterapp.network.request.photos.PhotoUploadRequestz;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
-import com.pheasant.shutterapp.network.request.data.UserData;
-import com.pheasant.shutterapp.network.request.data.PhotoData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 
 import java.util.List;
 
@@ -101,7 +101,7 @@ public class UserDataDownloader implements ImagesDataDownloader.OnImageListDownl
     }
 
     public void uploadPhoto(Bitmap bitmap, List<Integer> recipients) {
-        PhotoUploadRequest uploadRequest = new PhotoUploadRequest(bitmap, recipients, this.userDataManager.getUserData().getApiKey());
+        PhotoUploadRequestz uploadRequest = new PhotoUploadRequestz(bitmap, recipients, this.userDataManager.getUserData().getApiKey());
         uploadRequest.setOnRequestResultListener(new RequestResultListener() {
             @Override
             public void onResult(int resultCode) {

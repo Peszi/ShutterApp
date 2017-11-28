@@ -14,7 +14,7 @@ public class ShutterActivity extends AppCompatActivity implements ShutterInterfa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_shutter);
-        this.pagerAdapter = new ShutterAdapter(this.getSupportFragmentManager(), this.getWindow().getDecorView(), BundlePacker.prepareBundle(this.getIntent()), this);
+        this.pagerAdapter = new ShutterAdapter(this.getSupportFragmentManager(), this.getApplicationContext(), this.getWindow().getDecorView(), BundlePacker.prepareBundle(this.getIntent()), this);
     }
 
     @Override

@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 && FormChecker.checkLoginData(this.getWindow().getDecorView(), this.getUserEmail(), this.getUserPassword())) { // check form input data
             final LoginRequest loginRequest = new LoginRequest(this.getUserEmail(), this.getUserPassword());
             final RequestDialog requestDialog = new RequestDialog();
-            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_logging_message), this.LOGGING_TIMEOUT, loginRequest); // prepare waiting dialog and show
+            requestDialog.showDialog(this, this.getResources().getString(R.string.form_server_logging_message), this.LOGGING_TIMEOUT, loginRequest); // updateList waiting dialog and show
             loginRequest.setOnRequestResultListener(new RequestResultListener() {
                 @Override
                 public void onResult(int resultCode) {

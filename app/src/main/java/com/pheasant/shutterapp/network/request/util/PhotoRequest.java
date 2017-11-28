@@ -2,10 +2,8 @@ package com.pheasant.shutterapp.network.request.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.pheasant.shutterapp.network.request.data.PhotoData;
 import com.pheasant.shutterapp.network.download.PhotoFileManager;
 
 import java.io.IOException;

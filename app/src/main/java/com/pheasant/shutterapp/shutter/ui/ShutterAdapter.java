@@ -1,5 +1,6 @@
 package com.pheasant.shutterapp.shutter.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +32,12 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
 
     private ShutterDataManager shutterDataController;
 
-    public ShutterAdapter(FragmentManager fragmentManager, View view, Bundle bundle, ShutterInterface shutterInterface) {
+    public ShutterAdapter(FragmentManager fragmentManager, Context context, View view, Bundle bundle, ShutterInterface shutterInterface) {
         super(fragmentManager);
         this.shutterInterface = shutterInterface;
         this.shutterDataController = new ShutterDataManager(bundle.getString(IntentKey.USER_API_KEY));
+        this.shutterDataController.downloadFriends();
+        this.shutterDataController.downloadInvites();
         this.setupViewPager(view);
         this.setupFragments(bundle);
     }

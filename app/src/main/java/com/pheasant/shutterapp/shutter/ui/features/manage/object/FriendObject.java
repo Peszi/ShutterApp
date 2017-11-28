@@ -4,12 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.data.FriendData;
 import com.pheasant.shutterapp.shared.Avatar;
 import com.pheasant.shutterapp.shutter.ui.shared.LoadingImageButton;
 import com.pheasant.shutterapp.utils.Util;
@@ -28,6 +27,10 @@ public class FriendObject implements View.OnClickListener {
         this.friendData = friendData;
     }
 
+    public void setObjectListener(FriendRemoveBtnListener removeListener) {
+        this.removeListener = removeListener;
+    }
+
     public void setupView(View view) {
         if (friendData != null) {
             final ImageView avatar = (ImageView) view.getTag(R.id.friend_avatar);
@@ -40,10 +43,6 @@ public class FriendObject implements View.OnClickListener {
             removeBtn.initButton();
             removeBtn.setButtonListener(this);
         }
-    }
-
-    public void setObjectListener(FriendRemoveBtnListener removeListener) {
-        this.removeListener = removeListener;
     }
 
     public static View getView(Context context, LayoutInflater layoutInflater, View convertView, ViewGroup parent) {

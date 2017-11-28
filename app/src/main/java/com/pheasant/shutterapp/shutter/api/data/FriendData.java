@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.network.request.data;
+package com.pheasant.shutterapp.shutter.api.data;
 
 import com.pheasant.shutterapp.utils.TimeStamp;
 

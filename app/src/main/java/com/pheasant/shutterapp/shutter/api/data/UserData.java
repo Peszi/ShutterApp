@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.network.request.data;
+package com.pheasant.shutterapp.shutter.api.data;
 
 /**
  * Created by Peszi on 2017-05-08.

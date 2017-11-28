@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.StrangerData;
+import com.pheasant.shutterapp.shutter.api.data.StrangerData;
 import com.pheasant.shutterapp.shutter.ui.shared.LoadingToggleButton;
 import com.pheasant.shutterapp.utils.Util;
 

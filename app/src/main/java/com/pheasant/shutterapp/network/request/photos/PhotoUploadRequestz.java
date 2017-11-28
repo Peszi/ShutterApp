@@ -21,9 +21,9 @@ import java.util.List;
  * Created by Peszi on 2017-05-17.
  */
 
-public class PhotoUploadRequest extends Request {
+public class PhotoUploadRequestz extends Request {
 
-    public PhotoUploadRequest(Bitmap bitmap, List<Integer> recipients, String apiKey) {
+    public PhotoUploadRequestz(Bitmap bitmap, List<Integer> recipients, String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
         this.setAddress("images");
         this.setAuthorization(apiKey);

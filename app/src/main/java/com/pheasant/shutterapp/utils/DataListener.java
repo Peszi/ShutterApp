@@ -1,6 +1,6 @@
 package com.pheasant.shutterapp.utils;
 
-import com.pheasant.shutterapp.network.request.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
 
 import java.util.List;
 

@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.network.request.data.UserData;
+import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.shutter.ui.features.manage.object.InviteObject;
 
 import java.util.ArrayList;

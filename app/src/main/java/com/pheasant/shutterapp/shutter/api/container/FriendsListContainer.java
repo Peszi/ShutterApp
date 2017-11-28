@@ -1,9 +1,7 @@
 package com.pheasant.shutterapp.shutter.api.container;
 
-import android.util.Log;
-
-import com.pheasant.shutterapp.network.request.data.FriendData;
-import com.pheasant.shutterapp.network.request.friends.FriendsListRequest;
+import com.pheasant.shutterapp.shutter.api.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.friends.FriendsListRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
