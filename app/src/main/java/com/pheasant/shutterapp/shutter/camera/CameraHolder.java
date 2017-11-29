@@ -174,7 +174,6 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
 
     private void openCamera(int id) {
         this.cameraId = id;
-//        this.setUpCameraVector();
         try{
             this.camera = Camera.open(id);
             if (this.surfaceHolder != null)
@@ -206,6 +205,7 @@ public class CameraHolder implements SurfaceHolder.Callback, Camera.PictureCallb
             this.camera.setFaceDetectionListener(this);
             this.camera.setDisplayOrientation(90); // vertical camera
             this.camera.startPreview();
+            this.setFlashMode(0);
         }
     }
 

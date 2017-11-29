@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.editor.editors;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,13 +9,13 @@ import android.graphics.Rect;
  * Created by Peszi on 2017-05-10.
  */
 
-public class PhotoEditor {
+public class PhotoDrawer {
 
     private Bitmap photoBitmap;
     private Paint photoPaint;
     private Rect photoSize;
 
-    public PhotoEditor() {
+    public PhotoDrawer() {
         this.photoPaint = new Paint();
     }
 

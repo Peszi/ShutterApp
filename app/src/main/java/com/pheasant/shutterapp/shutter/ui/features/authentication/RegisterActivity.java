@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.authentication;
+package com.pheasant.shutterapp.shutter.ui.features.authentication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.editor.editors;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.editor.utils.DrawListener;
+import com.pheasant.shutterapp.shutter.ui.features.camera.editor.utils.DrawListener;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
@@ -90,7 +90,7 @@ public class MessageEditor implements TextView.OnEditorActionListener {
         if (this.editTextBitmap != null)
             this.editTextBitmap.recycle();
         if (this.drawListener != null)
-            this.drawListener.drawRequest();
+            this.drawListener.invalidateSurface();
         this.editText.setVisibility(View.VISIBLE);
         this.showSoftKeyboard(this.editText);
     }
@@ -105,13 +105,13 @@ public class MessageEditor implements TextView.OnEditorActionListener {
             this.editTextBitmap = null;
         }
         if (this.drawListener != null)
-            this.drawListener.drawRequest();
+            this.drawListener.invalidateSurface();
     }
 
     private void moveBar(int height) {
         this.editTextBitmapPosition = height;
         if (this.drawListener != null)
-            this.drawListener.drawRequest();
+            this.drawListener.invalidateSurface();
     }
 
     private boolean isOneOfTheBarSidesTouched(View view, int x, int y) {

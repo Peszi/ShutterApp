@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shared;
+package com.pheasant.shutterapp.shutter.ui.util;
 
 import com.pheasant.shutterapp.R;
 

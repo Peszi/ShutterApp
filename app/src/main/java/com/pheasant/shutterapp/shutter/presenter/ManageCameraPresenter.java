@@ -2,16 +2,15 @@ package com.pheasant.shutterapp.shutter.presenter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;
 import com.pheasant.shutterapp.shutter.ui.dialog.RecipientsDialog;
+import com.pheasant.shutterapp.shutter.ui.features.camera.CameraEditorFragment;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraManageView;
-import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
-import com.pheasant.shutterapp.shutter.ui.listeners.CameraEditorListener;
+import com.pheasant.shutterapp.shutter.ui.listeners.EditorListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraManageViewListener;
 
@@ -21,16 +20,16 @@ import java.util.List;
  * Created by Peszi on 2017-11-24.
  */
 
-public class ManageCameraPresenter implements CameraManageViewListener, CameraListener, CameraEditorListener, PhotoUploadListener, FriendsListListener, RecipientsDialog.RecipientsDialogListener {
+public class ManageCameraPresenter implements CameraManageViewListener, CameraListener, EditorListener, PhotoUploadListener, FriendsListListener, RecipientsDialog.RecipientsDialogListener {
 
     private RecipientsDialog recipientsDialog;
 
     private ShutterApiInterface shutterApiInterface;
+    private CameraEditorFragment editorInterface;
     private LockingViewPager pagerInterface;
 
     private CameraManageView cameraManageView;
 
-    private Bitmap photoBitmap;
     private boolean canLogout;
 
     public ManageCameraPresenter() {}
@@ -49,6 +48,10 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
 
     public void setManageCameraView(CameraManageView cameraManageView) {
         this.cameraManageView = cameraManageView;
+    }
+
+    public void setEditorInterface(CameraEditorFragment editorInterface) {
+        this.editorInterface = editorInterface;
     }
 
     // View Callbacks
@@ -77,19 +80,20 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
 
     @Override
     public void onPhotoEvent(Bitmap cameraPhoto) {
-        this.setEditorMode(cameraPhoto);
+        if (this.editorInterface != null)
+            this.editorInterface.setNewPhoto(cameraPhoto);
+        this.setEditorMode();
     }
 
     @Override
     public void onCameraErrorMessageEvent(String message) {
-
+        this.cameraManageView.showToastMessage(message);
     }
 
     // Editor Callbacks
 
     @Override
-    public void onPhotoEdited(Bitmap finalBitmap) {
-        this.photoBitmap = finalBitmap;
+    public void onPhotoAccepted() {
         if (this.shutterApiInterface != null) {
             this.recipientsDialog.updateRecipients(this.shutterApiInterface.getFriends());
             this.recipientsDialog.showDialog();
@@ -105,8 +109,8 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
 
     @Override
     public void onRecipientsPicked(List<Integer> recipients) {
-        if (this.photoBitmap != null)
-            this.shutterApiInterface.uploadPhoto(this.photoBitmap, recipients);
+        if (this.shutterApiInterface != null && this.editorInterface != null)
+            this.shutterApiInterface.uploadPhoto(this.editorInterface.getEditedPhoto(), recipients);
         this.setCameraMode();
     }
 
@@ -127,13 +131,11 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
     // Uploader Callback
 
     @Override
-    public void onPhotoUploaded() {
-        Log.d("RESPONSE", "PHOTO UPLOADED");
-    }
-
-    @Override
-    public void onPhotoUploadingProgress(int progress) {
-
+    public void onPhotoUploadStatusChange(boolean success) {
+        if (success) { this.cameraManageView.showToastMessage("photo successfully uploaded"); } else {
+            if (this.shutterApiInterface != null)
+                this.shutterApiInterface.reUploadPhotos();
+        }
     }
 
     // Other
@@ -144,10 +146,9 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
         this.canLogout = true;
     }
 
-    private void setEditorMode(Bitmap cameraPhoto) {
+    private void setEditorMode() {
         this.pagerInterface.setEnabled(false);
-        this.cameraManageView.setEditorMode(cameraPhoto);
+        this.cameraManageView.setEditorMode();
         this.canLogout = false;
     }
-
 }

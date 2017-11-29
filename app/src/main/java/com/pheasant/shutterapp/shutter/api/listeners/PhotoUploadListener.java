@@ -5,6 +5,5 @@ package com.pheasant.shutterapp.shutter.api.listeners;
  */
 
 public interface PhotoUploadListener {
-    void onPhotoUploaded();
-    void onPhotoUploadingProgress(int progress);
+    void onPhotoUploadStatusChange(boolean success);
 }

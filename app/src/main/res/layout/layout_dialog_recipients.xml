@@ -27,22 +27,6 @@
             android:textColor="@color/colorPrimary"
             android:textAlignment="center" />
 
-        <ToggleButton
-            android:id="@+id/recipients_all_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:minWidth="0dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textOff="all"
-            android:textOn="any"
-            android:background="@drawable/all_light_set_btn_back"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:textSize="14sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -88,6 +72,22 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/preview_reject" />
+
+
+        <ToggleButton
+            android:id="@+id/recipients_all_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textOff="set all"
+            android:textOn="set none"
+            android:background="@drawable/all_light_set_btn_back"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/recipients_send_btn"

@@ -82,6 +82,11 @@ public class ShutterDataManager implements ShutterApiInterface {
     }
 
     @Override
+    public void reUploadPhotos() {
+        this.photoUploadContainer.reUpload();
+    }
+
+    @Override
     public void searchUsers(String keyword) {
         this.searchListRequester.searchByKeyword(keyword);
     }

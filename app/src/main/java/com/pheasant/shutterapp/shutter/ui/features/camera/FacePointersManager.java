@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-26.
  */
 
-public class FacesPointersManager implements Runnable {
+public class FacePointersManager implements Runnable {
 
     private final int SHOW_POINTERS_TIME = 2000;
 
@@ -30,7 +30,7 @@ public class FacesPointersManager implements Runnable {
 
     private SurfaceBasicInterface surfaceInterface;
 
-    public FacesPointersManager(Resources resources) {
+    public FacePointersManager(Resources resources) {
         this.handler = new Handler();
         this.facesPointers = new ArrayList<>();
         this.facePointerBitmap = BitmapFactory.decodeResource(resources, R.drawable.focus_pointer);

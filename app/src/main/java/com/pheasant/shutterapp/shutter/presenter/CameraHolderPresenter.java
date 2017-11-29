@@ -6,11 +6,11 @@ import android.hardware.Camera;
 import com.pheasant.shutterapp.shutter.camera.CameraFocus;
 import com.pheasant.shutterapp.shutter.camera.CameraSurface;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraHolderInterface;
-import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraHolderView;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraSurfaceInterface;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraHolderListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraListener;
-import com.pheasant.shutterapp.shutter.ui.listeners.CameraPreviewListener;
+import com.pheasant.shutterapp.shutter.ui.listeners.CameraHolderViewListener;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraSurfaceListener;
 
 import java.util.ArrayList;
@@ -19,15 +19,15 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-24.
  */
 
-public class CameraHolderPresenter implements CameraPreviewListener, CameraHolderListener, CameraSurfaceListener {
+public class CameraHolderPresenter implements CameraHolderViewListener, CameraHolderListener, CameraSurfaceListener {
 
     private final int FOCUS_AREA_SIZE = 300;
-    private final int FOCUS_AREA_WIEGHT = 1000;
+    private final int FOCUS_AREA_WEIGHT = 1000;
 
     private CameraHolderInterface cameraHolderInterface;
     private CameraSurfaceInterface surfaceInterface;
 
-    private CameraPreviewView cameraView;
+    private CameraHolderView cameraView;
     private CameraListener cameraListener;
 
     private int cameraId;
@@ -41,7 +41,7 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
         this.surfaceInterface = surfaceInterface;
     }
 
-    public void setCameraViewInterface(CameraPreviewView cameraView) {
+    public void setCameraViewInterface(CameraHolderView cameraView) {
         this.cameraView = cameraView;
     }
 
@@ -137,6 +137,6 @@ public class CameraHolderPresenter implements CameraPreviewListener, CameraHolde
         this.cameraView.showAutoFocusIcon(true);
         this.cameraView.showFaceFocusIcon(true);
         this.cameraHolderInterface.changeFocusMode(CameraFocus.FOCUS_MODE_POINT);
-        this.cameraHolderInterface.setFocusPoint(fixedX, fixedY, this.FOCUS_AREA_SIZE, this.FOCUS_AREA_WIEGHT);
+        this.cameraHolderInterface.setFocusPoint(fixedX, fixedY, this.FOCUS_AREA_SIZE, this.FOCUS_AREA_WEIGHT);
     }
 }

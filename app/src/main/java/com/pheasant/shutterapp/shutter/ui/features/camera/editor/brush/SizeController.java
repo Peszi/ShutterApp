@@ -1,11 +1,11 @@
-package com.pheasant.shutterapp.features.shutter.editor.brush;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor.brush;
 
 import android.app.Dialog;
 import android.view.View;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.editor.editors.DrawingEditor;
+import com.pheasant.shutterapp.shutter.ui.features.camera.editor.DrawingEditor;
 
 /**
  * Created by Peszi on 2017-05-16.

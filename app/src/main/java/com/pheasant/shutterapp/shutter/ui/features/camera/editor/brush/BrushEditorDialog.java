@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.editor.brush;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor.brush;
 
 import android.app.Dialog;
 import android.content.Context;

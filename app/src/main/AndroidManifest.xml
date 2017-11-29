@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".features.authentication.MainActivity"
+            android:name=".shutter.ui.features.authentication.LogInActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".features.authentication.RegisterActivity"
+            android:name=".shutter.ui.features.authentication.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity

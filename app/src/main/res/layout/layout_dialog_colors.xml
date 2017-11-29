@@ -25,7 +25,7 @@
             android:textColor="#000"
             android:textSize="18sp" />
 
-        <com.pheasant.shutterapp.features.shutter.editor.brush.ColorController
+        <com.pheasant.shutterapp.shutter.ui.features.camera.editor.brush.ColorController
             android:id="@+id/colors_picker"
             android:layout_width="280dp"
             android:layout_height="280dp"

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.authentication;
+package com.pheasant.shutterapp.shutter.ui.features.authentication;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.network.download.user.UserData;
 import com.pheasant.shutterapp.shutter.ui.ShutterActivity;
 import com.pheasant.shutterapp.network.request.LoginRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
@@ -23,7 +22,7 @@ import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Permissions;
 import com.pheasant.shutterapp.utils.Util;
 
-public class MainActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     private final int LOGGING_TIMEOUT = 5000;
 
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.makeLogInAction();
+                LogInActivity.this.makeLogInAction();
             }
         });
     }
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         signUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.makeSignUpAction();
+                LogInActivity.this.makeSignUpAction();
             }
         });
     }
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         exampleAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.this.prepareExampleAccountDialog();
+                LogInActivity.this.prepareExampleAccountDialog();
             }
         });
     }
@@ -94,17 +93,17 @@ public class MainActivity extends AppCompatActivity {
                     if (resultCode == Request.RESULT_OK) {
                         requestDialog.dismissDailog();
                         Log.d("RESPONSE", "APIKEY " + loginRequest.getUserData().getApiKey());
-                        if (Permissions.havePermission(MainActivity.this, Permissions.CAMERA_PREMISSION)) {
-                            Intent intent = new Intent(MainActivity.this, ShutterActivity.class);
-//                        MainActivity.this.finish();
+                        if (Permissions.havePermission(LogInActivity.this, Permissions.CAMERA_PREMISSION)) {
+                            Intent intent = new Intent(LogInActivity.this, ShutterActivity.class);
+//                        LogInActivity.this.finish();
                             intent.putExtra(IntentKey.USER_DATA, loginRequest.getUserData());
-                          MainActivity.this.startActivity(intent);
+                          LogInActivity.this.startActivity(intent);
                         } else {
-                            Snackbar.make(MainActivity.this.getWindow().getDecorView(), "you will need a camera permission", Snackbar.LENGTH_LONG).show();
-                            Permissions.requestPermission(MainActivity.this, Permissions.CAMERA_PREMISSION, 0);
+                            Snackbar.make(LogInActivity.this.getWindow().getDecorView(), "you will need a camera permission", Snackbar.LENGTH_LONG).show();
+                            Permissions.requestPermission(LogInActivity.this, Permissions.CAMERA_PREMISSION, 0);
                         }
                     } else {
-                        requestDialog.prepareErrorMessage(MainActivity.this.getResources().getString(R.string.form_server_logging_error_message));
+                        requestDialog.prepareErrorMessage(LogInActivity.this.getResources().getString(R.string.form_server_logging_error_message));
                     }
                 }
             });
@@ -132,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
 
     /* EXAMPLE ACCOUNT DIALOG (check whether we gonna use example account data or not) */
     private void prepareExampleAccountDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LogInActivity.this);
         builder.setTitle(R.string.example_dialog_title)
                 .setMessage(R.string.example_dialog_message)
                 .setPositiveButton(R.string.example_dialog_accept, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.this.makeExampleAccountAction();
+                        LogInActivity.this.makeExampleAccountAction();
                     }
                 })
                 .setNegativeButton(R.string.example_dialog_reject, new DialogInterface.OnClickListener() {
@@ -153,19 +152,19 @@ public class MainActivity extends AppCompatActivity {
 
     /* SETTERS */
     private void setUserEmail(final int resId) {
-        ((EditText) MainActivity.this.findViewById(R.id.main_email_input)).setText(resId);
+        ((EditText) LogInActivity.this.findViewById(R.id.main_email_input)).setText(resId);
     }
 
     private void setUserPassword(final int resId) {
-        ((EditText) MainActivity.this.findViewById(R.id.main_password_input)).setText(resId);
+        ((EditText) LogInActivity.this.findViewById(R.id.main_password_input)).setText(resId);
     }
 
     /* GETTERS */
     private String getUserEmail() {
-        return ((EditText) MainActivity.this.findViewById(R.id.main_email_input)).getText().toString();
+        return ((EditText) LogInActivity.this.findViewById(R.id.main_email_input)).getText().toString();
     }
 
     private String getUserPassword() {
-        return ((EditText) MainActivity.this.findViewById(R.id.main_password_input)).getText().toString();
+        return ((EditText) LogInActivity.this.findViewById(R.id.main_password_input)).getText().toString();
     }
 }

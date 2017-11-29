@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.editor.editors;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.editor.brush.BrushEditorDialog;
-import com.pheasant.shutterapp.features.shutter.editor.utils.DrawListener;
+import com.pheasant.shutterapp.shutter.ui.features.camera.editor.brush.BrushEditorDialog;
+import com.pheasant.shutterapp.shutter.ui.features.camera.editor.utils.DrawListener;
 import com.pheasant.shutterapp.shared.views.SlideToggleButton;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class DrawingEditor implements View.OnClickListener, BrushEditorDialog.Br
 
     private void cleanDrawing() {
         this.drawingsBuffer.clear();
-        this.drawListener.drawRequest();
+        this.drawListener.invalidateSurface();
     }
 
     private void customizeBrush() {
@@ -94,7 +94,7 @@ public class DrawingEditor implements View.OnClickListener, BrushEditorDialog.Br
     private void undoDrawing() {
         if (this.drawingsBuffer.size() > 0)
             this.drawingsBuffer.remove(this.drawingsBuffer.size()-1);
-        this.drawListener.drawRequest();
+        this.drawListener.invalidateSurface();
     }
 
     public void onTouch(View v, MotionEvent event) {
@@ -113,7 +113,7 @@ public class DrawingEditor implements View.OnClickListener, BrushEditorDialog.Br
                     float cX = (event.getX() + this.startX) / 2;
                     float cY = (event.getY() + this.startY) / 2;
                     this.currentDrawing.getPath().quadTo(this.startX, this.startY, cX, cY);
-                    this.drawListener.drawRequest();
+                    this.drawListener.invalidateSurface();
                     this.startX = event.getX();
                     this.startY = event.getY();
                 }

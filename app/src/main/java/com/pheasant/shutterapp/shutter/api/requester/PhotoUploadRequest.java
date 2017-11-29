@@ -9,6 +9,7 @@ import com.pheasant.shutterapp.shutter.api.util.RequestMethod;
 import com.pheasant.shutterapp.shutter.api.util.RequestProperties;
 import com.pheasant.shutterapp.shutter.api.util.RequestUtility;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -44,21 +45,14 @@ public class PhotoUploadRequest {
             this.requestProperties.addParameter("user[]", String.valueOf(userId));
     }
 
-    public void upload() {
-        final JSONObject response = RequestUtility.makeJSONRequest(this.requestProperties);
-        //            if (!jsonResult.getBoolean("error")) {
-//                JSONArray imagesList = jsonResult.getJSONArray("images");
-//                for (int i = 0; i < imagesList.length(); i++) {
-//                    final JSONObject imageObject = (JSONObject) imagesList.get(i);
-//                    final PhotoData photoData = new PhotoData(imageObject.getInt("id"), imageObject.getInt("creator_id"), imageObject.getString("created_at"));
-//                    this.imagesList.add(photoData);
-//                }
-//                this.getResultListener().onResult(Request.RESULT_OK);
-//            }
-//        } catch (JSONException e) {
-//        this.getResultListener().onResult(Request.RESULT_ERR);
-//            e.printStackTrace();
-//        }
-        Log.d("RESPONSE", "UPLOAD" + response);
+    public boolean upload() {
+        final JSONObject jsonObject = RequestUtility.makeJSONRequest(this.requestProperties);
+        try {
+            if (!jsonObject.getBoolean("error"))
+                return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

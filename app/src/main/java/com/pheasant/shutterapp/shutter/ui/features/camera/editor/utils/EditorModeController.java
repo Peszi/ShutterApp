@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.features.shutter.editor.utils;
+package com.pheasant.shutterapp.shutter.ui.features.camera.editor.utils;
 
 import android.view.View;
 
@@ -47,17 +47,15 @@ public class EditorModeController implements View.OnClickListener {
                 break;
         }
         if (this.faceButton.isToggled()) {
-            this.changeModeListener.onFaceMode();
+            this.changeModeListener.onModeChange(2);
         } else if (this.drawButton.isToggled()) {
-            this.changeModeListener.onDrawMode();
+            this.changeModeListener.onModeChange(1);
         } else {
-            this.changeModeListener.onNoMode();
+            this.changeModeListener.onModeChange(0);
         }
     }
 
     public interface ChangeModeListener {
-        void onFaceMode();
-        void onDrawMode();
-        void onNoMode();
+        void onModeChange(int index);
     }
 }

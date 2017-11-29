@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.pheasant.shutterapp.shutter.ui.features.camera.FacesPointersManager;
+import com.pheasant.shutterapp.shutter.ui.features.camera.FacePointersManager;
 import com.pheasant.shutterapp.shutter.ui.features.camera.FocusPointer;
 import com.pheasant.shutterapp.shutter.ui.interfaces.SurfaceBasicInterface;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraSurfaceInterface;
@@ -29,7 +29,7 @@ public class CameraSurface extends SurfaceView implements View.OnTouchListener, 
     private Paint paint;
 
     private FocusPointer focusPointer;
-    private FacesPointersManager facesManager;
+    private FacePointersManager facesManager;
 
     private int cameraUpVector;
     private int xTouchDown, yTouchDown;
@@ -42,7 +42,7 @@ public class CameraSurface extends SurfaceView implements View.OnTouchListener, 
         this.setupUI();
         this.focusPointer = new FocusPointer(context.getResources());
         this.focusPointer.setSurfaceInterface(this);
-        this.facesManager = new FacesPointersManager(context.getResources());
+        this.facesManager = new FacePointersManager(context.getResources());
         this.facesManager.setSurfaceInterface(this);
     }
 

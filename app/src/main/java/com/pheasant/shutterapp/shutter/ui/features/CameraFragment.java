@@ -8,19 +8,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shutter.api.data.FriendData;
 import com.pheasant.shutterapp.shared.views.LockingViewPager;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.presenter.ManageCameraPresenter;
-import com.pheasant.shutterapp.shutter.ui.dialog.RecipientsDialog;
 import com.pheasant.shutterapp.shutter.ui.features.camera.CameraEditorFragment;
-import com.pheasant.shutterapp.shutter.ui.features.camera.CameraPreviewFragment;
+import com.pheasant.shutterapp.shutter.ui.features.camera.CameraHolderFragment;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraManageView;
 import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
-
-import java.util.ArrayList;
 
 /**
  * Created by Peszi on 2017-04-24.
@@ -28,7 +25,7 @@ import java.util.ArrayList;
 
 public class CameraFragment extends NotifiableFragment implements CameraManageView {
 
-    private CameraPreviewFragment previewFragment;
+    private CameraHolderFragment previewFragment;
     private CameraEditorFragment editorFragment;
 
     private ManageCameraPresenter cameraPresenter;
@@ -43,16 +40,18 @@ public class CameraFragment extends NotifiableFragment implements CameraManageVi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_camera_fragment, container, false);
 
+        // UI
         this.cameraPresenter.setupView(this.getContext());
+        this.cameraPresenter.setManageCameraView(this);
 
-        this.previewFragment = new CameraPreviewFragment();
+        // Fragments
+        this.fragmentManager = this.getFragmentManager();
+        this.previewFragment = new CameraHolderFragment();
         this.previewFragment.setCameraListener(this.cameraPresenter);
         this.editorFragment = new CameraEditorFragment();
         this.editorFragment.setEditorListener(this.cameraPresenter);
 
-        this.fragmentManager = this.getFragmentManager();
-        this.cameraPresenter.setManageCameraView(this);
-
+        this.cameraPresenter.setEditorInterface(this.editorFragment);
         this.cameraPresenter.onPageShow();
 
         return view;
@@ -84,9 +83,13 @@ public class CameraFragment extends NotifiableFragment implements CameraManageVi
     }
 
     @Override
-    public void setEditorMode(Bitmap cameraPhoto) {
-        this.editorFragment.setPhoto(cameraPhoto);
+    public void setEditorMode() {
         this.setFragment(this.editorFragment);
+    }
+
+    @Override
+    public void showToastMessage(String message) {
+        Toast.makeText(this.getContext().getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.camera.CameraHolder;
 import com.pheasant.shutterapp.shutter.camera.CameraSurface;
-import com.pheasant.shutterapp.shutter.ui.interfaces.CameraPreviewView;
+import com.pheasant.shutterapp.shutter.ui.interfaces.CameraHolderView;
 import com.pheasant.shutterapp.shutter.presenter.CameraHolderPresenter;
 import com.pheasant.shutterapp.shutter.ui.listeners.CameraListener;
 import com.pheasant.shutterapp.utils.Util;
@@ -21,7 +21,7 @@ import com.pheasant.shutterapp.utils.Util;
  * Created by Peszi on 2017-11-24.
  */
 
-public class CameraPreviewFragment extends Fragment implements CameraPreviewView, View.OnClickListener {
+public class CameraHolderFragment extends Fragment implements CameraHolderView, View.OnClickListener {
 
     private ImageButton swapButton;
     private ImageButton flashButton;
@@ -35,7 +35,7 @@ public class CameraPreviewFragment extends Fragment implements CameraPreviewView
 
     private CameraHolderPresenter cameraPresenter;
 
-    public CameraPreviewFragment() {
+    public CameraHolderFragment() {
         this.cameraPresenter = new CameraHolderPresenter();
     }
 

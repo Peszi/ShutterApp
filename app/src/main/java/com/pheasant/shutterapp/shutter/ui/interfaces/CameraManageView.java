@@ -13,5 +13,6 @@ import java.util.ArrayList;
 
 public interface CameraManageView {
     void setCameraMode();
-    void setEditorMode(Bitmap cameraPhoto);
+    void setEditorMode();
+    void showToastMessage(String message);
 }

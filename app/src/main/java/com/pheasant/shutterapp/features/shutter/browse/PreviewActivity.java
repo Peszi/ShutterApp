@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.network.download.PhotoFileManager;
-import com.pheasant.shutterapp.shared.Avatar;
+import com.pheasant.shutterapp.shutter.ui.util.Avatar;
 import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Util;
 

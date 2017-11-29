@@ -10,8 +10,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shared.Avatar;
-import com.pheasant.shutterapp.shutter.api.data.FriendData;
+import com.pheasant.shutterapp.shutter.ui.util.Avatar;
 import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.utils.Util;
 

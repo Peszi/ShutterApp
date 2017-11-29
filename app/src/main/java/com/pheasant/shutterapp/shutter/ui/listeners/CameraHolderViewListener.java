@@ -4,7 +4,7 @@ package com.pheasant.shutterapp.shutter.ui.listeners;
  * Created by Peszi on 24.11.2017.
  */
 
-public interface CameraPreviewListener {
+public interface CameraHolderViewListener {
     void onTakePhotoEvent();
     void onSwapCameraEvent();
     void onChangeFlashModeEvent();

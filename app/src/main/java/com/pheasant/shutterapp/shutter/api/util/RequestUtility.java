@@ -45,8 +45,6 @@ public class RequestUtility {
         return null;
     }
 
-
-
     private static HttpURLConnection prepareRequest(RequestProperties requestProperties) {
         try {
             URL requestUrl = new URL(requestProperties.getAddress());
