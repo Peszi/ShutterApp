@@ -21,23 +21,30 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
     private ImageView thumbnail;
     private TextView title;
     private ProgressBar progressBar;
+    private ImageView corruptedIcon;
 
     public PhotoViewHolder(View view) {
         super(view);
         this.thumbnail = (ImageView) view.findViewById(R.id.card_image);
         this.title = (TextView) view.findViewById(R.id.card_text);
         this.progressBar = (ProgressBar) view.findViewById(R.id.card_progress);
+        this.corruptedIcon = (ImageView) view.findViewById(R.id.card_corrupted);
     }
 
     public void setupData(PhotoData photoData) {
         this.title.setText("ID " + photoData.getImageId());
-        this.thumbnail.setImageResource(R.drawable.image_exist);
+        this.thumbnail.setImageResource(R.drawable.back_blur_default);
         this.progressBar.setVisibility(View.VISIBLE);
+        this.corruptedIcon.setVisibility(View.GONE);
     }
 
     public void setupPhoto(Bitmap bitmap) {
         this.progressBar.setVisibility(View.GONE);
-        this.thumbnail.setImageBitmap(Bitmap.createBitmap(bitmap, 0, bitmap.getHeight()/2 - bitmap.getWidth()/2, bitmap.getWidth(), bitmap.getWidth()));
-        bitmap.recycle();
+        if (bitmap != null) {
+            this.thumbnail.setImageBitmap(Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth()));
+            bitmap.recycle();
+        } else {
+            this.corruptedIcon.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shared.views;
+package com.pheasant.shutterapp.shutter.ui.shared;
 
 import android.animation.Animator;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 /**
  * Created by Peszi on 2017-05-09.
  */
-
+// TODO messed up
 public class SlideToggleButton implements View.OnClickListener, Animator.AnimatorListener {
 
     public static final int RIGHT = 1;

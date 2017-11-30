@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.network.request.util.PhotoRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
+import com.pheasant.shutterapp.shutter.api.io.PhotoFileManager;
 
 import java.util.ArrayList;
 import java.util.List;

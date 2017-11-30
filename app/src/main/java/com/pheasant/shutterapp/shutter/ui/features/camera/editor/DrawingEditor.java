@@ -11,7 +11,7 @@ import android.view.View;
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.ui.features.camera.editor.brush.BrushEditorDialog;
 import com.pheasant.shutterapp.shutter.ui.features.camera.editor.utils.DrawListener;
-import com.pheasant.shutterapp.shared.views.SlideToggleButton;
+import com.pheasant.shutterapp.shutter.ui.shared.SlideToggleButton;
 
 import java.util.ArrayList;
 import java.util.List;

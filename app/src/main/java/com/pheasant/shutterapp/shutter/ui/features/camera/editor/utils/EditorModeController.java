@@ -3,7 +3,7 @@ package com.pheasant.shutterapp.shutter.ui.features.camera.editor.utils;
 import android.view.View;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shared.views.SlideToggleButton;
+import com.pheasant.shutterapp.shutter.ui.shared.SlideToggleButton;
 
 /**
  * Created by Peszi on 2017-05-09.

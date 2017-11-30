@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.pheasant.shutterapp.network.download.PhotoFileManager;
+import com.pheasant.shutterapp.shutter.api.io.PhotoFileManager;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

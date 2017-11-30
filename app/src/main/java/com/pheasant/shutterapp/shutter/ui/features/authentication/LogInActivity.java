@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.ui.ShutterActivity;
-import com.pheasant.shutterapp.network.request.LoginRequest;
+import com.pheasant.shutterapp.shutter.api.request.LoginRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.shared.views.RequestDialog;

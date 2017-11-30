@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.network.download;
+package com.pheasant.shutterapp.shutter.api.io;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
