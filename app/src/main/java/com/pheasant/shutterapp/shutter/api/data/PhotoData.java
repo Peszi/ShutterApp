@@ -29,8 +29,8 @@ public class PhotoData {
         this.creatorName = creatorName;
     }
 
-    public void setCreatedDate(String lastActivity) {
-        this.createdDate = TimeStamp.getTimeDate(lastActivity);
+    public void setCreatedDate(String stringDate) {
+        this.createdDate = TimeStamp.getTimeDate(stringDate);
     }
 
     // Getters
@@ -51,19 +51,4 @@ public class PhotoData {
         return this.createdDate;
     }
 
-//    public static String getLiveTime(Date createdAt) {
-//        if (createdAt != null) {
-//            Date currentTime = new Date();
-//            long minutes = Math.abs((currentTime.getTime() - createdAt.getTime()) / 1000 / 60);
-//            long hours = minutes / 60;
-//            long days = hours / 24;
-//            Log.d("RESPONSE", " M " + minutes);
-//            if (days > 0)
-//                return days + "d";
-//            if (hours > 0)
-//                return hours + "h";
-//            return minutes + "m";
-//        }
-//        return "err";
-//    }
 }

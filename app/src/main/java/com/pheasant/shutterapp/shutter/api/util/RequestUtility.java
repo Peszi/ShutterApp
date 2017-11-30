@@ -2,8 +2,6 @@ package com.pheasant.shutterapp.shutter.api.util;
 
 import android.util.Log;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
 
 import org.json.JSONException;

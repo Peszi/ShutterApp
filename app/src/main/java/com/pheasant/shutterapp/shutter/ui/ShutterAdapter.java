@@ -13,8 +13,8 @@ import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
 import com.pheasant.shutterapp.shutter.ui.features.ManageFragment;
 import com.pheasant.shutterapp.shutter.ui.features.BrowseFragment;
 import com.pheasant.shutterapp.shutter.ui.features.CameraFragment;
-import com.pheasant.shutterapp.shared.views.LockingViewPager;
-import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
+import com.pheasant.shutterapp.shutter.ui.shared.LockingViewPager;
+import com.pheasant.shutterapp.shutter.ui.shared.NotifiableFragment;
 import com.pheasant.shutterapp.utils.IntentKey;
 
 /**
@@ -54,16 +54,16 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         this.shutterFragments = new NotifiableFragment[this.FRAGMENTS_COUNT];
         // Camera
         final CameraFragment cameraFragment = new CameraFragment();
-        cameraFragment.setFriendsInterface(this.shutterDataController);
+        cameraFragment.setShutterDataManager(this.shutterDataController);
         cameraFragment.setPagerInterface(this.viewPager);
         this.shutterFragments[0] = cameraFragment;
         // Browse
         final BrowseFragment browseFragment = new BrowseFragment();
-        browseFragment.setArguments(bundle);
+        browseFragment.setShutterDataManager(this.shutterDataController);
         this.shutterFragments[1] = browseFragment;
         // Manage
         final ManageFragment manageFragment = new ManageFragment(bundle.getString(IntentKey.USER_API_KEY));
-        manageFragment.setFriendsInterface(this.shutterDataController);
+        manageFragment.setShutterDataManager(this.shutterDataController);
         this.shutterFragments[2] = manageFragment;
     }
 

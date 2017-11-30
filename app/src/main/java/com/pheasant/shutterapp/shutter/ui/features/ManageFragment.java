@@ -22,7 +22,7 @@ import com.pheasant.shutterapp.shutter.ui.features.manage.SearchBar;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.FriendsAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.InvitesAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.manage.adapter.StrangersAdapter;
-import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
+import com.pheasant.shutterapp.shutter.ui.shared.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class ManageFragment extends NotifiableFragment implements TabLayout.OnTa
         this.getStrangersAdapter().setInviteBtnListener(this.friendsPresenter);
     }
 
-    public void setFriendsInterface(ShutterApiInterface friendsInterface) {
+    public void setShutterDataManager(ShutterApiInterface friendsInterface) {
         this.friendsPresenter.setShutterApiInterface(friendsInterface);
     }
 
@@ -106,7 +106,7 @@ public class ManageFragment extends NotifiableFragment implements TabLayout.OnTa
         this.friendsPresenter.onRefreshEvent();
     }
 
-    // Presenter Interfaces
+    // View Interface
 
     @Override
     public void searchClearKeyword() {

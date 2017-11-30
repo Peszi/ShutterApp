@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shutter.ui.util;
+package com.pheasant.shutterapp.shutter.ui.shared;
 
 import android.support.v4.app.Fragment;
 

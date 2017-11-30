@@ -8,7 +8,7 @@ import android.support.design.widget.Snackbar;
 import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
-import com.pheasant.shutterapp.shutter.api.friends.FriendsListRequest;
+import com.pheasant.shutterapp.shutter.api.request.FriendsListRequest;
 
 import java.util.ArrayList;
 import java.util.List;

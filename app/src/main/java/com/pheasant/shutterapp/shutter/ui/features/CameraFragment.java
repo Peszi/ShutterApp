@@ -1,6 +1,5 @@
 package com.pheasant.shutterapp.shutter.ui.features;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shared.views.LockingViewPager;
+import com.pheasant.shutterapp.shutter.ui.shared.LockingViewPager;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.presenter.ManageCameraPresenter;
 import com.pheasant.shutterapp.shutter.ui.features.camera.CameraEditorFragment;
 import com.pheasant.shutterapp.shutter.ui.features.camera.CameraHolderFragment;
 import com.pheasant.shutterapp.shutter.ui.interfaces.CameraManageView;
-import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
+import com.pheasant.shutterapp.shutter.ui.shared.NotifiableFragment;
 
 /**
  * Created by Peszi on 2017-04-24.
@@ -57,7 +56,7 @@ public class CameraFragment extends NotifiableFragment implements CameraManageVi
         return view;
     }
 
-    public void setFriendsInterface(ShutterApiInterface friendsInterface) {
+    public void setShutterDataManager(ShutterApiInterface friendsInterface) {
         this.cameraPresenter.setShutterApiInterface(friendsInterface);
     }
 

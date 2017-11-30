@@ -3,7 +3,7 @@ package com.pheasant.shutterapp.shutter.presenter;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.pheasant.shutterapp.shared.views.LockingViewPager;
+import com.pheasant.shutterapp.shutter.ui.shared.LockingViewPager;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;

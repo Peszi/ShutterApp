@@ -1,6 +1,6 @@
 package com.pheasant.shutterapp.shutter.api.requester;
 
-import com.pheasant.shutterapp.shutter.api.friends.InviteAcceptRequest;
+import com.pheasant.shutterapp.shutter.api.request.InviteAcceptRequest;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.listeners.InvitesAcceptListener;

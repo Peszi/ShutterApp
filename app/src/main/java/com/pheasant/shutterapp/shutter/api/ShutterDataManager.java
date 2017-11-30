@@ -3,26 +3,20 @@ package com.pheasant.shutterapp.shutter.api;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.pheasant.shutterapp.shutter.api.container.FriendsPhotosListContainer;
 import com.pheasant.shutterapp.shutter.api.data.FriendData;
+import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.shutter.api.container.FriendsListContainer;
 import com.pheasant.shutterapp.shutter.api.container.PhotoUploadContainer;
 import com.pheasant.shutterapp.shutter.api.interfaces.ShutterApiInterface;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
+import com.pheasant.shutterapp.shutter.api.listeners.FriendsPhotosListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.InvitesListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;
 import com.pheasant.shutterapp.shutter.api.listeners.SearchListListener;
 import com.pheasant.shutterapp.shutter.api.requester.InvitesListRequester;
 import com.pheasant.shutterapp.shutter.api.requester.SearchListRequester;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,18 +31,15 @@ public class ShutterDataManager implements ShutterApiInterface {
     private InvitesListRequester invitesListRequester;
 
     private FriendsListContainer friendsListContainer;
+    private FriendsPhotosListContainer friendsPhotosListContainer;
     private PhotoUploadContainer photoUploadContainer;
 
     public ShutterDataManager(String apiKey) {
         this.searchListRequester = new SearchListRequester(apiKey);
         this.invitesListRequester = new InvitesListRequester(apiKey);
         this.friendsListContainer = new FriendsListContainer(apiKey);
+        this.friendsPhotosListContainer = new FriendsPhotosListContainer(apiKey);
         this.photoUploadContainer = new PhotoUploadContainer(apiKey);
-    }
-
-    @Override
-    public void registerFriendsListListener(FriendsListListener listListener) {
-        this.friendsListContainer.registerFriendsListener(listListener);
     }
 
     @Override
@@ -67,8 +58,23 @@ public class ShutterDataManager implements ShutterApiInterface {
     }
 
     @Override
+    public void registerFriendsListListener(FriendsListListener listListener) {
+        this.friendsListContainer.registerFriendsListener(listListener);
+    }
+
+    @Override
+    public void registerFriendsPhotosListListener(FriendsPhotosListListener listListener) {
+        this.friendsPhotosListContainer.registerFriendsListener(listListener);
+    }
+
+    @Override
     public void downloadFriends() {
         this.friendsListContainer.downloadFriendsList();
+    }
+
+    @Override
+    public void downloadFriendsPhotos() {
+        this.friendsPhotosListContainer.downloadPhotosList();
     }
 
     @Override
@@ -99,6 +105,11 @@ public class ShutterDataManager implements ShutterApiInterface {
     @Override
     public ArrayList<FriendData> getFriends() {
         return this.friendsListContainer.getFriendsList();
+    }
+
+    @Override
+    public ArrayList<PhotoData> getFriendsPhotos() {
+        return this.friendsPhotosListContainer.getPhotosList();
     }
 
     @Override

@@ -2,10 +2,8 @@ package com.pheasant.shutterapp.features.shutter.browse.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +16,9 @@ import com.pheasant.shutterapp.features.shutter.browse.OnItemListener;
 import com.pheasant.shutterapp.features.shutter.browse.SpanSizeController;
 import com.pheasant.shutterapp.network.download.FriendsPhotosDownloader;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
-import com.pheasant.shutterapp.network.request.photos.FriendsPhotosRequest;
+import com.pheasant.shutterapp.shutter.api.request.FriendsPhotosListRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
-import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.shared.views.SquareImageView;
-import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.TimeStamp;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -31,10 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
  * Created by Peszi on 2017-06-21.
@@ -42,7 +35,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
 
 public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RequestResultListener, FriendsPhotosDownloader.OnDownloadListener, OnItemListener {
 
-    private FriendsPhotosRequest photosRequest;
+    private FriendsPhotosListRequest photosRequest;
     private FriendsPhotosDownloader photosDownloader;
 
     private LayoutInflater layoutInflater;
@@ -54,11 +47,10 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private SpanSizeController sizeController;
 
 
-    public PhotosAdapter(Context context, Bundle bundle) {
+    public PhotosAdapter(Context context) {
         this.context = context;
-        this.apiKey = bundle.getString(IntentKey.USER_API_KEY);
         this.layoutInflater = LayoutInflater.from(context);
-        this.photosRequest = new FriendsPhotosRequest(this.apiKey);
+        this.photosRequest = new FriendsPhotosListRequest(this.apiKey);
         this.photosRequest.setOnRequestResultListener(this);
         this.photosDownloader = new FriendsPhotosDownloader(context, this.apiKey);
         this.photosDownloader.setOnDownloadListener(this);
@@ -131,30 +123,30 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // On friends photos list downloaded
     @Override
     public void onResult(int resultCode) {
-        this.photosList.clear();
-        if (resultCode == Request.RESULT_OK) {
-            int lastDay = -1;
-            this.sizeController.getPhotosDays().clear();
-//            this.photosList.add(null);
-            for (PhotoData photoData : this.photosRequest.getPhotosList()) {
-                Calendar calendar = this.toCalendar(photoData.getDate());
-
-                int dayOfWeek = calendar.get(DAY_OF_WEEK);
-                if (lastDay != dayOfWeek) {
-                    lastDay = dayOfWeek;
-                    String day = calendar.getDisplayName(Calendar.DAY_OF_WEEK ,Calendar.LONG, Locale.getDefault());
-                    if (DateUtils.isToday(photoData.getDate().getTime()))
-                        day = "Today";
-                    this.photosList.add(null);
-                    this.spacersList.put(this.photosList.size()-1, day);
-                    this.sizeController.getPhotosDays().add(this.photosList.size()-1);
-
-                }
-                this.photosList.add(photoData);
-            }
-        }
-        this.photosDownloader.clearImagesFolder(this.photosRequest.getPhotosList());
-        this.notifyDataSetChanged();
+//        this.photosList.clear();
+//        if (resultCode == Request.RESULT_OK) {
+//            int lastDay = -1;
+//            this.sizeController.getPhotosDays().clear();
+////            this.photosList.add(null);
+//            for (PhotoData photoData : this.photosRequest.getPhotosList()) {
+//                Calendar calendar = this.toCalendar(photoData.getDate());
+//
+//                int dayOfWeek = calendar.get(DAY_OF_WEEK);
+//                if (lastDay != dayOfWeek) {
+//                    lastDay = dayOfWeek;
+//                    String day = calendar.getDisplayName(Calendar.DAY_OF_WEEK ,Calendar.LONG, Locale.getDefault());
+//                    if (DateUtils.isToday(photoData.getDate().getTime()))
+//                        day = "Today";
+//                    this.photosList.add(null);
+//                    this.spacersList.put(this.photosList.size()-1, day);
+//                    this.sizeController.getPhotosDays().add(this.photosList.size()-1);
+//
+//                }
+//                this.photosList.add(photoData);
+//            }
+//        }
+//        this.photosDownloader.clearImagesFolder(this.photosRequest.getPhotosList());
+//        this.notifyDataSetChanged();
     }
 
     public Calendar toCalendar(Date date){

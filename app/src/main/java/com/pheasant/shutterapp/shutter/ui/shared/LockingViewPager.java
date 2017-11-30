@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.shared.views;
+package com.pheasant.shutterapp.shutter.ui.shared;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;

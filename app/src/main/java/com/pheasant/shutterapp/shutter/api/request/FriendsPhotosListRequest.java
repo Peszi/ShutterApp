@@ -1,4 +1,4 @@
-package com.pheasant.shutterapp.network.request.photos;
+package com.pheasant.shutterapp.shutter.api.request;
 
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.network.request.util.BaseRequest;
@@ -16,11 +16,11 @@ import java.util.List;
  * Created by Peszi on 2017-06-21.
  */
 
-public class FriendsPhotosRequest extends Request {
+public class FriendsPhotosListRequest extends Request {
 
-    private List<PhotoData> photosList;
+    private ArrayList<PhotoData> photosList;
 
-    public FriendsPhotosRequest(String apiKey) {
+    public FriendsPhotosListRequest(String apiKey) {
         this.setOutputData(BaseRequest.TYPE_JSON);
         this.setAddress("images");
         this.setAuthorization(apiKey);
@@ -53,7 +53,7 @@ public class FriendsPhotosRequest extends Request {
         }
     }
 
-    public List<PhotoData> getPhotosList() {
+    public ArrayList<PhotoData> getPhotosList() {
         return this.photosList;
     }
 }

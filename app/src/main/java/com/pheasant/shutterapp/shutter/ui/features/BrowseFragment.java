@@ -1,123 +1,97 @@
 package com.pheasant.shutterapp.shutter.ui.features;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.features.shutter.browse.PreviewActivity;
-import com.pheasant.shutterapp.features.shutter.browse.utils.ImagesAdapter;
 import com.pheasant.shutterapp.features.shutter.browse.utils.PhotosAdapter;
-import com.pheasant.shutterapp.shutter.ui.util.NotifiableFragment;
-import com.pheasant.shutterapp.utils.IntentKey;
+import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
+import com.pheasant.shutterapp.shutter.presenter.ManagePhotosPresenter;
+import com.pheasant.shutterapp.shutter.ui.features.browse.PhotoAdapter;
+import com.pheasant.shutterapp.shutter.ui.interfaces.BrowsePhotosView;
+import com.pheasant.shutterapp.shutter.ui.shared.NotifiableFragment;
 import com.pheasant.shutterapp.utils.Util;
 
 /**
  * Created by Peszi on 2017-04-24.
  */
 
-public class BrowseFragment extends NotifiableFragment implements AdapterView.OnItemClickListener, View.OnTouchListener {
+public class BrowseFragment extends NotifiableFragment implements BrowsePhotosView, SwipeRefreshLayout.OnRefreshListener {
 
-    private RecyclerView photosList;
-    private PhotosAdapter photosAdapter;
-    private GridLayoutManager layoutManager;
+    private SwipeRefreshLayout refreshLayout;
+    private RecyclerView photosView;
 
-    private View dayBar;
+    private PhotoAdapter photoAdapter;
+
+    private ManagePhotosPresenter photosPresenter;
+
+    public BrowseFragment() {
+        this.photosPresenter = new ManagePhotosPresenter();
+        this.photosPresenter.setView(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_photos_fragment, container, false);
         Util.setupFont(this.getActivity().getApplicationContext(), view, Util.FONT_PATH_LIGHT);
 
-        this.layoutManager = new GridLayoutManager(this.getContext(), 6, LinearLayoutManager.VERTICAL, false);
-        this.photosList = (RecyclerView) view.findViewById(R.id.browse_photos);
-        this.photosList.setHasFixedSize(false);
-        this.photosList.setLayoutManager(this.layoutManager);
+//        this.layoutManager = new GridLayoutManager(this.getContext(), 6, LinearLayoutManager.VERTICAL, false);
+//        this.photosView = (RecyclerView) view.findViewById(R.id.browse_photos);
+//        this.photosView.setHasFixedSize(false);
+//        this.photosView.setLayoutManager(this.layoutManager);
+//
+//        this.photosAdapter = new PhotoAdapter(this.getContext(), this.getArguments());
+//        this.layoutManager.setSpanSizeLookup(this.photosAdapter.getSpanSizeLookup());
+//        this.photosView.setAdapter(this.photosAdapter);
+//        this.photosView.setItemAnimator(new DefaultItemAnimator());
+//        this.photosView.setOnTouchListener(this);
 
-        this.photosAdapter = new PhotosAdapter(this.getContext(), this.getArguments());
-        this.layoutManager.setSpanSizeLookup(this.photosAdapter.getSpanSizeLookup());
-        this.photosList.setAdapter(this.photosAdapter);
-        this.photosList.setItemAnimator(new DefaultItemAnimator());
-        this.photosList.setOnTouchListener(this);
+        this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.browse_photos_refresh);
+        this.refreshLayout.setOnRefreshListener(this);
 
-        this.dayBar = view.findViewById(R.id.browse_day_bar);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+
+        this.photoAdapter = new PhotoAdapter(this.getContext());
+
+        this.photosView = (RecyclerView) view.findViewById(R.id.browse_photos);
+        this.photosView.setHasFixedSize(true);
+        this.photosView.setLayoutManager(layoutManager);
+        this.photosView.setItemAnimator(new DefaultItemAnimator());
+        this.photosView.setAdapter(this.photoAdapter);
 
         return view;
     }
 
+    public void setShutterDataManager(ShutterDataManager shuterDataManager) {
+        this.photosPresenter.setShutterDataManager(shuterDataManager);
+    }
+
     @Override
     public void onShow() {
-        this.photosAdapter.reload();
-        this.scrollToTheTop();
-    }
-
-    private void scrollToTheTop() {
-        if (this.photosList != null)
-            this.photosList.smoothScrollToPosition(0);
+        this.photosPresenter.onPageShowEvent();
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        this.startPhotoPreview(this.imagesAdapter.getItem(position));
+    public void onRefresh() {
+        this.photosPresenter.onRefreshEvent();
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v.getId() == R.id.browse_profile_btn && this.dataListener != null) {
-//            this.profileDialog.showDialog(this.dataListener.getUserData());
-//        }
-//    }
-
-    private void startPhotoPreview(ImagesAdapter.Thumbnail thumbnail) {
-        if (thumbnail != null && thumbnail.bitmap != null) {
-            Intent intent = new Intent(this.getActivity(), PreviewActivity.class);
-            intent.putExtra(IntentKey.USER_PHOTO, thumbnail.photoId);
-            intent.putExtra(IntentKey.USER_AVATAR, thumbnail.avatar);
-            intent.putExtra(IntentKey.USER_NAME, thumbnail.name);
-            intent.putExtra(IntentKey.USER_PHOTO_TIME_LEFT, thumbnail.getTimeLeft());
-            this.startActivity(intent);
-        }
-    }
-
-//    @Override
-//    public void onPhotoDone(Bitmap bitmap, List<Integer> recipients) {
-//        PhotoUploadRequestz uploadRequest = new PhotoUploadRequestz(bitmap, recipients, this.getArguments().getString(IntentKey.USER_API_KEY));
-//        uploadRequest.setOnRequestResultListener(new RequestResultListener() {
-//            @Override
-//            public void onResult(int resultCode) {
-//
-//            }
-//        });
-//        uploadRequest.execute();
-//    }
-//
-//    @Override
-//    public List<UserData> getFriendsData() {
-//        List<UserData> userDatas = new ArrayList<>();
-//        UserData userData = new UserData();
-//        userData.setId(1);
-//        userData.setName("Peszi");
-//        userData.setAvatar(1);
-//        userDatas.add(userData);
-//        return userDatas;
-//    }
+    // View Interface
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ||
-                motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
-            this.dayBar.setVisibility(View.VISIBLE);
-        } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-            this.dayBar.setVisibility(View.INVISIBLE);
-        }
-        return false;
+    public void listScrollToPosition(int position) {
+        this.photosView.smoothScrollToPosition(position);
+    }
+
+    @Override
+    public void refreshSetRefreshing(boolean show) {
+        this.refreshLayout.setRefreshing(show);
     }
 }

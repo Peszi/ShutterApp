@@ -4,16 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.api.data.FriendData;
-import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
-import com.pheasant.shutterapp.shutter.ui.shared.DialogUtil;
-import com.pheasant.shutterapp.utils.Util;
+import com.pheasant.shutterapp.shutter.ui.util.DialogUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.pheasant.shutterapp.R;
-import com.pheasant.shutterapp.shutter.ui.shared.DialogUtil;
+import com.pheasant.shutterapp.shutter.ui.util.DialogUtil;
 import com.pheasant.shutterapp.utils.Util;
 
 /**

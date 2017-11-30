@@ -11,17 +11,9 @@ import java.util.List;
 
 public class SpanSizeController extends GridLayoutManager.SpanSizeLookup {
 
-    private List<Integer> photosDays = new ArrayList<>();
-
-    public List<Integer> getPhotosDays() {
-        return this.photosDays;
-    }
-
     @Override
     public int getSpanSize(int position) {
-        if (position <= 1) {
-            return 6;
-        }
+        if (position <= 1) { return 6; }
         return (position < 3 ? 3 : 3);
     }
 }
