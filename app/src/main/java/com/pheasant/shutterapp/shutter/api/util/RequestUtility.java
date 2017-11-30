@@ -1,5 +1,7 @@
 package com.pheasant.shutterapp.shutter.api.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.pheasant.shutterapp.network.request.util.RequestMethod;
@@ -37,6 +39,19 @@ public class RequestUtility {
                 JSONObject jsonObject = new JSONObject(RequestUtility.readConnectionStream(requestConnection));
                 return jsonObject;
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static Bitmap makeBitmapRequest(RequestProperties requestProperties) {
+        HttpURLConnection requestConnection = RequestUtility.prepareRequest(requestProperties);
+        if (requestConnection != null) {
+            try {
+                final Bitmap bitmap = BitmapFactory.decodeStream(requestConnection.getInputStream());
+                return bitmap;
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

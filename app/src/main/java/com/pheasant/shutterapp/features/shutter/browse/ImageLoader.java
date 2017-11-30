@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import com.pheasant.shutterapp.network.download.FriendsPhotosDownloader;
-import com.pheasant.shutterapp.shared.views.SquareImageView;
 
 /**
  * Created by Peszi on 27.06.2017.

@@ -18,7 +18,7 @@ import com.pheasant.shutterapp.network.download.FriendsPhotosDownloader;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.shutter.api.request.FriendsPhotosListRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
-import com.pheasant.shutterapp.shared.views.SquareImageView;
+import com.pheasant.shutterapp.shutter.ui.shared.SquareImageView;
 import com.pheasant.shutterapp.utils.TimeStamp;
 import com.pheasant.shutterapp.utils.Util;
 
@@ -33,7 +33,7 @@ import java.util.Map;
  * Created by Peszi on 2017-06-21.
  */
 
-public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RequestResultListener, FriendsPhotosDownloader.OnDownloadListener, OnItemListener {
+public class PhotosAdaptesr extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements RequestResultListener, FriendsPhotosDownloader.OnDownloadListener, OnItemListener {
 
     private FriendsPhotosListRequest photosRequest;
     private FriendsPhotosDownloader photosDownloader;
@@ -47,7 +47,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private SpanSizeController sizeController;
 
 
-    public PhotosAdapter(Context context) {
+    public PhotosAdaptesr(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.photosRequest = new FriendsPhotosListRequest(this.apiKey);

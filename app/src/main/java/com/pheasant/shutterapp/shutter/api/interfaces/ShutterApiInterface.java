@@ -6,7 +6,8 @@ import com.pheasant.shutterapp.shutter.api.data.FriendData;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.shutter.api.data.UserData;
 import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
-import com.pheasant.shutterapp.shutter.api.listeners.FriendsPhotosListListener;
+import com.pheasant.shutterapp.shutter.api.listeners.PhotoDownloadListener;
+import com.pheasant.shutterapp.shutter.api.listeners.PhotosListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.InvitesListListener;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;
 import com.pheasant.shutterapp.shutter.api.listeners.SearchListListener;
@@ -23,14 +24,16 @@ public interface ShutterApiInterface {
     void setSearchListListener(SearchListListener listListener);
     void setInvitesListListener(InvitesListListener listListener);
     void setPhotoUploadListener(PhotoUploadListener uploadListener);
+    void setPhotoDownloadListener(PhotoDownloadListener downloadListener);
     void registerFriendsListListener(FriendsListListener listListener);
-    void registerFriendsPhotosListListener(FriendsPhotosListListener listListener);
+    void registerFriendsPhotosListListener(PhotosListListener listListener);
     // Data request
     void searchUsers(String keyword);
     void reloadSearchResults();
     void downloadFriends();
     void downloadFriendsPhotos();
     void downloadInvites();
+    void getPhoto(int photoId);
     // Data Upload
     void uploadPhoto(Bitmap bitmap, List<Integer> recipientsList);
     void reUploadPhotos();

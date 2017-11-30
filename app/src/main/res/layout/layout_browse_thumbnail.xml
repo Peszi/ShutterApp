@@ -8,7 +8,7 @@
     android:paddingBottom="1dp"
     android:background="@color/colorPrimaryDark">
 
-    <com.pheasant.shutterapp.shared.views.SquareImageView
+    <com.pheasant.shutterapp.shutter.ui.shared.SquareImageView
         android:id="@+id/friend_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

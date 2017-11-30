@@ -3,12 +3,10 @@ package com.pheasant.shutterapp.shutter.api.container;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.pheasant.shutterapp.shutter.api.data.UploadPhotoData;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;
 import com.pheasant.shutterapp.shutter.api.requester.PhotoUploadRequest;
-import com.pheasant.shutterapp.shutter.api.util.PhotoUtility;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,15 +22,14 @@ public class PhotoUploadContainer implements Runnable, Handler.Callback {
 
     private PhotoUploadRequest uploadRequest;
 
-    private Handler statusHander;
+    private Handler statusHandler;
     private PhotoUploadListener uploadListener;
 
     public PhotoUploadContainer(String apiKey) {
         this.photoBuffer = new LinkedList<>();
         this.uploadRequest = new PhotoUploadRequest(apiKey);
-        this.statusHander = new Handler(this);
-        Thread thread = new Thread(this);
-        thread.start();
+        this.statusHandler = new Handler(this);
+        new Thread(this).start();
     }
 
     public void setUploadListener(PhotoUploadListener uploadListener) {
@@ -80,7 +77,7 @@ public class PhotoUploadContainer implements Runnable, Handler.Callback {
 
     private void notifyListeners(boolean success) {
         this.isSuccess = success; // TODO should not work sometimes
-        this.statusHander.sendEmptyMessage(0);
+        this.statusHandler.sendEmptyMessage(0);
     }
 
     @Override

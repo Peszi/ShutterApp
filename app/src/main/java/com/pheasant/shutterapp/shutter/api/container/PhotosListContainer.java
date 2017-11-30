@@ -3,8 +3,7 @@ package com.pheasant.shutterapp.shutter.api.container;
 import com.pheasant.shutterapp.network.request.util.Request;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
-import com.pheasant.shutterapp.shutter.api.listeners.FriendsPhotosListListener;
-import com.pheasant.shutterapp.shutter.api.listeners.FriendsListListener;
+import com.pheasant.shutterapp.shutter.api.listeners.PhotosListListener;
 import com.pheasant.shutterapp.shutter.api.request.FriendsPhotosListRequest;
 
 import java.util.ArrayList;
@@ -13,21 +12,21 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-30.
  */
 
-public class FriendsPhotosListContainer implements RequestResultListener {
+public class PhotosListContainer implements RequestResultListener {
 
     private ArrayList<PhotoData> photosList;
 
     private FriendsPhotosListRequest listRequest;
-    private ArrayList<FriendsPhotosListListener> listListener;
+    private ArrayList<PhotosListListener> listListener;
 
-    public FriendsPhotosListContainer(String apiKey) {
+    public PhotosListContainer(String apiKey) {
         this.photosList = new ArrayList<>();
         this.listListener = new ArrayList<>();
         this.listRequest = new FriendsPhotosListRequest(apiKey);
         this.listRequest.setOnRequestResultListener(this);
     }
 
-    public void registerFriendsListener(FriendsPhotosListListener listListener) {
+    public void registerFriendsListener(PhotosListListener listListener) {
         this.listListener.add(listListener);
     }
 
@@ -47,7 +46,7 @@ public class FriendsPhotosListContainer implements RequestResultListener {
     }
 
     private void notifyListeners(int changesCount) {
-        for (FriendsPhotosListListener listListener : this.listListener)
+        for (PhotosListListener listListener : this.listListener)
             listListener.onFriendsPhotosListDownloaded(changesCount);
     }
 
