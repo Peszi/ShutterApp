@@ -41,8 +41,8 @@ public class PhotoViewHolder extends RecyclerView.ViewHolder {
     public void setupPhoto(Bitmap bitmap) {
         this.progressBar.setVisibility(View.GONE);
         if (bitmap != null) {
-            this.thumbnail.setImageBitmap(Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth()));
-            bitmap.recycle();
+            this.thumbnail.setImageBitmap(bitmap); //Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth())
+//            bitmap.recycle();
         } else {
             this.corruptedIcon.setVisibility(View.VISIBLE);
         }

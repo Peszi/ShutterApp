@@ -1,11 +1,13 @@
 package com.pheasant.shutterapp.shutter.api.container;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.pheasant.shutterapp.shutter.api.io.PhotoFileManager;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoDownloadListener;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoUploadListener;
 import com.pheasant.shutterapp.shutter.api.request.PhotoDownloadRequest;
@@ -22,14 +24,16 @@ public class PhotoDownloadContainer implements Runnable, Handler.Callback {
     private LinkedList<Integer> photoBuffer;
 
     private PhotoDownloadRequest downloadRequest;
+    private PhotoFileManager photoFileManager;
 
     private Handler statusHandler;
-
     private PhotoDownloadListener downloadListener;
 
-    public PhotoDownloadContainer(String apiKey) {
+    public PhotoDownloadContainer(Context context, String apiKey) {
         this.photoBuffer = new LinkedList<>();
         this.downloadRequest = new PhotoDownloadRequest(apiKey);
+        this.photoFileManager = new PhotoFileManager(context);
+        this.photoFileManager.showAllPhotos();
         this.statusHandler = new Handler(this);
         new Thread(this).start();
     }
@@ -60,9 +64,21 @@ public class PhotoDownloadContainer implements Runnable, Handler.Callback {
                 photoId = this.photoBuffer.poll();
             }
             // TODO is exist
-            this.downloadRequest.setData(photoId);
-            final Bitmap photoBitmap = this.downloadRequest.download();
-            this.notifyListeners(new PhotoDataHolder(photoId, photoBitmap));
+            final Bitmap photoBitmap;
+            if (this.photoFileManager.isPhotoExist(photoId)) {
+                Log.d("RESPONSE", "[thread] loading photo.... ID:" + photoId);
+                photoBitmap = this.photoFileManager.loadPhoto(photoId);
+            } else {
+                Log.d("RESPONSE", "[thread] downloading photo.... ID:" + photoId);
+                this.downloadRequest.setData(photoId);
+                photoBitmap = this.downloadRequest.download();
+                Log.d("RESPONSE", "[thread] saving photo.... ID:" + photoId);
+                this.photoFileManager.storePhoto(photoId, photoBitmap);
+            }
+            final Bitmap tmp = Bitmap.createBitmap(photoBitmap, 0, photoBitmap.getHeight() / 2 - photoBitmap.getWidth() / 2, photoBitmap.getWidth(), photoBitmap.getWidth());
+            photoBitmap.recycle();
+            this.notifyListeners(new PhotoDataHolder(photoId, tmp));
+            Log.d("RESPONSE", "[thread] PHOTO DONE .... ID:" + photoId);
         }
     }
 
@@ -74,7 +90,9 @@ public class PhotoDownloadContainer implements Runnable, Handler.Callback {
 
     @Override
     public boolean handleMessage(Message msg) {
+        Log.d("RESPONSE", "[ui] PHOTO DONE CALLBACK");
         final PhotoDataHolder photoDataHolder = (PhotoDataHolder) msg.obj;
+        Log.d("RESPONSE", "[ui] PHOTO DONE NOTIFY " + photoDataHolder.photoId);
         if (this.downloadListener != null)
             this.downloadListener.onPhoto(photoDataHolder.getPhotoId(), photoDataHolder.getPhotoBitmap());
         return false;

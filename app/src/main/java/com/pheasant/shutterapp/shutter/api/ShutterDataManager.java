@@ -1,5 +1,6 @@
 package com.pheasant.shutterapp.shutter.api;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.pheasant.shutterapp.shutter.api.container.PhotoDownloadContainer;
@@ -36,13 +37,13 @@ public class ShutterDataManager implements ShutterApiInterface {
     private PhotoUploadContainer photoUploadContainer;
     private PhotoDownloadContainer photoDownloadContainer;
 
-    public ShutterDataManager(String apiKey) {
+    public ShutterDataManager(Context context, String apiKey) {
         this.searchListRequester = new SearchListRequester(apiKey);
         this.invitesListRequester = new InvitesListRequester(apiKey);
         this.friendsListContainer = new FriendsListContainer(apiKey);
         this.photosListContainer = new PhotosListContainer(apiKey);
         this.photoUploadContainer = new PhotoUploadContainer(apiKey);
-        this.photoDownloadContainer = new PhotoDownloadContainer(apiKey);
+        this.photoDownloadContainer = new PhotoDownloadContainer(context, apiKey);
     }
 
     @Override

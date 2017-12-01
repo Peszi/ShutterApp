@@ -37,9 +37,9 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setBitmap(ImageView photoPreview, int photoId) {
-        final Bitmap userPhoto = PhotoFileManager.loadPhotoFile(photoId, this);
-        if (userPhoto != null)
-            photoPreview.setImageBitmap(userPhoto);
+//        final Bitmap userPhoto = PhotoFileManager.loadPhotoFile(photoId, this);
+//        if (userPhoto != null)
+//            photoPreview.setImageBitmap(userPhoto);
     }
 
     @Override

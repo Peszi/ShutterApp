@@ -59,7 +59,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
         final PhotoData photoData = this.photosList.get(position);
         if (photoData != null) {
             holder.setupData(photoData);
-            Log.d("RESPONSE", "ADAPTER POS " + position + " IMAGE ID " + photoData.getImageId());
             this.adapterListener.getPhoto(photoData.getImageId());
         }
     }

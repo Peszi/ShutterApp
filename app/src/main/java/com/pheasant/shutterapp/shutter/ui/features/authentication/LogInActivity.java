@@ -17,9 +17,9 @@ import com.pheasant.shutterapp.shutter.ui.ShutterActivity;
 import com.pheasant.shutterapp.shutter.api.request.LoginRequest;
 import com.pheasant.shutterapp.network.request.util.RequestResultListener;
 import com.pheasant.shutterapp.network.request.util.Request;
-import com.pheasant.shutterapp.shared.views.RequestDialog;
 import com.pheasant.shutterapp.utils.IntentKey;
 import com.pheasant.shutterapp.utils.Permissions;
+import com.pheasant.shutterapp.utils.RequestDialog;
 import com.pheasant.shutterapp.utils.Util;
 
 public class LogInActivity extends AppCompatActivity {

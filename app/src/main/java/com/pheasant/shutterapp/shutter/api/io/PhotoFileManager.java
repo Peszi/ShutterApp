@@ -16,11 +16,14 @@ import java.util.List;
  * Created by Peszi on 2017-05-06.
  */
 
-public class PhotoFileManager {
+public class PhotoFileManager implements Runnable {
 
     public static final String FILE_EXTENSION = ".png";
     public static final String PHOTO_PREFIX = "photo";
     public static final String THUMBNAIL_PREFIX = "thumbnail";
+
+    private Bitmap photoBitmap;
+    private String photoPath;
 
     private Context context;
 
@@ -35,11 +38,17 @@ public class PhotoFileManager {
     }
 
     public void storePhoto(int id, Bitmap image) {
-        this.storePhotoFile(PHOTO_PREFIX + id, image);
+        this.photoBitmap = image;
+        this.photoPath = PHOTO_PREFIX + id;
+        this.startSavingThread();
     }
 
     public void storeThumbnail(int id, Bitmap image) {
         this.storePhotoFile(THUMBNAIL_PREFIX + id, image);
+    }
+
+    private void startSavingThread() {
+        new Thread(this).start();
     }
 
     private void storePhotoFile(String path, Bitmap image) {
@@ -48,12 +57,13 @@ public class PhotoFileManager {
             outputStream = this.context.openFileOutput(path + FILE_EXTENSION, Context.MODE_PRIVATE);
             image.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.close();
+            image.recycle();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected Bitmap loadPhoto(int id) {
+    public Bitmap loadPhoto(int id) {
         return this.loadPhotoFile(PHOTO_PREFIX + id);
     }
 
@@ -117,7 +127,7 @@ public class PhotoFileManager {
             }
     }
 
-    protected boolean isPhotoExist(int id) {
+    public boolean isPhotoExist(int id) {
         return this.isFileExist(PHOTO_PREFIX + id + FILE_EXTENSION);
     }
 
@@ -132,44 +142,12 @@ public class PhotoFileManager {
         return false;
     }
 
-    @SuppressLint("NewApi")
-    public Bitmap prepareThumbnail(Bitmap photo) {
-        Bitmap inputBitmap = Bitmap.createScaledBitmap(photo, photo.getWidth()/2, photo.getHeight()/2, false); photo.recycle();
-        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap, 0, inputBitmap.getHeight()/2 - inputBitmap.getWidth()/2, inputBitmap.getWidth(), inputBitmap.getWidth()); inputBitmap.recycle();
-        return outputBitmap;
-//        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
-
-//        RenderScript rs = RenderScript.create(this.context);
-//        ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-//        int radius = inputBitmap.getWidth()/27;
-//        radius = Math.min(25, radius);
-//        script.setRadius(radius);
-//        for (int i = 0; i < 3; i++) {
-//            final Allocation input = Allocation.createFromBitmap(rs, outputBitmap); //use this constructor for best performance, because it uses USAGE_SHARED mode which reuses memory
-//            final Allocation output = Allocation.createTyped(rs, input.getType());
-//            script.setInput(input);
-//            script.forEach(output);
-//            output.copyTo(outputBitmap);
-//        }
-//        inputBitmap.recycle();
-//        photo.recycle();
-//        return outputBitmap;
-    }
-
-    public static Bitmap loadPhotoFile(int photoId, Context context) {
-        Bitmap bitmap = null;
-        FileInputStream inputStream;
-        try {
-            inputStream = context.openFileInput(PHOTO_PREFIX + photoId + FILE_EXTENSION);
-            bitmap = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
-
     public Context getContext() {
         return this.context;
+    }
+
+    @Override
+    public void run() {
+        this.storePhotoFile(this.photoPath, this.photoBitmap);
     }
 }
