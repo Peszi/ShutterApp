@@ -3,7 +3,7 @@ package com.pheasant.shutterapp.shutter.api;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.pheasant.shutterapp.shutter.api.container.PhotoDownloadContainer;
+import com.pheasant.shutterapp.shutter.api.container.PhotoManager;
 import com.pheasant.shutterapp.shutter.api.container.PhotosListContainer;
 import com.pheasant.shutterapp.shutter.api.data.FriendData;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
@@ -35,7 +35,7 @@ public class ShutterDataManager implements ShutterApiInterface {
     private FriendsListContainer friendsListContainer;
     private PhotosListContainer photosListContainer;
     private PhotoUploadContainer photoUploadContainer;
-    private PhotoDownloadContainer photoDownloadContainer;
+    private PhotoManager photoManager;
 
     public ShutterDataManager(Context context, String apiKey) {
         this.searchListRequester = new SearchListRequester(apiKey);
@@ -43,7 +43,7 @@ public class ShutterDataManager implements ShutterApiInterface {
         this.friendsListContainer = new FriendsListContainer(apiKey);
         this.photosListContainer = new PhotosListContainer(apiKey);
         this.photoUploadContainer = new PhotoUploadContainer(apiKey);
-        this.photoDownloadContainer = new PhotoDownloadContainer(context, apiKey);
+        this.photoManager = new PhotoManager(context, apiKey);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ShutterDataManager implements ShutterApiInterface {
 
     @Override
     public void setPhotoDownloadListener(PhotoDownloadListener downloadListener) {
-        this.photoDownloadContainer.setDownloadListener(downloadListener);
+        this.photoManager.setDownloadListener(downloadListener);
     }
 
     @Override
@@ -92,8 +92,13 @@ public class ShutterDataManager implements ShutterApiInterface {
     }
 
     @Override
+    public void getThumbnail(int photoId) {
+        this.photoManager.getThumbnail(photoId);
+    }
+
+    @Override
     public void getPhoto(int photoId) {
-        this.photoDownloadContainer.downloadPhoto(photoId);
+        this.photoManager.getPhoto(photoId);
     }
 
     @Override

@@ -8,4 +8,5 @@ import android.graphics.Bitmap;
 
 public interface PhotoDownloadListener {
     void onPhoto(int photoId, Bitmap photoBitmap);
+    void onThumbnail(int photoId, Bitmap photoBitmap);
 }

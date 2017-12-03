@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public interface BrowsePhotosView {
     void listScrollToPosition(int position);
+    void showPhotoDialog(Bitmap photoBitmap);
     void updatePhotosList(ArrayList<PhotoData> photosList);
     void refreshSetRefreshing(boolean show);
-    void updatePhotoBitmap(int photoId, Bitmap bitmap);
+    void updateThumbnail(int photoId, Bitmap bitmap);
 }

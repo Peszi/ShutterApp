@@ -8,8 +8,9 @@
     <color name="colorTransparentBackground">#88888888</color>
     <color name="colorTransparentPrimary">#aaffffff</color>
     <color name="colorTransparentDark">#aa282f36</color>
-    <color name="colorInvisible">#0000</color>
+    <color name="colorInvisible">#00000000</color>
     <color name="colorDarkUnselected">#ffa8a8a8</color>
+    <color name="colorDarkBlue">#ff0465c7</color>
 
     <color name="inputBackground">#fff</color>
     <color name="inputHint">#888</color>

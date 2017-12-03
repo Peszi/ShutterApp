@@ -2,7 +2,6 @@ package com.pheasant.shutterapp.shutter.ui.features.browse;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * Created by Peszi on 2017-11-30.
  */
 
-public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
+public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> implements PhotoViewHolder.PhotoViewListener {
 
     private ArrayList<PhotoData> photosList;
 
@@ -58,14 +57,20 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
     public void onBindViewHolder(PhotoViewHolder holder, int position) {
         final PhotoData photoData = this.photosList.get(position);
         if (photoData != null) {
+            holder.setListener(this);
             holder.setupData(photoData);
-            this.adapterListener.getPhoto(photoData.getImageId());
+            this.adapterListener.getThumbnail(photoData.getImageId());
         }
     }
 
     @Override
     public int getItemCount() {
         return this.photosList.size();
+    }
+
+    @Override
+    public void onStartPreview(int photoId) {
+        this.adapterListener.getPhoto(photoId);
     }
 
     public ArrayList<Integer> getPhotoIds(int firstCard, int lastCard) {
@@ -79,6 +84,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> {
     }
 
     public interface PhotoAdapterListener {
+        void getThumbnail(int photoId);
         void getPhoto(int photoId);
     }
 }

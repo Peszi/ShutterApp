@@ -17,7 +17,7 @@ import com.pheasant.shutterapp.utils.Util;
 public class DialogUtil {
 
     public static Dialog prepare(Context context, int layoutId) {
-        Dialog dialog = new Dialog(context);
+        Dialog dialog = new Dialog(context, R.style.AppTheme_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

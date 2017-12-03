@@ -1,7 +1,6 @@
 package com.pheasant.shutterapp.shutter.presenter;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
 import com.pheasant.shutterapp.shutter.api.listeners.PhotoDownloadListener;
@@ -50,6 +49,11 @@ public class ManagePhotosPresenter implements BrowsePhotosViewListener, PhotosLi
     // Photo Adapter Listener
 
     @Override
+    public void getThumbnail(int photoId) {
+        this.shutterDataManager.getThumbnail(photoId);
+    }
+
+    @Override
     public void getPhoto(int photoId) {
         this.shutterDataManager.getPhoto(photoId);
     }
@@ -58,6 +62,11 @@ public class ManagePhotosPresenter implements BrowsePhotosViewListener, PhotosLi
 
     @Override
     public void onPhoto(int photoId, Bitmap photoBitmap) {
-        this.browsePhotosView.updatePhotoBitmap(photoId, photoBitmap);
+        this.browsePhotosView.showPhotoDialog(photoBitmap);
+    }
+
+    @Override
+    public void onThumbnail(int photoId, Bitmap photoBitmap) {
+        this.browsePhotosView.updateThumbnail(photoId, photoBitmap);
     }
 }

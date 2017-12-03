@@ -15,6 +15,7 @@ import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.shutter.api.ShutterDataManager;
 import com.pheasant.shutterapp.shutter.api.data.PhotoData;
 import com.pheasant.shutterapp.shutter.presenter.ManagePhotosPresenter;
+import com.pheasant.shutterapp.shutter.ui.dialog.PhotoPreviewDialog;
 import com.pheasant.shutterapp.shutter.ui.features.browse.PhotoAdapter;
 import com.pheasant.shutterapp.shutter.ui.features.browse.PhotoViewHolder;
 import com.pheasant.shutterapp.shutter.ui.interfaces.BrowsePhotosView;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class BrowseFragment extends NotifiableFragment implements BrowsePhotosView, SwipeRefreshLayout.OnRefreshListener {
 
     private SwipeRefreshLayout refreshLayout;
+    private PhotoPreviewDialog previewDialog;
     private RecyclerView photosView;
 
     private LinearLayoutManager layoutManager;
@@ -47,16 +49,7 @@ public class BrowseFragment extends NotifiableFragment implements BrowsePhotosVi
         View view = inflater.inflate(R.layout.layout_photos_fragment, container, false);
         Util.setupFont(this.getActivity().getApplicationContext(), view, Util.FONT_PATH_LIGHT);
 
-//        this.layoutManager = new GridLayoutManager(this.getContext(), 6, LinearLayoutManager.VERTICAL, false);
-//        this.photosView = (RecyclerView) view.findViewById(R.id.browse_photos);
-//        this.photosView.setHasFixedSize(false);
-//        this.photosView.setLayoutManager(this.layoutManager);
-//
-//        this.photosAdapter = new PhotoAdapter(this.getContext(), this.getArguments());
-//        this.layoutManager.setSpanSizeLookup(this.photosAdapter.getSpanSizeLookup());
-//        this.photosView.setAdapter(this.photosAdapter);
-//        this.photosView.setItemAnimator(new DefaultItemAnimator());
-//        this.photosView.setOnTouchListener(this);
+        this.previewDialog = new PhotoPreviewDialog(this.getContext());
 
         this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.browse_photos_refresh);
         this.refreshLayout.setOnRefreshListener(this);
@@ -97,6 +90,11 @@ public class BrowseFragment extends NotifiableFragment implements BrowsePhotosVi
     }
 
     @Override
+    public void showPhotoDialog(Bitmap photoBitmap) {
+        this.previewDialog.showDialog(photoBitmap);
+    }
+
+    @Override
     public void updatePhotosList(ArrayList<PhotoData> photosList) {
         this.photoAdapter.updateList(photosList);
     }
@@ -107,7 +105,7 @@ public class BrowseFragment extends NotifiableFragment implements BrowsePhotosVi
     }
 
     @Override
-    public void updatePhotoBitmap(int photoId, Bitmap bitmap) {
+    public void updateThumbnail(int photoId, Bitmap bitmap) {
         final int adapterPosition = this.photoAdapter.getAdapterPositionByPhotoId(photoId);
         PhotoViewHolder photoViewHolder = (PhotoViewHolder) this.photosView.findViewHolderForAdapterPosition(adapterPosition);
         if (photoViewHolder != null)

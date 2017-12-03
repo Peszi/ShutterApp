@@ -33,6 +33,7 @@ public interface ShutterApiInterface {
     void downloadFriends();
     void downloadFriendsPhotos();
     void downloadInvites();
+    void getThumbnail(int photoId);
     void getPhoto(int photoId);
     // Data Upload
     void uploadPhoto(Bitmap bitmap, List<Integer> recipientsList);
