@@ -30,7 +30,7 @@
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <com.pheasant.shutterapp.shutter.ui.shared.LoadingButton
+    <com.pheasant.shutterapp.ui.shared.LoadingButton
         android:id="@+id/friend_accept_btn"
         android:text="accept"
         android:color="@color/colorPrimaryDark"
@@ -41,7 +41,7 @@
         android:layout_toLeftOf="@+id/friend_reject_btn"
         android:layout_marginRight="5dp" />
 
-    <com.pheasant.shutterapp.shutter.ui.shared.LoadingButton
+    <com.pheasant.shutterapp.ui.shared.LoadingButton
         android:id="@+id/friend_reject_btn"
         android:text="reject"
         android:color="@color/colorPrimary"

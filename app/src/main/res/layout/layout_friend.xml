@@ -38,7 +38,7 @@
         android:textSize="18sp"
         android:textColor="@color/colorAccentLight" />
 
-    <com.pheasant.shutterapp.shutter.ui.shared.LoadingImageButton
+    <com.pheasant.shutterapp.ui.shared.LoadingImageButton
         android:id="@+id/friend_remove_btn"
         android:src="@drawable/img_close"
         android:color="@color/colorPrimaryDark"

@@ -9,7 +9,7 @@
     android:elevation="2dp"
     android:background="@drawable/all_photo_background">
 
-    <com.pheasant.shutterapp.shutter.ui.shared.SquareImageView
+    <com.pheasant.shutterapp.ui.shared.SquareImageView
         android:id="@+id/photo_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

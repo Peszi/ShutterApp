@@ -6,9 +6,34 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/dialog_photo"
+        android:id="@+id/dialog_preview_photo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srcCompat="@drawable/back_blur_default" />
+
+    <ImageButton
+        android:id="@+id/dialog_preview_btn_save"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="16dp"
+        android:background="@color/colorInvisible"
+        android:padding="6dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/save_icon"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/dialog_preview_btn_close"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:padding="6dp"
+        android:layout_margin="16dp"
+        android:scaleType="fitXY"
+        android:background="@color/colorInvisible"
+        android:src="@drawable/min_icon" />
 
 </RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/all_lines_background">
 
-    <com.pheasant.shutterapp.shutter.ui.shared.LockingViewPager
+    <com.pheasant.shutterapp.ui.shared.LockingViewPager
         android:id="@+id/profile_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

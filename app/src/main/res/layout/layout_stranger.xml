@@ -27,7 +27,7 @@
         android:textSize="22sp"
         android:textColor="@color/colorPrimaryDark" />
 
-    <com.pheasant.shutterapp.shutter.ui.shared.LoadingToggleButton
+    <com.pheasant.shutterapp.ui.shared.LoadingToggleButton
         android:id="@+id/friend_invite_btn"
         custom:titleOn="invite"
         custom:titleOff="invited"

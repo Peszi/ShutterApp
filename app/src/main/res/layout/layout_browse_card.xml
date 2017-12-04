@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.pheasant.shutterapp.shutter.ui.shared.SquareImageView
+            <com.pheasant.shutterapp.ui.shared.SquareImageView
                 android:id="@+id/card_photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +60,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:padding="8dp"
-                    android:src="@drawable/focus_icon" />
+                    android:src="@drawable/max_icon" />
 
             </RelativeLayout>
 
@@ -71,20 +71,20 @@
                 android:layout_below="@+id/card_photo">
 
                 <TextView
-                    android:id="@+id/card_panel_time"
+                    android:id="@+id/card_panel_timestamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
-                    android:text="2d ago"
+                    android:text="n/a"
                     android:textAlignment="center"
                     android:textColor="@color/colorAccentDark"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/card_panel_text"
+                    android:id="@+id/card_panel_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -99,7 +99,7 @@
                     android:textSize="22sp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/card_panel_delete"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"

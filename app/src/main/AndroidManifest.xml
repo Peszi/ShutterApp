@@ -17,9 +17,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".shutter.ui.features.authentication.LogInActivity"
+            android:name=".ui.features.authentication.LogInActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -30,11 +32,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".shutter.ui.features.authentication.RegisterActivity"
+            android:name=".ui.features.authentication.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".shutter.ui.ShutterActivity"
+            android:name=".ui.ShutterActivity"
             android:screenOrientation="portrait"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.Fullscreen" />
