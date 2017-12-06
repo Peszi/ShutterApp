@@ -129,7 +129,11 @@ public class ManageCameraPresenter implements CameraManageViewListener, CameraLi
 
     @Override
     public void onPhotoUploadStatusChange(boolean success) {
-        if (success) { this.cameraManageView.showToastMessage("photo successfully uploaded"); } else {
+        if (success) {
+            this.cameraManageView.showToastMessage("photo successfully uploaded");
+            if (this.shutterApiInterface != null)
+                this.shutterApiInterface.downloadPhotos();
+        } else {
             if (this.shutterApiInterface != null)
                 this.shutterApiInterface.reUploadPhotos();
         }

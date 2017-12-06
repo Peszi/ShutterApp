@@ -16,8 +16,19 @@ import com.pheasant.shutterapp.util.Util;
 
 public class DialogUtil {
 
-    public static Dialog prepare(Context context, int layoutId) {
+    public static Dialog setupDialog(Context context, int layoutId) {
         Dialog dialog = new Dialog(context, R.style.AppTheme_Fullscreen);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setContentView(layoutId);
+        dialog.setCancelable(true);
+        Util.setupFont(context, dialog.getWindow().getDecorView(), Util.FONT_PATH_LIGHT);
+        return dialog;
+    }
+
+    public static Dialog setupDialogWoStyle(Context context, int layoutId) {
+        Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -70,13 +70,13 @@ public class PhotoManager implements Runnable, Handler.Callback {
             }
             final Bitmap photoBitmap;
             if (this.photoFileManager.isPhotoExist(requestHolder.getPhotoId())) {
-                Log.d("RESPONSE", "[thread] loading photo.... ID:" + requestHolder);
+//                Log.d("RESPONSE", "[thread] loading photo.... ID:" + requestHolder.getPhotoId());
                 photoBitmap = this.photoFileManager.loadPhoto(requestHolder.getPhotoId());
             } else {
-                Log.d("RESPONSE", "[thread] downloading photo.... ID:" + requestHolder);
+//                Log.d("RESPONSE", "[thread] downloading photo.... ID:" + requestHolder.getPhotoId());
                 this.downloadRequest.setData(requestHolder.getPhotoId());
                 photoBitmap = this.downloadRequest.download();
-                Log.d("RESPONSE", "[thread] saving photo.... ID:" + requestHolder);
+//                Log.d("RESPONSE", "[thread] saving photo.... ID:" + requestHolder.getPhotoId());
                 this.photoFileManager.storePhoto(requestHolder.getPhotoId(), photoBitmap);
             }
             if (!requestHolder.isPhoto() && photoBitmap != null) {
@@ -86,7 +86,7 @@ public class PhotoManager implements Runnable, Handler.Callback {
             } else {
                 this.notifyListeners(new PhotoResultHolder(requestHolder, photoBitmap));
             }
-            Log.d("RESPONSE", "[thread] PHOTO DONE .... ID:" + requestHolder);
+//            Log.d("RESPONSE", "[thread] PHOTO DONE .... ID:" + requestHolder.getPhotoId());
         }
     }
 
@@ -99,7 +99,7 @@ public class PhotoManager implements Runnable, Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
         final PhotoResultHolder photoResultHolder = (PhotoResultHolder) msg.obj;
-        Log.d("RESPONSE", "[ui] PHOTO DONE NOTIFY " + photoResultHolder.getPhotoId());
+//        Log.d("RESPONSE", "[ui] PHOTO done id " + photoResultHolder.getPhotoId());
         if (this.downloadListener != null) {
             if (photoResultHolder.isPhoto())
                 this.downloadListener.onPhoto(photoResultHolder.getPhotoId(), photoResultHolder.getPhotoBitmap());

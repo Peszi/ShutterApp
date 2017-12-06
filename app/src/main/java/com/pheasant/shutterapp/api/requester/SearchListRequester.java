@@ -35,7 +35,7 @@ public class SearchListRequester implements RequestResultListener {
     }
 
     @Override
-    public void onResult(int resultCode) {
+    public void onRequestResult(int resultCode) {
         if (resultCode == Request.RESULT_OK)
             this.notifyListeners(this.listRequest.getStrangersList());
     }

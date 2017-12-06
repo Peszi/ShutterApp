@@ -39,10 +39,10 @@ public class InvitesListRequest extends BaseRequest {
                     userData.setAvatar(userObject.getInt("color"));
                     this.invitesList.add(userData);
                 }
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

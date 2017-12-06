@@ -35,7 +35,7 @@ public class PhotosListContainer implements RequestResultListener {
     }
 
     @Override
-    public void onResult(int resultCode) {
+    public void onRequestResult(int resultCode) {
         if (resultCode == Request.RESULT_OK) {
             final int changesCount = this.listRequest.getPhotosList().size() - this.photosList.size();
             this.photosList.clear();

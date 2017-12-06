@@ -28,18 +28,19 @@ public class InviteCreateRequest extends BaseRequest {
             this.getProperties().setRequestMethod(RequestMethod.POST);
         else
             this.getProperties().setRequestMethod(RequestMethod.DELETE);
+        this.sendRequest();
     }
 
     @Override
     public void onSuccess(JSONObject jsonResult) {
         try {
             if (!jsonResult.getBoolean("error")) {
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             } else {
-                this.resultListener.onResult(Request.RESULT_ERR);
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

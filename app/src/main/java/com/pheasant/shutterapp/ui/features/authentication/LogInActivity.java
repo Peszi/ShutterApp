@@ -14,13 +14,12 @@ import com.pheasant.shutterapp.api.util.Request;
 import com.pheasant.shutterapp.ui.ShutterActivity;
 import com.pheasant.shutterapp.api.request.LoginRequest;
 import com.pheasant.shutterapp.api.listeners.RequestResultListener;
+import com.pheasant.shutterapp.ui.dialog.LoadingDialog;
 import com.pheasant.shutterapp.util.IntentKey;
 import com.pheasant.shutterapp.util.Permissions;
 import com.pheasant.shutterapp.util.Util;
 
-public class LogInActivity extends AppCompatActivity implements View.OnClickListener, RequestResultListener {
-
-    private final int LOGGING_TIMEOUT = 5000;
+public class LogInActivity extends AppCompatActivity implements View.OnClickListener, RequestResultListener, LoadingDialog.LoadingDialogListener {
 
     private final String DEFAULT_EMAIL = "second@email.com";
     private final String DEFAULT_PASS = "1234";
@@ -28,6 +27,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText emailField;
     private EditText passField;
 
+    private LoadingDialog loadingDialog;
     private LoginRequest loginRequest;
 
     @Override
@@ -37,9 +37,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         Util.setupFont(this.getApplicationContext(), this.getWindow());
         Util.removeInputDirectFocus(this.getWindow());
         Permissions.requestPermission(this, Permissions.CAMERA_PREMISSION, 0);
-
+        // Request
         this.loginRequest = new LoginRequest();
         this.loginRequest.setRequestListener(this);
+        this.loadingDialog = new LoadingDialog(this, R.string.form_server_logging_message);
+        this.loadingDialog.setListener(this);
+        // UI
         this.setupUI();
         this.logWithDefaultData(); // TODO TMP auto login
     }
@@ -64,12 +67,19 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
     // Request callback
     @Override
-    public void onResult(int resultCode) {
-        if (resultCode == Request.RESULT_OK) {
+    public void onRequestResult(int resultCode) {
+        if (resultCode == Request.RESULT_OK && this.loginRequest.isSuccess()) {
+            this.loadingDialog.onSuccess();
             this.startShutterActivity(this.loginRequest.getApiKey());
         } else {
-
+            this.loadingDialog.onFail(this.loginRequest.getServerMessage());
         }
+    }
+
+    // Loading Dialog Callback
+    @Override
+    public void onLoadingCanceled() {
+        this.loginRequest.cancelRequest();
     }
 
     // Log in
@@ -77,6 +87,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if (Util.isInternetConnection(this, this.getWindow().getDecorView()) // check internet connection
                 && FormChecker.checkLoginData(this.getWindow().getDecorView(), this.getEmail(), this.getPass())) { // check form input data
             if (Permissions.havePermission(LogInActivity.this, Permissions.CAMERA_PREMISSION)) {
+                this.loadingDialog.showDialog();
                 this.loginRequest.sendRequest(this.getEmail(), this.getPass());
             } else {
                 Snackbar.make(LogInActivity.this.getWindow().getDecorView(), "you will need a camera permission", Snackbar.LENGTH_LONG).show();
@@ -133,5 +144,4 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private String getEmail() { return this.emailField.getText().toString(); }
 
     private String getPass() { return this.passField.getText().toString(); }
-
 }

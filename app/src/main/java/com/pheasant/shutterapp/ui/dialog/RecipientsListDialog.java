@@ -30,7 +30,7 @@ public class RecipientsListDialog implements View.OnClickListener, SwipeRefreshL
     private RecipientsDialogListener recipientsListener;
 
     public RecipientsListDialog(Context context) {
-        this.dialog = DialogUtil.prepare(context, R.layout.layout_dialog_recipients);
+        this.dialog = DialogUtil.setupDialog(context, R.layout.layout_dialog_recipients);
         this.dialog.findViewById(R.id.recipients_close_btn).setOnClickListener(this);
         this.dialog.findViewById(R.id.recipients_send_btn).setOnClickListener(this);
         this.swipeRefreshLayout = (SwipeRefreshLayout) this.dialog.findViewById(R.id.recipients_list_refresh);

@@ -9,6 +9,7 @@ import com.pheasant.shutterapp.api.listeners.RequestResultListener;
 public abstract class BaseRequest implements RequestListener {
 
     private RequestProperties requestProperties;
+    private JsonAsyncRequest jsonRequest;
 
     protected RequestResultListener resultListener;
 
@@ -21,9 +22,16 @@ public abstract class BaseRequest implements RequestListener {
     }
 
     public void sendRequest() {
-        JsonAsyncRequest jsonRequest = new JsonAsyncRequest();
-        jsonRequest.setRequestListener(this);
-        jsonRequest.execute(this.requestProperties);
+        if (this.jsonRequest != null)
+            this.jsonRequest.cancel(true);
+        this.jsonRequest = new JsonAsyncRequest();
+        this.jsonRequest.setRequestListener(this);
+        this.jsonRequest.execute(this.requestProperties);
+    }
+
+    public void cancelRequest() {
+        if (this.jsonRequest != null)
+            this.jsonRequest.cancel(true);
     }
 
     public RequestProperties getProperties() { return this.requestProperties; }

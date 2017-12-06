@@ -14,4 +14,15 @@ public class BundlePacker {
         bundle.putString(IntentKey.USER_API_KEY, intent.getStringExtra(IntentKey.USER_API_KEY));
         return bundle;
     }
+
+    public static String getEmailFromBundle(Intent intent) {
+        final Bundle bundle = intent.getExtras();
+        return bundle.getString(IntentKey.USER_EMAIL);
+    }
+
+    public static String getPassFromBundle(Intent intent) {
+        final Bundle bundle = intent.getExtras();
+        return bundle.getString(IntentKey.USER_PASSWORD);
+    }
+
 }

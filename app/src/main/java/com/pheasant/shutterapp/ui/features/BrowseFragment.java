@@ -53,16 +53,16 @@ public class BrowseFragment extends NotifiableFragment implements BrowsePhotosVi
         this.refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.browse_photos_refresh);
         this.refreshLayout.setOnRefreshListener(this);
 
-        this.layoutManager = new LinearLayoutManager(this.getContext());
+        this.layoutManager = new LinearLayoutManager(this.getActivity());
 
         this.photoAdapter = new PhotoAdapter(this.getContext());
         this.photoAdapter.setAdapterListener(this.photosPresenter);
 
         this.photosView = (RecyclerView) view.findViewById(R.id.browse_photos);
-        this.photosView.setHasFixedSize(true);
-        this.photosView.setLayoutManager(this.layoutManager);
-        this.photosView.setItemAnimator(new DefaultItemAnimator());
         this.photosView.setAdapter(this.photoAdapter);
+        this.photosView.setLayoutManager(this.layoutManager);
+        this.photosView.setHasFixedSize(true);
+        this.photosView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
@@ -106,9 +106,11 @@ public class BrowseFragment extends NotifiableFragment implements BrowsePhotosVi
     @Override
     public void updateThumbnail(int photoId, Bitmap bitmap) {
         final int adapterPosition = this.photoAdapter.getAdapterPositionByPhotoId(photoId);
-        PhotoViewHolder photoViewHolder = (PhotoViewHolder) this.photosView.findViewHolderForAdapterPosition(adapterPosition);
-        if (photoViewHolder != null)
-            photoViewHolder.setupPhoto(bitmap);
+        if (adapterPosition >= 0) {
+            final PhotoViewHolder photoViewHolder = (PhotoViewHolder) this.photosView.findViewHolderForAdapterPosition(adapterPosition);
+            if (photoViewHolder != null)
+                photoViewHolder.setupPhoto(bitmap);
+        }
     }
 
 }

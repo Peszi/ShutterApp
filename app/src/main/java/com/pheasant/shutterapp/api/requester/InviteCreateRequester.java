@@ -46,7 +46,7 @@ public class InviteCreateRequester implements RequestResultListener {
     }
 
     @Override
-    public void onResult(int resultCode) {
+    public void onRequestResult(int resultCode) {
         if (resultCode == Request.RESULT_OK) {
             if (this.invitesCreateListener != null) {
                 if (this.inviteRequest.getInviteDataHolder().isNotRemoving())

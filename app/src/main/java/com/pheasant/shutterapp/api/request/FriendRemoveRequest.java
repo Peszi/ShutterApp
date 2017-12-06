@@ -30,12 +30,12 @@ public class FriendRemoveRequest extends BaseRequest {
     public void onSuccess(JSONObject jsonResult) {
         try {
             if (!jsonResult.getBoolean("error")) {
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             } else {
-                this.resultListener.onResult(Request.RESULT_ERR);
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

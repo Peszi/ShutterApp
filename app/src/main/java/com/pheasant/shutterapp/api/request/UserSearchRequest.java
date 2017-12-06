@@ -26,6 +26,7 @@ public class UserSearchRequest extends BaseRequest {
 
     public void setKeyword(String keyword) {
         this.getProperties().setAddress("search/" + keyword);
+        this.sendRequest();
     }
 
     @Override
@@ -44,12 +45,12 @@ public class UserSearchRequest extends BaseRequest {
                     if (data.getInvite() < 2)
                         this.strangersList.add(data);
                 }
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             } else {
-                this.resultListener.onResult(Request.RESULT_ERR);
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

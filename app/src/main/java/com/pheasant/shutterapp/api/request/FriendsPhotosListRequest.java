@@ -41,12 +41,12 @@ public class FriendsPhotosListRequest extends BaseRequest {
                     photoData.setCreatedTime(json.getString("created_at"));
                     this.photosList.add(photoData);
                 }
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             } else {
-                this.resultListener.onResult(Request.RESULT_ERR);
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

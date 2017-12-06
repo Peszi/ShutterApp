@@ -38,6 +38,7 @@ public class ShutterAdapter extends FragmentPagerAdapter implements ViewPager.On
         this.shutterDataController = new ShutterDataManager(context, bundle.getString(IntentKey.USER_API_KEY));
         this.shutterDataController.downloadFriends();
         this.shutterDataController.downloadInvites();
+        this.shutterDataController.downloadPhotos();
         this.setupViewPager(view);
         this.setupFragments(bundle);
     }

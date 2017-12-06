@@ -19,7 +19,7 @@ public class PhotoPreviewDialog implements View.OnClickListener {
     private Dialog dialog;
 
     public PhotoPreviewDialog(Context context) {
-        this.dialog = DialogUtil.prepare(context, R.layout.layout_dialog_photo_preview);
+        this.dialog = DialogUtil.setupDialog(context, R.layout.layout_dialog_photo_preview);
         this.photoView = (ImageView) this.dialog.findViewById(R.id.dialog_preview_photo);
         this.dialog.findViewById(R.id.dialog_preview_btn_close).setOnClickListener(this);
     }

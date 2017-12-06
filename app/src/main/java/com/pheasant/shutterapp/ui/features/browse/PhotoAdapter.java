@@ -2,9 +2,11 @@ package com.pheasant.shutterapp.ui.features.browse;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.pheasant.shutterapp.R;
 import com.pheasant.shutterapp.api.data.PhotoData;
@@ -33,10 +35,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> implemen
         this.adapterListener = adapterListener;
     }
 
-    public void updateList(ArrayList<PhotoData> photosList) {
-        this.photosList = photosList;
-        this.notifyDataSetChanged();
-        // TODO update changes
+    public void updateList(ArrayList<PhotoData> newPhotosList) {
+        boolean dataChanged = false;
+        if (newPhotosList.size() != this.photosList.size()) // TODO data set compare
+            dataChanged = true;
+        this.photosList.clear();
+        this.photosList.addAll(newPhotosList);
+        if (dataChanged)
+            this.notifyDataSetChanged();
     }
 
     public int getAdapterPositionByPhotoId(int photoId) {
@@ -56,6 +62,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> implemen
     @Override
     public void onBindViewHolder(PhotoViewHolder holder, int position) {
         final PhotoData photoData = this.photosList.get(position);
+//        Log.d("RESPONSE", "[ui] BIND " + position + " PHOTO " + photoData.getImageId());
         if (photoData != null) {
             holder.setListener(this);
             holder.setupData(photoData);
@@ -69,13 +76,24 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoViewHolder> implemen
     }
 
     @Override
-    public void onStartPreview(int photoId) {
+    public void onStartPreviewEvent(int photoId) {
         this.adapterListener.getPhoto(photoId);
     }
 
     @Override
-    public void onPhotoRemove(int photoId) {
+    public void onPhotoRemoveEvent(int photoId) {
         this.adapterListener.removePhoto(photoId);
+    }
+
+    @Override
+    public void onThumbnailReloadEvent(int photoId) {
+        this.adapterListener.getThumbnail(photoId);
+    }
+
+    @Override
+    public void onPhotoIdShowEvent(int photoId) {
+        Toast.makeText(this.layoutInflater.getContext(), "PHOTO ID: " + photoId, Toast.LENGTH_LONG).show();
+        this.adapterListener.getThumbnail(photoId);
     }
 
     public ArrayList<Integer> getPhotoIds(int firstCard, int lastCard) {

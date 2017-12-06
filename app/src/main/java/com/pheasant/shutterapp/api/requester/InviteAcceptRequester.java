@@ -40,13 +40,12 @@ public class InviteAcceptRequester implements RequestResultListener {
     }
 
     private void checkStack() {
-        if (!this.requestsBuffer.isEmpty()) {
+        if (!this.requestsBuffer.isEmpty())
             this.inviteRequest.sendRequest(this.requestsBuffer.poll());
-        }
     }
 
     @Override
-    public void onResult(int resultCode) {
+    public void onRequestResult(int resultCode) {
         if (resultCode == Request.RESULT_OK) {
             if (this.invitesAcceptListener != null) {
                 if (this.inviteRequest.getInviteDataHolder().isNotRemoving())

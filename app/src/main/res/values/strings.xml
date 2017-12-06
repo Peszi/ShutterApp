@@ -18,7 +18,7 @@
     <string name="form_avatar_error_message">please pick your avatar first</string>
     <string name="form_terms_and_conditions_error_message">you need first to read and check the terms and conditions</string>
 
-    <string name="form_server_logging_message">logging in</string>
+    <string name="form_server_logging_message">logging in...</string>
     <string name="form_server_registering_message">registering account</string>
     <string name="form_server_error_message">please try again</string>
     <string name="form_server_logging_error_message">user not exist</string>
@@ -60,8 +60,10 @@
     <string name="example_password">1234</string>
 
     <!-- LOADING DIALOG -->
-    <string name="loading_dialog_button">cancel</string>
+    <string name="loading_dialog_button_cancel">cancel</string>
+    <string name="loading_dialog_button_close">close</string>
     <string name="loading_dialog_delay">this is taking longer than expected...</string>
+    <string name="loading_dialog_error">something went wrong!</string>
     <string name="title_activity_shutter">ShutterActivity</string>
 
     <!-- FRIENDS DIALOG -->

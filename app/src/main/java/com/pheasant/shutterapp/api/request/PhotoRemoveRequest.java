@@ -23,18 +23,19 @@ public class PhotoRemoveRequest extends BaseRequest {
     public void setPhotoId(int photoId) {
         this.photoId = photoId;
         this.getProperties().setAddress("images/" + String.valueOf(this.photoId));
+        this.sendRequest();
     }
 
     @Override
     public void onSuccess(JSONObject jsonResult) {
         try {
             if (!jsonResult.getBoolean("error")) {
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
             } else {
-                this.resultListener.onResult(Request.RESULT_ERR);
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }

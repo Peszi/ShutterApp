@@ -16,6 +16,8 @@ import org.json.JSONObject;
 public class LoginRequest extends BaseRequest {
 
     private String apiKey;
+    private boolean isSuccess;
+    private String serverMessage;
 
     public LoginRequest() {
         super(RequestMethod.POST);
@@ -32,17 +34,21 @@ public class LoginRequest extends BaseRequest {
     @Override
     public void onSuccess(JSONObject jsonResult) {
         try {
-            if (jsonResult != null && !jsonResult.getBoolean("error")) {
+            this.isSuccess = !jsonResult.getBoolean("error");
+            if (this.isSuccess) {
 //                final int avatar = jsonResult.getInt("color");
 //                final String name = jsonResult.getString("name");
 //                final String email = jsonResult.getString("email");
 //                final String created = jsonResult.getString("createdAt");
                 this.apiKey = jsonResult.getString("apikey");
                 Log.d("RESPONSE", "APIKEY " + this.apiKey);
-                this.resultListener.onResult(Request.RESULT_OK);
+                this.resultListener.onRequestResult(Request.RESULT_OK);
+            } else {
+                this.serverMessage = jsonResult.getString("message");
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }
@@ -50,4 +56,9 @@ public class LoginRequest extends BaseRequest {
     public String getApiKey() {
         return this.apiKey;
     }
+
+    public boolean isSuccess() { return this.isSuccess; }
+
+    public String getServerMessage() { return this.serverMessage; }
+
 }

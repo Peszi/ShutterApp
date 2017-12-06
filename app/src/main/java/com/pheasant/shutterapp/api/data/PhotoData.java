@@ -15,6 +15,7 @@ public class PhotoData {
     private String creatorName;
     private boolean isMe;
     private String stringTime;
+
     private Date createdTime;
 
     // Setters
@@ -59,6 +60,16 @@ public class PhotoData {
         if (this.createdTime == null)
             this.createdTime = TimeStamp.getTimeDate(this.stringTime);
         return TimeStamp.getLiveTime(this.createdTime);
+    }
+
+    public boolean update(PhotoData photoData) {
+        boolean isChanged = false;
+        if (this.imageId != photoData.imageId) { isChanged = true; this.imageId = photoData.imageId; }
+        if (this.creatorId != photoData.creatorId) { isChanged = true; this.creatorId = photoData.creatorId; }
+        if (this.creatorName != photoData.creatorName) { isChanged = true; this.creatorName = photoData.creatorName; }
+        if (this.isMe != photoData.isMe) { isChanged = true; this.isMe = photoData.isMe; }
+        if (this.stringTime != photoData.stringTime) { isChanged = true; this.stringTime = photoData.stringTime; }
+        return isChanged;
     }
 
 }

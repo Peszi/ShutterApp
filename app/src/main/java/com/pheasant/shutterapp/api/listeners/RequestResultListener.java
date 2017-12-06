@@ -5,5 +5,5 @@ package com.pheasant.shutterapp.api.listeners;
  */
 
 public interface RequestResultListener {
-    void onResult(int resultCode);
+    void onRequestResult(int resultCode);
 }

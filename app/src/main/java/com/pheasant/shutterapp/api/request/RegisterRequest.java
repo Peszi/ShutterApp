@@ -13,31 +13,41 @@ import org.json.JSONObject;
 
 public class RegisterRequest extends BaseRequest {
 
-    private String message;
+    private boolean isSuccess;
+    private String serverMessage;
 
-    public RegisterRequest(final String name, final String email, final String password, final int avatar) {
+    public RegisterRequest() {
         super(RequestMethod.POST);
         this.getProperties().setAddress("register");
+    }
+
+    public void sendRequest(String name, String email, String password, int avatar) {
+        this.getProperties().clearParameters();
         this.getProperties().addParameter("name", name);
         this.getProperties().addParameter("email", email);
         this.getProperties().addParameter("password", password);
         this.getProperties().addParameter("color", String.valueOf(avatar));
+        this.sendRequest();
     }
 
     @Override
     public void onSuccess(JSONObject jsonResult) {
         try {
-            if (!jsonResult.getBoolean("error")) {
-                this.message = jsonResult.getString("message");
-                this.resultListener.onResult(Request.RESULT_OK);
+            this.isSuccess = !jsonResult.getBoolean("error");
+            this.serverMessage = jsonResult.getString("message");
+            if (this.isSuccess) {
+                this.resultListener.onRequestResult(Request.RESULT_OK);
+            } else {
+                this.resultListener.onRequestResult(Request.RESULT_ERR);
             }
         } catch (JSONException e) {
-            this.resultListener.onResult(Request.RESULT_ERR);
+            this.resultListener.onRequestResult(Request.RESULT_ERR);
             e.printStackTrace();
         }
     }
 
-    public String getMessage() {
-        return this.message;
-    }
+    public boolean isSuccess() { return this.isSuccess; }
+
+    public String getServerMessage() { return this.serverMessage; }
+
 }
