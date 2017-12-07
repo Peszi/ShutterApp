@@ -1,7 +1,10 @@
 # ShutterApp
 Android photo sharing app
 
-## ShutterAPI
+## UI structure
+
+## API
+**ShutterAPI**
 
 The application RESTful API is based on the android tutorial from [Androidhive](https://www.androidhive.info/2015/03/android-hosting-php-mysql-restful-services-to-digitalocean/). 
 Please check out this useful site first.
@@ -16,7 +19,8 @@ Api URL http://www.shutterapi.pl/shutter/v1/
 
 ### Requests :
 
-All requests are returning data in **JSON** format (exept image data "image/jpeg" format). 
+All requests are returning data in **JSON** format (except image data "image/jpeg" format). 
+> Example of server JSON response (Get images list):
 ```json
 {
 	"error": false,
@@ -104,4 +108,12 @@ You do **have** to provide authorization parameter.
 | ../images/:id   | `GET`  | authorization | Getting image data |
 | ../images/:id   | `DELETE`  | authorization | Removing an image |
 | ../images   | `GET`  | authorization | Getting images list |
+
+## Author
+- Mateusz Moskala - Peszi - peszidev@gmail.com
+
+## License
+
+Distributed under the GNU license. See LICENSE for more information.
+
 
