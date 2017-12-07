@@ -114,6 +114,6 @@ You do **have** to provide authorization parameter.
 
 ## License
 
-Distributed under the GNU license. See LICENSE for more information.
+Distributed under the **GNU** license. See ``LICENSE`` for more information.
 
 
