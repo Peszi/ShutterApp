@@ -1,7 +1,38 @@
 # ShutterApp
-Android photo sharing app
 
-## UI structure
+## Description 
+
+Android photo sharing app. Take photos, edit them and send to friends in a simple way.
+
+## App structure
+
+### Basic
+
+The first part of the application is authorization (logging in, signing up, etc.). 
+> Filling form in "Log in" activity (welcome screen) allows you to get your unique API key which is needed in main appliction part called "Shutter". Every data request is using key to indentify client (checking access to proper photo, getting specified user friends list..).
+
+![UI STRUCTURE](http://shutterapp.pl/img/uiAuthStructure.png)
+
+### Shutter
+
+The ShutterActivity is written using MVP pattern which allows me to quickly manage applications logic.
+
+- **api**
+> - **ShutterDataManager** - api requests (contains most of the requesters, stores photos, friends and invites list in one place)
+> - **AsyncTasks** for simple requests like delete or add friend.
+> - **Threads** and **Queues** for photo uplading and downloading.
+
+- **presenter**
+> - **CameraEditorPresenter** - photo editing tools
+> - **CameraHolderPresenter** - camera controlling hardware
+> - **ManageCameraPresenter** - photo managing  
+> - **ManageFriendsPresenter** - friends managing (showing, removing, searching..)
+> - **ManagePhotosPresenter** - photo browsing
+
+- **ui**
+> Three fragments for separete app features.
+
+![UI STRUCTURE](http://shutterapp.pl/img/uiStructure.png)
 
 ## API
 **ShutterAPI**
